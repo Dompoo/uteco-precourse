@@ -17,7 +17,7 @@ class StringCalculatorTest {
 		StringCalculator sut = new StringCalculator(customSeparatorExtractor, numberExtractor, calculator);
 		
 		//when
-		int result = sut.calculate("1:2,3");
+		int result = sut.calculate("", "1:2,3");
 		
 		//then
 		Assertions.assertThat(result).isEqualTo(6);
@@ -33,7 +33,7 @@ class StringCalculatorTest {
 		StringCalculator sut = new StringCalculator(customSeparatorExtractor, numberExtractor, calculator);
 		
 		//when
-		int result = sut.calculate("//;\n1:2,3;4");
+		int result = sut.calculate(";", "1:2,3;4");
 		
 		//then
 		Assertions.assertThat(result).isEqualTo(10);
@@ -49,7 +49,7 @@ class StringCalculatorTest {
 		StringCalculator sut = new StringCalculator(customSeparatorExtractor, numberExtractor, calculator);
 		
 		//when
-		int result = sut.calculate("//;^&\n1;2^3&4");
+		int result = sut.calculate(";^&", "1;2^3&4");
 		
 		//then
 		Assertions.assertThat(result).isEqualTo(10);

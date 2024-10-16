@@ -33,7 +33,7 @@ class StringParserTest {
 		StringParser sut = new StringParser(separatorExtractor, numberExtractor);
 		
 		//when
-		sut.parse("//(\n1:2:3");
+		sut.parse("(", "1:2:3");
 		
 		//then
 		List<Character> separators = sut.getSeparators();
@@ -49,7 +49,7 @@ class StringParserTest {
 		StringParser sut = new StringParser(separatorExtractor, numberExtractor);
 		
 		//when
-		sut.parse("1:2:3");
+		sut.parse("", "1:2:3");
 		
 		//then
 		List<Character> separators = sut.getSeparators();
@@ -65,7 +65,7 @@ class StringParserTest {
 		StringParser sut = new StringParser(separatorExtractor, numberExtractor);
 		
 		//when
-		List<Integer> result = sut.parse("1:2:3,4");
+		List<Integer> result = sut.parse("", "1:2:3,4");
 		
 		//then
 		Assertions.assertThat(result).containsExactly(1, 2, 3, 4);
@@ -80,7 +80,7 @@ class StringParserTest {
 		StringParser sut = new StringParser(separatorExtractor, numberExtractor);
 		
 		//when
-		List<Integer> result = sut.parse("//;\n1:2;3,4");
+		List<Integer> result = sut.parse(";", "1:2;3,4");
 		
 		//then
 		Assertions.assertThat(result).containsExactly(1, 2, 3, 4);

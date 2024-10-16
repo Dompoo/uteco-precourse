@@ -3,6 +3,8 @@ package calculator.customSeparatorExtractor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class CustomSeparatorExtractorTest {
 	
 	@Test
@@ -11,10 +13,10 @@ class CustomSeparatorExtractorTest {
 		CustomSeparatorExtractorImpl sut = new CustomSeparatorExtractorImpl();
 		
 		//when
-		CustomSeparatorExtractResult result = sut.extract("1:2:3");
+		List<Character> result = sut.extract("");
 		
 		//then
-		Assertions.assertThat(result.getExtractedSeparators()).isEmpty();
+		Assertions.assertThat(result).isEmpty();
 	}
 	
 	@Test
@@ -23,10 +25,10 @@ class CustomSeparatorExtractorTest {
 		CustomSeparatorExtractorImpl sut = new CustomSeparatorExtractorImpl();
 		
 		//when
-		CustomSeparatorExtractResult result = sut.extract("//;\n1:2:3");
+		List<Character> result = sut.extract(";");
 		
 		//then
-		Assertions.assertThat(result.getExtractedSeparators()).containsExactly(';');
+		Assertions.assertThat(result).containsExactly(';');
 	}
 	
 	@Test
@@ -35,33 +37,9 @@ class CustomSeparatorExtractorTest {
 		CustomSeparatorExtractorImpl sut = new CustomSeparatorExtractorImpl();
 		
 		//when
-		CustomSeparatorExtractResult result = sut.extract("//;^&\n1:2:3");
+		List<Character> result = sut.extract(";^&");
 		
 		//then
-		Assertions.assertThat(result.getExtractedSeparators()).containsExactly(';', '^', '&');
-	}
-	
-	@Test
-	void 커스텀구분자를_추출하고_남은_숫자파트를_반환한다() {
-	    //given
-		CustomSeparatorExtractorImpl sut = new CustomSeparatorExtractorImpl();
-	    
-	    //when
-		CustomSeparatorExtractResult result = sut.extract("//;^&\n1:2:3");
-	    
-	    //then
-		Assertions.assertThat(result.getNumberPart()).isEqualTo("1:2:3");
-	}
-	
-	@Test
-	void 커스텀구분자가_없는_경우에도_남은_숫자파트를_반환한다() {
-		//given
-		CustomSeparatorExtractorImpl sut = new CustomSeparatorExtractorImpl();
-		
-		//when
-		CustomSeparatorExtractResult result = sut.extract("1:2:3");
-		
-		//then
-		Assertions.assertThat(result.getNumberPart()).isEqualTo("1:2:3");
+		Assertions.assertThat(result).containsExactly(';', '^', '&');
 	}
 }

@@ -1,6 +1,5 @@
 package calculator;
 
-import calculator.customSeparatorExtractor.CustomSeparatorExtractResult;
 import calculator.customSeparatorExtractor.CustomSeparatorExtractor;
 import calculator.numberExtractor.NumberExtractor;
 
@@ -26,11 +25,11 @@ public class StringParser {
 		return separators;
 	}
 	
-	public List<Integer> parse(String str) {
-		CustomSeparatorExtractResult extractResult = customSeparatorExtractor.extract(str);
-		separators.addAll(extractResult.getExtractedSeparators());
+	public List<Integer> parse(String customSeparatorString, String numberString) {
+		List<Character> customSeparators = customSeparatorExtractor.extract(customSeparatorString);
+		separators.addAll(customSeparators);
 		
-		return numberExtractor.extract(extractResult.getNumberPart(), separators);
+		return numberExtractor.extract(numberString, separators);
 	}
 	
 	private void addDefaultSeparators() {

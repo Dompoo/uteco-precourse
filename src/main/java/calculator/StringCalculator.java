@@ -19,8 +19,8 @@ public class StringCalculator {
 		this.calculator = calculator;
 	}
 	
-	public int calculate(String str) {
-		List<Integer> numbers = stringParser.parse(str);
+	public int calculate(String customSeparatorPart, String numberPart) {
+		List<Integer> numbers = stringParser.parse(customSeparatorPart, numberPart);
 		
 		return calculator.add(numbers);
 	}

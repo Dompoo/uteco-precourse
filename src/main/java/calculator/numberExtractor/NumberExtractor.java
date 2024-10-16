@@ -1,4 +1,4 @@
-package calculator;
+package calculator.numberExtractor;
 
 import java.util.List;
 

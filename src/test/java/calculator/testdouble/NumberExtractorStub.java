@@ -1,6 +1,6 @@
 package calculator.testdouble;
 
-import calculator.NumberExtractor;
+import calculator.numberExtractor.NumberExtractor;
 
 import java.util.List;
 

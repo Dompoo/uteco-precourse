@@ -9,7 +9,7 @@ public class CustomSeparatorExtractorImpl implements CustomSeparatorExtractor {
 	public List<Character> extract(String str) {
 		List<Character> extractedSeparators = new ArrayList<>();
 		
-		if (str != null) {
+		if (!str.isBlank()) {
 			for (char ch : str.toCharArray()) {
 				extractedSeparators.add(ch);
 			}

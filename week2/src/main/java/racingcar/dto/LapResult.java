@@ -41,15 +41,15 @@ public class LapResult implements Comparable<LapResult> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof LapResult result)) {
+        if (!(o instanceof LapResult lapResult)) {
             return false;
         }
-        return Objects.equals(getCarStatuses(), result.getCarStatuses());
+        return lapNumber == lapResult.lapNumber && Objects.equals(getCarStatuses(), lapResult.getCarStatuses());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getCarStatuses());
+        return Objects.hash(lapNumber, getCarStatuses());
     }
 
     @Override

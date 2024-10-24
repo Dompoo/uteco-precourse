@@ -18,6 +18,10 @@ public class LapResult implements Comparable<LapResult> {
         return new LapResult(lapNumber, cars.stream().map(CarStatus::from).toList());
     }
 
+    public static LapResult fromCarStatuses(int lapNumber, List<CarStatus> carStatuses) {
+        return new LapResult(lapNumber, carStatuses);
+    }
+
     public List<CarStatus> getCarStatuses() {
         return carStatuses;
     }

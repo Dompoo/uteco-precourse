@@ -1,0 +1,33 @@
+package racingcar;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import racingcar.dto.CarStatus;
+import racingcar.dto.LapResult;
+
+public class Referee {
+
+    private Referee() {
+    }
+
+    public static List<CarStatus> judge(List<LapResult> lapResults) {
+        LapResult lastLap = getLastLapResult(lapResults);
+        List<CarStatus> lastLapCarStatuses = lastLap.getCarStatuses();
+
+        int maxPosition = lastLapCarStatuses.stream()
+                .mapToInt(CarStatus::getPosition)
+                .max()
+                .orElse(Integer.MIN_VALUE);
+
+        return lastLapCarStatuses.stream()
+                .filter(carStatus -> carStatus.getPosition() == maxPosition)
+                .toList();
+    }
+
+    private static LapResult getLastLapResult(List<LapResult> lapResults) {
+        ArrayList<LapResult> sortedLapResults = new ArrayList<>(lapResults);
+        Collections.sort(sortedLapResults);
+        return sortedLapResults.getLast();
+    }
+}

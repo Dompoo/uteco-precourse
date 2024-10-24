@@ -4,18 +4,18 @@ import java.util.List;
 import java.util.Objects;
 import racingcar.Car;
 
-public class LapResult {
+public class LapResult implements Comparable<LapResult> {
 
+    private final int lapNumber;
     private final List<CarStatus> carStatuses;
 
-    private LapResult(List<CarStatus> carStatuses) {
+    public LapResult(int lapNumber, List<CarStatus> carStatuses) {
+        this.lapNumber = lapNumber;
         this.carStatuses = carStatuses;
     }
 
-    public static LapResult from(List<Car> cars) {
-        return new LapResult(cars.stream()
-                .map(CarStatus::from)
-                .toList());
+    public static LapResult fromCars(int lapNumber, List<Car> cars) {
+        return new LapResult(lapNumber, cars.stream().map(CarStatus::from).toList());
     }
 
     public List<CarStatus> getCarStatuses() {
@@ -46,5 +46,10 @@ public class LapResult {
     @Override
     public int hashCode() {
         return Objects.hashCode(getCarStatuses());
+    }
+
+    @Override
+    public int compareTo(LapResult o) {
+        return this.lapNumber - o.lapNumber;
     }
 }

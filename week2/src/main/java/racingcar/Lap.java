@@ -6,6 +6,7 @@ import racingcar.moveProvider.MoveProvider;
 
 public class Lap {
 
+    private static int lapNumber = 1;
     private final List<Car> cars;
     private final MoveProvider moveProvider;
 
@@ -16,6 +17,6 @@ public class Lap {
 
     public LapResult oneLap() {
         cars.forEach(car -> car.move(moveProvider.canMove()));
-        return LapResult.from(cars);
+        return LapResult.fromCars(lapNumber++, cars);
     }
 }

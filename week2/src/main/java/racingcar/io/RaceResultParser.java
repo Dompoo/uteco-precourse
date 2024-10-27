@@ -1,7 +1,6 @@
 package racingcar.io;
 
 import java.util.List;
-import java.util.StringJoiner;
 import racingcar.dto.CarStatus;
 import racingcar.dto.LapResult;
 import racingcar.dto.RaceResult;
@@ -16,45 +15,37 @@ public class RaceResultParser {
     public String parse(RaceResult raceResult) {
         StringBuilder sb = new StringBuilder();
 
-        appendLapResults(sb, raceResult.getLapResults());
+        appendExecutionResults(sb, raceResult.getLapResults());
         appendWinners(sb, raceResult.getWinners());
 
         return sb.toString();
     }
 
-    private static void appendLapResults(StringBuilder sb, List<LapResult> lapResults) {
+    private void appendExecutionResults(StringBuilder sb, List<LapResult> lapResults) {
         sb.append(NEW_LINE)
                 .append(EXECUTION_RESULT)
                 .append(NEW_LINE);
 
-        if (lapResults == null || lapResults.isEmpty()) {
-            throw new IllegalArgumentException("");
-        }
-
-        for (LapResult result : lapResults) {
-            appendLapResult(sb, result);
+        if (lapResults != null) {
+            for (LapResult result : lapResults) {
+                sb.append(result)
+                        .append(NEW_LINE);
+            }
         }
     }
 
-    private static void appendLapResult(StringBuilder sb, LapResult result) {
-        for (CarStatus carStatus : result.getCarStatuses()) {
-            sb.append(carStatus)
-                    .append(NEW_LINE);
-        }
-        sb.append(NEW_LINE);
-    }
-
-    private static void appendWinners(StringBuilder sb, List<CarStatus> winners) {
+    private void appendWinners(StringBuilder sb, List<CarStatus> winners) {
         sb.append(FINAL_WINNER);
 
         if (winners == null || winners.isEmpty()) {
-            throw new IllegalArgumentException("");
+            return;
         }
 
-        StringJoiner joiner = new StringJoiner(WINNER_SEPARATOR);
-        for (CarStatus winner : winners) {
-            joiner.add(winner.getName());
+        for (int i = 0; i < winners.size(); i++) {
+            sb.append(winners.get(i).getName());
+            if (i != winners.size() - 1) {
+                sb.append(WINNER_SEPARATOR);
+            }
         }
-        sb.append(joiner);
     }
 }

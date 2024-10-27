@@ -30,7 +30,8 @@ public class RaceGameConfig {
         );
         this.raceOutputHandler = new RaceOutputHandler(
                 writerConfig.getWriter(),
-                new RaceResultParser(new RaceResultValidator())
+                new RaceResultParser(),
+                new RaceResultValidator()
         );
         this.raceManager = new RaceManager(
                 new CarFactory(),

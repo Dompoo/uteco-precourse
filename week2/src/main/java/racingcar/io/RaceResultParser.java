@@ -10,16 +10,8 @@ import racingcar.dto.RaceResult;
 
 public class RaceResultParser {
 
-    private final RaceResultValidator validator;
-
-    public RaceResultParser(RaceResultValidator validator) {
-        this.validator = validator;
-    }
-
     public String parse(RaceResult raceResult) {
         StringBuilder sb = new StringBuilder();
-
-        validator.validateRaceResult(raceResult);
 
         appendExecutionResults(sb, raceResult.getLapResults());
         appendWinners(sb, raceResult.getWinners());

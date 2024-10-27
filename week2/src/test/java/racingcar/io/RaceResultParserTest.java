@@ -39,7 +39,7 @@ class RaceResultParserTest {
     @Test
     void RaceResult객체를_문자열로_파싱한다() {
         //given
-        RaceResultParser sut = new RaceResultParser(new RaceResultValidator());
+        RaceResultParser sut = new RaceResultParser();
         RaceResult raceResult = getRaceResult();
 
         //when

@@ -3,6 +3,7 @@ package racingcar.io;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import racingcar.dto.RaceRequest;
 import racingcar.testutil.testdouble.ReaderFake;
 import racingcar.testutil.testdouble.WriterFake;
 
@@ -21,7 +22,7 @@ class RaceInputHandlerTest {
         readerFake.setInput("a,b,c,d", "3");
 
         //when
-        RaceInputDto result = sut.handle();
+        RaceRequest result = sut.handle();
 
         //then
         Assertions.assertThat(result.getCarNames()).isEqualTo("a,b,c,d");

@@ -15,14 +15,10 @@ class RaceManagerTest {
     void 레이스를_실행한다() {
         //given
         RaceFactory raceFactory = new RaceFactory();
+        CarFactory carFactory = new CarFactory();
         MoveProviderStub moveProvider = new MoveProviderStub();
-        RaceManager sut = new RaceManager(raceFactory, moveProvider);
-        List<Car> cars = List.of(
-                new Car("자동차 1"),
-                new Car("자동차 2"),
-                new Car("자동차 3")
-        );
-        RaceRequest raceRequest = RaceRequest.of(cars, 3);
+        RaceManager sut = new RaceManager(carFactory, raceFactory, moveProvider);
+        RaceRequest raceRequest = RaceRequest.of("자동차 1,자동차 2,자동차 3", 3);
 
         //when
         RaceResult result = sut.startRace(raceRequest);

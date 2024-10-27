@@ -8,8 +8,6 @@ public interface RaceGameConfig {
     RaceInputHandler getInputHandler();
 
     RaceOutputHandler getOutputHandler();
-
-    CarFactory getCarFactory();
-
+    
     RaceManager getRaceManager();
 }

@@ -1,5 +1,6 @@
 package racingcar.io;
 
+import racingcar.dto.RaceRequest;
 import racingcar.io.reader.Reader;
 import racingcar.io.writer.Writer;
 
@@ -22,11 +23,11 @@ public class RaceInputHandler {
         this.validator = validator;
     }
 
-    public RaceInputDto handle() {
+    public RaceRequest handle() {
         String carNames = getCarNames();
         int lapCount = getLapCount();
 
-        return RaceInputDto.of(carNames, lapCount);
+        return RaceRequest.of(carNames, lapCount);
     }
 
     private String getCarNames() {

@@ -5,8 +5,8 @@ import java.util.List;
 
 public class CarFactory {
 
-    public List<Car> create(String carNameString) {
-        return Arrays.stream(carNameString.split(","))
+    public List<Car> create(String carNames) {
+        return Arrays.stream(carNames.split(","))
                 .map(String::trim)
                 .peek(CarFactory::validate)
                 .map(Car::new)

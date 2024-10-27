@@ -26,13 +26,8 @@ public class DefaultRaceGameConfig implements RaceGameConfig {
     }
 
     @Override
-    public CarFactory getCarFactory() {
-        return new CarFactory();
-    }
-
-    @Override
     public RaceManager getRaceManager() {
-        return new RaceManager(getRaceFactory(), getMoveProvider());
+        return new RaceManager(getCarFactory(), getRaceFactory(), getMoveProvider());
     }
 
     private Reader getReader() {
@@ -57,6 +52,10 @@ public class DefaultRaceGameConfig implements RaceGameConfig {
 
     private MoveProvider getMoveProvider() {
         return new RandomMoveProvider(getRandomAdapter());
+    }
+
+    private CarFactory getCarFactory() {
+        return new CarFactory();
     }
 
     private RandomAdapter getRandomAdapter() {

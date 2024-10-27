@@ -1,25 +1,23 @@
 package racingcar.dto;
 
-import java.util.List;
 import java.util.Objects;
-import racingcar.Car;
 
 public class RaceRequest {
 
-    private final List<Car> cars;
+    private final String carNames;
     private final int lapCount;
 
-    private RaceRequest(List<Car> cars, int lapCount) {
-        this.cars = cars;
+    private RaceRequest(String carNames, int lapCount) {
+        this.carNames = carNames;
         this.lapCount = lapCount;
     }
 
-    public static RaceRequest of(List<Car> cars, int lapCount) {
+    public static RaceRequest of(String cars, int lapCount) {
         return new RaceRequest(cars, lapCount);
     }
 
-    public List<Car> getCars() {
-        return cars;
+    public String getCarNames() {
+        return carNames;
     }
 
     public int getLapCount() {
@@ -34,11 +32,11 @@ public class RaceRequest {
         if (!(o instanceof RaceRequest that)) {
             return false;
         }
-        return lapCount == that.lapCount && Objects.equals(cars, that.cars);
+        return lapCount == that.lapCount && Objects.equals(carNames, that.carNames);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cars, lapCount);
+        return Objects.hash(carNames, lapCount);
     }
 }

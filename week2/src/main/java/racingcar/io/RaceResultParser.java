@@ -41,7 +41,7 @@ public class RaceResultParser {
     private void appendWinners(StringBuilder sb, List<CarStatus> winners) {
         sb.append(OutputMessages.FINAL_WINNER);
 
-        StringJoiner stringJoiner = new StringJoiner(StringConstants.SEPARATOR);
+        StringJoiner stringJoiner = new StringJoiner(StringConstants.WINNER_SEPARATOR);
         for (CarStatus winner : winners) {
             stringJoiner.add(winner.getName());
         }

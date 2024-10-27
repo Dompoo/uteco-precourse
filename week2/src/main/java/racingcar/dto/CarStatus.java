@@ -1,6 +1,7 @@
 package racingcar.dto;
 
 import java.util.Objects;
+import racingcar.constants.StringConstants;
 import racingcar.domain.car.Car;
 
 public class CarStatus {
@@ -31,7 +32,9 @@ public class CarStatus {
 
     @Override
     public String toString() {
-        return name + " : " + "-".repeat(position);
+        return name +
+                StringConstants.CAR_NAME_POSITION_SEPARATOR +
+                StringConstants.CAR_POSTION_INDICATOR.repeat(position);
     }
 
     @Override

@@ -19,7 +19,7 @@ class RefereeTest {
         Referee sut = new Referee();
 
         //when
-        List<CarStatus> result = sut.judge(List.of(lapResult));
+        List<CarStatus> result = sut.judgeWinners(List.of(lapResult));
 
         //then
         Assertions.assertThat(result).containsExactly(
@@ -38,7 +38,7 @@ class RefereeTest {
         Referee sut = new Referee();
 
         //when
-        List<CarStatus> result = sut.judge(List.of(lapResult));
+        List<CarStatus> result = sut.judgeWinners(List.of(lapResult));
 
         //then
         Assertions.assertThat(result).containsExactly(
@@ -63,7 +63,7 @@ class RefereeTest {
         ));
 
         //when
-        List<CarStatus> result = sut.judge(List.of(lapResult1, lapResult2));
+        List<CarStatus> result = sut.judgeWinners(List.of(lapResult1, lapResult2));
 
         //then
         Assertions.assertThat(result).containsExactly(
@@ -87,7 +87,7 @@ class RefereeTest {
         ));
 
         //when
-        List<CarStatus> result = sut.judge(List.of(lapResult1, lapResult2));
+        List<CarStatus> result = sut.judgeWinners(List.of(lapResult1, lapResult2));
 
         //then
         Assertions.assertThat(result).containsExactly(

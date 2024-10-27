@@ -8,7 +8,7 @@ import racingcar.dto.LapResult;
 
 public class Referee {
 
-    public List<CarStatus> judge(List<LapResult> lapResults) {
+    public List<CarStatus> judgeWinners(List<LapResult> lapResults) {
         LapResult lastLap = getLastLapResult(lapResults);
         List<CarStatus> lastLapCarStatuses = lastLap.getCarStatuses();
 

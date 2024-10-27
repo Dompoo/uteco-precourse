@@ -25,7 +25,7 @@ public class Race {
             lapResults.add(lap.oneLap());
         }
 
-        List<CarStatus> winners = referee.judge(lapResults);
+        List<CarStatus> winners = referee.judgeWinners(lapResults);
         return RaceResult.of(lapResults, winners);
     }
 }

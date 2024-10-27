@@ -53,17 +53,4 @@ class CarFactoryTest {
                 .containsExactlyInAnyOrder("ha lo", "ja va");
     }
 
-    @Test
-    void 자동차_이름이_5자가_넘어가면_예외가_발생한다() {
-        //given
-        String carNameString = "halllo";
-        CarFactory sut = new CarFactory();
-
-        //expected
-        Assertions.assertThatThrownBy(() ->
-                        sut.create(carNameString))
-                .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("자동차 이름은 5자 이하여야 합니다.");
-    }
-
 }

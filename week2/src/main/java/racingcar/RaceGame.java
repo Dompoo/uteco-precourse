@@ -1,5 +1,7 @@
 package racingcar;
 
+import racingcar.config.RaceGameConfig;
+import racingcar.domain.race.RaceManager;
 import racingcar.dto.RaceRequest;
 import racingcar.dto.RaceResult;
 import racingcar.io.RaceInputHandler;

@@ -1,4 +1,4 @@
-package racingcar.moveProvider;
+package racingcar.domain.moveProvider;
 
 public interface MoveProvider {
 

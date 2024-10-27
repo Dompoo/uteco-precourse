@@ -1,7 +1,9 @@
-package racingcar;
+package racingcar.domain.race;
 
 import java.util.List;
-import racingcar.moveProvider.MoveProvider;
+import racingcar.domain.car.Car;
+import racingcar.domain.lap.Lap;
+import racingcar.domain.moveProvider.MoveProvider;
 
 public class RaceFactory {
 

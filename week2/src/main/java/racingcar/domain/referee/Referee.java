@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.domain.referee;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,8 +1,9 @@
-package racingcar;
+package racingcar.domain.race;
 
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import racingcar.domain.car.CarFactory;
 import racingcar.dto.CarStatus;
 import racingcar.dto.LapResult;
 import racingcar.dto.RaceRequest;

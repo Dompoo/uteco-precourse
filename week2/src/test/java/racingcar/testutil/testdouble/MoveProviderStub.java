@@ -1,6 +1,6 @@
 package racingcar.testutil.testdouble;
 
-import racingcar.moveProvider.MoveProvider;
+import racingcar.domain.moveProvider.MoveProvider;
 
 public class MoveProviderStub implements MoveProvider {
 

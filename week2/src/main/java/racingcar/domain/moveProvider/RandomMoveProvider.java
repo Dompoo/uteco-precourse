@@ -1,6 +1,6 @@
-package racingcar.moveProvider;
+package racingcar.domain.moveProvider;
 
-import racingcar.randomProvider.RandomAdapter;
+import racingcar.domain.randomProvider.RandomAdapter;
 
 public class RandomMoveProvider implements MoveProvider {
 

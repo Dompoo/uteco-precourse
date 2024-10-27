@@ -3,8 +3,8 @@ package racingcar.io;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import racingcar.Car;
-import racingcar.CarFactory;
+import racingcar.domain.car.Car;
+import racingcar.domain.car.CarFactory;
 
 class CarFactoryTest {
 

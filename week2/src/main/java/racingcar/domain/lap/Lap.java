@@ -1,12 +1,13 @@
-package racingcar;
+package racingcar.domain.lap;
 
 import java.util.List;
+import racingcar.domain.car.Car;
+import racingcar.domain.moveProvider.MoveProvider;
 import racingcar.dto.LapResult;
-import racingcar.moveProvider.MoveProvider;
 
 public class Lap {
 
-    private static int lapNumber = 1;
+    private int lapNumber = 1;
     private final List<Car> cars;
     private final MoveProvider moveProvider;
 

@@ -1,5 +1,12 @@
-package racingcar;
+package racingcar.config;
 
+import racingcar.domain.race.RaceManager;
+import racingcar.domain.car.CarFactory;
+import racingcar.domain.race.RaceFactory;
+import racingcar.domain.moveProvider.MoveProvider;
+import racingcar.domain.moveProvider.RandomMoveProvider;
+import racingcar.domain.randomProvider.MissionUtilsRandomAdapter;
+import racingcar.domain.randomProvider.RandomAdapter;
 import racingcar.io.RaceInputHandler;
 import racingcar.io.RaceInputValidator;
 import racingcar.io.RaceOutputHandler;
@@ -8,10 +15,6 @@ import racingcar.io.reader.MissionUtilsReader;
 import racingcar.io.reader.Reader;
 import racingcar.io.writer.SystemWriter;
 import racingcar.io.writer.Writer;
-import racingcar.moveProvider.MoveProvider;
-import racingcar.moveProvider.RandomMoveProvider;
-import racingcar.randomProvider.MissionUtilsRandomAdapter;
-import racingcar.randomProvider.RandomAdapter;
 
 public class DefaultRaceGameConfig implements RaceGameConfig {
 

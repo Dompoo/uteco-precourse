@@ -1,9 +1,11 @@
-package racingcar;
+package racingcar.domain.race;
 
 import java.util.List;
+import racingcar.domain.car.Car;
+import racingcar.domain.car.CarFactory;
+import racingcar.domain.moveProvider.MoveProvider;
 import racingcar.dto.RaceRequest;
 import racingcar.dto.RaceResult;
-import racingcar.moveProvider.MoveProvider;
 
 public class RaceManager {
 

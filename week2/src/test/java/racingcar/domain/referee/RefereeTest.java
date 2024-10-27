@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.domain.referee;
 
 import java.util.List;
 import org.assertj.core.api.Assertions;

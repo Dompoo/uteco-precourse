@@ -2,7 +2,7 @@ package racingcar.dto;
 
 import java.util.List;
 import java.util.Objects;
-import racingcar.Car;
+import racingcar.domain.car.Car;
 
 public class LapResult implements Comparable<LapResult> {
 

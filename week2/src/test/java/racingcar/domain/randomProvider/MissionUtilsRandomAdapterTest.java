@@ -1,4 +1,4 @@
-package racingcar.randomProvider;
+package racingcar.domain.randomProvider;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;

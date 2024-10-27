@@ -1,4 +1,4 @@
-package racingcar.randomProvider;
+package racingcar.domain.randomProvider;
 
 public interface RandomAdapter {
 

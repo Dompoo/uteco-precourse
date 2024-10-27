@@ -1,7 +1,9 @@
-package racingcar;
+package racingcar.domain.race;
 
 import java.util.ArrayList;
 import java.util.List;
+import racingcar.domain.referee.Referee;
+import racingcar.domain.lap.Lap;
 import racingcar.dto.CarStatus;
 import racingcar.dto.LapResult;
 import racingcar.dto.RaceResult;

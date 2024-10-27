@@ -1,7 +1,7 @@
 package racingcar.dto;
 
 import java.util.Objects;
-import racingcar.Car;
+import racingcar.domain.car.Car;
 
 public class CarStatus {
 

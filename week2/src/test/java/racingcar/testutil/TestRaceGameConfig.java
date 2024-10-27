@@ -1,9 +1,9 @@
 package racingcar.testutil;
 
-import racingcar.CarFactory;
-import racingcar.RaceFactory;
-import racingcar.RaceGameConfig;
-import racingcar.RaceManager;
+import racingcar.domain.car.CarFactory;
+import racingcar.domain.race.RaceFactory;
+import racingcar.config.RaceGameConfig;
+import racingcar.domain.race.RaceManager;
 import racingcar.io.RaceInputHandler;
 import racingcar.io.RaceInputValidator;
 import racingcar.io.RaceOutputHandler;

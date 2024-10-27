@@ -2,8 +2,8 @@ package racingcar.domain.race;
 
 import java.util.ArrayList;
 import java.util.List;
-import racingcar.domain.referee.Referee;
 import racingcar.domain.lap.Lap;
+import racingcar.domain.referee.Referee;
 import racingcar.dto.CarStatus;
 import racingcar.dto.LapResult;
 import racingcar.dto.RaceResult;
@@ -11,9 +11,11 @@ import racingcar.dto.RaceResult;
 public class Race {
 
     private final Lap lap;
+    private final Referee referee;
 
-    public Race(Lap lap) {
+    public Race(Lap lap, Referee referee) {
         this.lap = lap;
+        this.referee = referee;
     }
 
     public RaceResult start(int lapCount) {
@@ -23,7 +25,7 @@ public class Race {
             lapResults.add(lap.oneLap());
         }
 
-        List<CarStatus> winners = Referee.judge(lapResults);
+        List<CarStatus> winners = referee.judge(lapResults);
         return RaceResult.of(lapResults, winners);
     }
 }

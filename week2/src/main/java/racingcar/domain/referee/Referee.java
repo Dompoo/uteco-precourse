@@ -8,10 +8,7 @@ import racingcar.dto.LapResult;
 
 public class Referee {
 
-    private Referee() {
-    }
-
-    public static List<CarStatus> judge(List<LapResult> lapResults) {
+    public List<CarStatus> judge(List<LapResult> lapResults) {
         LapResult lastLap = getLastLapResult(lapResults);
         List<CarStatus> lastLapCarStatuses = lastLap.getCarStatuses();
 
@@ -25,7 +22,7 @@ public class Referee {
                 .toList();
     }
 
-    private static LapResult getLastLapResult(List<LapResult> lapResults) {
+    private LapResult getLastLapResult(List<LapResult> lapResults) {
         ArrayList<LapResult> sortedLapResults = new ArrayList<>(lapResults);
         Collections.sort(sortedLapResults);
         return sortedLapResults.getLast();

@@ -4,6 +4,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import racingcar.domain.car.Car;
+import racingcar.domain.referee.Referee;
 import racingcar.testutil.testdouble.MoveProviderFake;
 
 class RaceFactoryTest {
@@ -17,6 +18,7 @@ class RaceFactoryTest {
                 new Car("자동차 3")
         );
         MoveProviderFake moveProvider = new MoveProviderFake();
+        Referee referee = new Referee();
         RaceFactory sut = new RaceFactory();
 
         //when

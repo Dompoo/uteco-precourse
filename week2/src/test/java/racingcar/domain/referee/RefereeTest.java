@@ -16,9 +16,10 @@ class RefereeTest {
                 CarStatus.of("자동차 2", 2),
                 CarStatus.of("자동차 3", 3)
         ));
+        Referee sut = new Referee();
 
         //when
-        List<CarStatus> result = Referee.judge(List.of(lapResult));
+        List<CarStatus> result = sut.judge(List.of(lapResult));
 
         //then
         Assertions.assertThat(result).containsExactly(
@@ -34,9 +35,10 @@ class RefereeTest {
                 CarStatus.of("자동차 2", 2),
                 CarStatus.of("자동차 3", 3)
         ));
+        Referee sut = new Referee();
 
         //when
-        List<CarStatus> result = Referee.judge(List.of(lapResult));
+        List<CarStatus> result = sut.judge(List.of(lapResult));
 
         //then
         Assertions.assertThat(result).containsExactly(
@@ -48,12 +50,12 @@ class RefereeTest {
     @Test
     void 여러_랩이_입력되면_가장_최신의_랩을_기준으로_판별한다() {
         //given
+        Referee sut = new Referee();
         LapResult lapResult1 = LapResult.fromCarStatuses(1, List.of(
                 CarStatus.of("자동차 1", 1),
                 CarStatus.of("자동차 2", 1),
                 CarStatus.of("자동차 3", 1)
         ));
-
         LapResult lapResult2 = LapResult.fromCarStatuses(2, List.of(
                 CarStatus.of("자동차 1", 1),
                 CarStatus.of("자동차 2", 2),
@@ -61,7 +63,7 @@ class RefereeTest {
         ));
 
         //when
-        List<CarStatus> result = Referee.judge(List.of(lapResult1, lapResult2));
+        List<CarStatus> result = sut.judge(List.of(lapResult1, lapResult2));
 
         //then
         Assertions.assertThat(result).containsExactly(
@@ -72,12 +74,12 @@ class RefereeTest {
     @Test
     void 여러_랩이_입력되었을_때_우승자가_여러명일_수_있다() {
         //given
+        Referee sut = new Referee();
         LapResult lapResult1 = LapResult.fromCarStatuses(1, List.of(
                 CarStatus.of("자동차 1", 1),
                 CarStatus.of("자동차 2", 1),
                 CarStatus.of("자동차 3", 1)
         ));
-
         LapResult lapResult2 = LapResult.fromCarStatuses(2, List.of(
                 CarStatus.of("자동차 1", 1),
                 CarStatus.of("자동차 2", 2),
@@ -85,7 +87,7 @@ class RefereeTest {
         ));
 
         //when
-        List<CarStatus> result = Referee.judge(List.of(lapResult1, lapResult2));
+        List<CarStatus> result = sut.judge(List.of(lapResult1, lapResult2));
 
         //then
         Assertions.assertThat(result).containsExactly(

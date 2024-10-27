@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import racingcar.domain.car.Car;
 import racingcar.domain.lap.Lap;
 import racingcar.domain.moveProvider.MoveProvider;
+import racingcar.domain.referee.Referee;
 import racingcar.dto.CarStatus;
 import racingcar.dto.LapResult;
 import racingcar.dto.RaceResult;
@@ -22,8 +23,9 @@ class RaceTest {
                 new Car("자동차 3")
         );
         MoveProvider moveProvider = new MoveProviderFake(true, false);
+        Referee referee = new Referee();
         Lap lap = new Lap(cars, moveProvider);
-        Race sut = new Race(lap);
+        Race sut = new Race(lap, referee);
 
         //when
         RaceResult result = sut.start(10);

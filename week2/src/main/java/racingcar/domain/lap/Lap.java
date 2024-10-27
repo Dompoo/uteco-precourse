@@ -7,9 +7,9 @@ import racingcar.dto.LapResult;
 
 public class Lap {
 
-    private int lapNumber = 1;
     private final List<Car> cars;
     private final MoveProvider moveProvider;
+    private int lapNumber = 1;
 
     public Lap(List<Car> cars, MoveProvider moveProvider) {
         this.cars = cars;

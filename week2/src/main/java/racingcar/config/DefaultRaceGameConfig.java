@@ -1,10 +1,10 @@
 package racingcar.config;
 
-import racingcar.domain.race.RaceManager;
 import racingcar.domain.car.CarFactory;
-import racingcar.domain.race.RaceFactory;
 import racingcar.domain.moveProvider.MoveProvider;
 import racingcar.domain.moveProvider.RandomMoveProvider;
+import racingcar.domain.race.RaceFactory;
+import racingcar.domain.race.RaceManager;
 import racingcar.domain.randomProvider.MissionUtilsRandomAdapter;
 import racingcar.domain.randomProvider.RandomAdapter;
 import racingcar.io.RaceInputHandler;

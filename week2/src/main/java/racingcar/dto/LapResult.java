@@ -27,16 +27,6 @@ public class LapResult implements Comparable<LapResult> {
     }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (CarStatus carStatus : carStatuses) {
-            sb.append(carStatus);
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

@@ -4,6 +4,6 @@ public class SystemWriter implements Writer {
 
     @Override
     public void write(String value) {
-        System.out.println(value);
+        System.out.print(value);
     }
 }

@@ -26,7 +26,7 @@ class RaceGameTest {
         Assertions.assertThat(writer.getOutputs()).contains(
                 """
                         
-                        실행 결과 :\s
+                        실행 결과
                         a : -
                         b :\s
                         c : -

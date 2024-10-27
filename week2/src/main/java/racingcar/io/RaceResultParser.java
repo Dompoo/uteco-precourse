@@ -9,7 +9,7 @@ import racingcar.dto.RaceResult;
 public class RaceResultParser {
 
     private static final String NEW_LINE = "\n";
-    private static final String EXECUTION_RESULT = "실행 결과 : ";
+    private static final String EXECUTION_RESULT = "실행 결과";
     private static final String FINAL_WINNER = "최종 우승자 : ";
     private static final String WINNER_SEPARATOR = ", ";
 

@@ -50,7 +50,7 @@ class RaceOutputHandlerTest {
         Assertions.assertThat(writerFake.getOutputs()).containsExactly(
                 """
                         
-                        실행 결과 :\s
+                        실행 결과
                         a : -
                         b :\s
                         c : -

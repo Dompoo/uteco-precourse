@@ -49,7 +49,7 @@ class RaceResultParserTest {
         Assertions.assertThat(result).isEqualTo(
                 """
                         
-                        실행 결과 :\s
+                        실행 결과
                         a : -
                         b :\s
                         c : -

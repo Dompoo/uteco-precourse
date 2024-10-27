@@ -2,6 +2,7 @@ package racingcar.dto;
 
 import java.util.List;
 import java.util.Objects;
+import racingcar.constants.StringConstants;
 import racingcar.domain.car.Car;
 
 public class LapResult implements Comparable<LapResult> {
@@ -30,8 +31,7 @@ public class LapResult implements Comparable<LapResult> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (CarStatus carStatus : carStatuses) {
-            sb.append(carStatus);
-            sb.append("\n");
+            sb.append(carStatus).append(StringConstants.NEW_LINE);
         }
         return sb.toString();
     }

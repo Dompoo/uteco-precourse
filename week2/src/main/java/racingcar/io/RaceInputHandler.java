@@ -1,13 +1,11 @@
 package racingcar.io;
 
+import racingcar.constants.InputMessages;
 import racingcar.dto.RaceRequest;
 import racingcar.io.reader.Reader;
 import racingcar.io.writer.Writer;
 
 public class RaceInputHandler {
-
-    private static final String CARNAME_DESCRIPTION = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)\n";
-    private static final String LAPCOUNT_DESCRIPTION = "시도할 횟수는 몇 회인가요?\n";
 
     private final Reader reader;
     private final Writer writer;
@@ -31,14 +29,14 @@ public class RaceInputHandler {
     }
 
     private String getCarNames() {
-        writer.write(CARNAME_DESCRIPTION);
+        writer.write(InputMessages.CARNAME_DESCRIPTION);
         String carNames = reader.readLine();
         validator.validateCarNames(carNames);
         return carNames;
     }
 
     private int getLapCount() {
-        writer.write(LAPCOUNT_DESCRIPTION);
+        writer.write(InputMessages.LAPCOUNT_DESCRIPTION);
         int lapCount = reader.readLineToInt();
         validator.validateLapCount(lapCount);
         return lapCount;

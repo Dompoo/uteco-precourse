@@ -1,16 +1,14 @@
 package racingcar.io;
 
 import java.util.List;
+import java.util.StringJoiner;
+import racingcar.constants.OutputMessages;
+import racingcar.constants.StringConstants;
 import racingcar.dto.CarStatus;
 import racingcar.dto.LapResult;
 import racingcar.dto.RaceResult;
 
 public class RaceResultParser {
-
-    private static final String NEW_LINE = "\n";
-    private static final String EXECUTION_RESULT = "실행 결과";
-    private static final String FINAL_WINNER = "최종 우승자 : ";
-    private static final String WINNER_SEPARATOR = ", ";
 
     public String parse(RaceResult raceResult) {
         StringBuilder sb = new StringBuilder();
@@ -22,30 +20,31 @@ public class RaceResultParser {
     }
 
     private void appendExecutionResults(StringBuilder sb, List<LapResult> lapResults) {
-        sb.append(NEW_LINE)
-                .append(EXECUTION_RESULT)
-                .append(NEW_LINE);
+        sb.append(StringConstants.NEW_LINE)
+                .append(OutputMessages.EXECUTION_RESULT)
+                .append(StringConstants.NEW_LINE);
 
-        if (lapResults != null) {
-            for (LapResult result : lapResults) {
-                sb.append(result)
-                        .append(NEW_LINE);
-            }
+        if (lapResults == null || lapResults.isEmpty()) {
+            throw new IllegalArgumentException("경주 결과가 존재하지 않습니다.");
+        }
+
+        for (LapResult result : lapResults) {
+            sb.append(result)
+                    .append(StringConstants.NEW_LINE);
         }
     }
 
     private void appendWinners(StringBuilder sb, List<CarStatus> winners) {
-        sb.append(FINAL_WINNER);
+        sb.append(OutputMessages.FINAL_WINNER);
 
         if (winners == null || winners.isEmpty()) {
-            return;
+            throw new IllegalArgumentException("최종 우승자가 존재하지 않습니다.");
         }
 
-        for (int i = 0; i < winners.size(); i++) {
-            sb.append(winners.get(i).getName());
-            if (i != winners.size() - 1) {
-                sb.append(WINNER_SEPARATOR);
-            }
+        StringJoiner stringJoiner = new StringJoiner(StringConstants.SEPARATOR);
+        for (CarStatus winner : winners) {
+            stringJoiner.add(winner.getName());
         }
+        sb.append(stringJoiner);
     }
 }

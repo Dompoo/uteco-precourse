@@ -2,7 +2,10 @@ package racingcar;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import racingcar.testutil.TestRaceGameConfig;
+import racingcar.config.RaceGameConfig;
+import racingcar.testutil.config.TestMoveProviderConfig;
+import racingcar.testutil.config.TestReaderConfig;
+import racingcar.testutil.config.TestWriterConfig;
 import racingcar.testutil.testdouble.MoveProviderFake;
 import racingcar.testutil.testdouble.ReaderFake;
 import racingcar.testutil.testdouble.WriterFake;
@@ -15,7 +18,11 @@ class RaceGameTest {
         ReaderFake reader = new ReaderFake();
         WriterFake writer = new WriterFake();
         MoveProviderFake moveProvider = new MoveProviderFake(true, false);
-        TestRaceGameConfig config = new TestRaceGameConfig(reader, writer, moveProvider);
+        RaceGameConfig config = new RaceGameConfig(
+                new TestReaderConfig(reader),
+                new TestWriterConfig(writer),
+                new TestMoveProviderConfig(moveProvider)
+        );
         RaceGame sut = new RaceGame(config);
         reader.setInput("a,b,c", "3");
 

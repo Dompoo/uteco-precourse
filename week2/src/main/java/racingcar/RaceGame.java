@@ -14,8 +14,8 @@ public class RaceGame {
     private final RaceManager raceManager;
 
     public RaceGame(RaceGameConfig raceGameConfig) {
-        this.inputHandler = raceGameConfig.getInputHandler();
-        this.outputHandler = raceGameConfig.getOutputHandler();
+        this.inputHandler = raceGameConfig.getRaceInputHandler();
+        this.outputHandler = raceGameConfig.getRaceOutputHandler();
         this.raceManager = raceGameConfig.getRaceManager();
     }
 

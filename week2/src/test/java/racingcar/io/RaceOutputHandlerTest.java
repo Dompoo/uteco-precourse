@@ -47,7 +47,7 @@ class RaceOutputHandlerTest {
         sut.handle(getRaceResult());
 
         //then
-        Assertions.assertThat(writerFake.getOutput()).containsExactly(
+        Assertions.assertThat(writerFake.getOutputs()).containsExactly(
                 """
                         
                         실행 결과 :\s

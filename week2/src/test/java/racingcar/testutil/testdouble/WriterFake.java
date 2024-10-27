@@ -8,7 +8,7 @@ public class WriterFake implements Writer {
 
     private final List<String> outputs = new ArrayList<>();
 
-    public List<String> getOutput() {
+    public List<String> getOutputs() {
         return outputs;
     }
 

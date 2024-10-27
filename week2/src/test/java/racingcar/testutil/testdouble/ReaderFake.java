@@ -10,8 +10,8 @@ public class ReaderFake implements Reader {
     private final List<String> inputs = new ArrayList<>();
     private int inputCounter = 0;
 
-    public void setInput(String... input) {
-        this.inputs.addAll(Arrays.stream(input).toList());
+    public void setInput(String... inputs) {
+        this.inputs.addAll(Arrays.stream(inputs).toList());
     }
 
     @Override

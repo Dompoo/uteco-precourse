@@ -5,10 +5,11 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import racingcar.domain.car.Car;
 import racingcar.domain.lap.Lap;
+import racingcar.domain.moveProvider.MoveProvider;
 import racingcar.dto.CarStatus;
 import racingcar.dto.LapResult;
 import racingcar.dto.RaceResult;
-import racingcar.testutil.testdouble.MoveProviderStub;
+import racingcar.testutil.testdouble.MoveProviderFake;
 
 class RaceTest {
 
@@ -20,7 +21,8 @@ class RaceTest {
                 new Car("자동차 2"),
                 new Car("자동차 3")
         );
-        Lap lap = new Lap(cars, new MoveProviderStub());
+        MoveProvider moveProvider = new MoveProviderFake(true, false);
+        Lap lap = new Lap(cars, moveProvider);
         Race sut = new Race(lap);
 
         //when
@@ -30,13 +32,13 @@ class RaceTest {
         Assertions.assertThat(result.getLapResults()).contains(
                 LapResult.fromCarStatuses(1, List.of(
                         CarStatus.of("자동차 1", 1),
-                        CarStatus.of("자동차 2", 1),
+                        CarStatus.of("자동차 2", 0),
                         CarStatus.of("자동차 3", 1)
                 )),
                 LapResult.fromCarStatuses(10, List.of(
-                        CarStatus.of("자동차 1", 10),
-                        CarStatus.of("자동차 2", 10),
-                        CarStatus.of("자동차 3", 10)
+                        CarStatus.of("자동차 1", 5),
+                        CarStatus.of("자동차 2", 5),
+                        CarStatus.of("자동차 3", 5)
                 ))
         );
         Assertions.assertThat(result.getWinners())

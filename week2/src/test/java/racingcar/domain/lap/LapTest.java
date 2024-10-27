@@ -4,9 +4,10 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import racingcar.domain.car.Car;
+import racingcar.domain.moveProvider.MoveProvider;
 import racingcar.dto.CarStatus;
 import racingcar.dto.LapResult;
-import racingcar.testutil.testdouble.MoveProviderStub;
+import racingcar.testutil.testdouble.MoveProviderFake;
 
 class LapTest {
 
@@ -18,7 +19,7 @@ class LapTest {
                 new Car("자동차 2"),
                 new Car("자동차 3")
         );
-        MoveProviderStub moveProvider = new MoveProviderStub();
+        MoveProvider moveProvider = new MoveProviderFake(true, false);
         Lap sut = new Lap(cars, moveProvider);
 
         //when
@@ -27,7 +28,7 @@ class LapTest {
         //then
         Assertions.assertThat(result.getCarStatuses()).contains(
                 CarStatus.of("자동차 1", 1),
-                CarStatus.of("자동차 2", 1),
+                CarStatus.of("자동차 2", 0),
                 CarStatus.of("자동차 3", 1)
         );
     }

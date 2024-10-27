@@ -2,7 +2,6 @@ package racingcar.io;
 
 import java.util.List;
 import java.util.StringJoiner;
-import racingcar.constants.ExceptionMessages;
 import racingcar.constants.OutputMessages;
 import racingcar.constants.StringConstants;
 import racingcar.dto.CarStatus;
@@ -11,8 +10,16 @@ import racingcar.dto.RaceResult;
 
 public class RaceResultParser {
 
+    private final RaceResultValidator validator;
+
+    public RaceResultParser(RaceResultValidator validator) {
+        this.validator = validator;
+    }
+
     public String parse(RaceResult raceResult) {
         StringBuilder sb = new StringBuilder();
+
+        validator.validateRaceResult(raceResult);
 
         appendExecutionResults(sb, raceResult.getLapResults());
         appendWinners(sb, raceResult.getWinners());
@@ -25,10 +32,6 @@ public class RaceResultParser {
                 .append(OutputMessages.EXECUTION_RESULT)
                 .append(StringConstants.NEW_LINE);
 
-        if (lapResults == null || lapResults.isEmpty()) {
-            throw new IllegalArgumentException(ExceptionMessages.LAP_RESULT_NOT_EXIST);
-        }
-
         for (LapResult result : lapResults) {
             sb.append(result)
                     .append(StringConstants.NEW_LINE);
@@ -37,10 +40,6 @@ public class RaceResultParser {
 
     private void appendWinners(StringBuilder sb, List<CarStatus> winners) {
         sb.append(OutputMessages.FINAL_WINNER);
-
-        if (winners == null || winners.isEmpty()) {
-            throw new IllegalArgumentException(ExceptionMessages.WINNER_NOT_EXIST);
-        }
 
         StringJoiner stringJoiner = new StringJoiner(StringConstants.SEPARATOR);
         for (CarStatus winner : winners) {

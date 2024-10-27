@@ -9,6 +9,7 @@ import racingcar.io.RaceInputHandler;
 import racingcar.io.RaceInputValidator;
 import racingcar.io.RaceOutputHandler;
 import racingcar.io.RaceResultParser;
+import racingcar.io.RaceResultValidator;
 import racingcar.io.reader.Reader;
 import racingcar.io.writer.Writer;
 
@@ -31,7 +32,7 @@ public class TestRaceGameConfig implements RaceGameConfig {
 
     @Override
     public RaceOutputHandler getOutputHandler() {
-        return new RaceOutputHandler(writer, new RaceResultParser());
+        return new RaceOutputHandler(writer, new RaceResultParser(new RaceResultValidator()));
     }
 
     @Override

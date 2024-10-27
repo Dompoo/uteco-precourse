@@ -41,7 +41,7 @@ class RaceOutputHandlerTest {
     void RaceResult를_Writer에_작성한다() {
         //given
         WriterFake writerFake = new WriterFake();
-        RaceOutputHandler sut = new RaceOutputHandler(writerFake, new RaceResultParser());
+        RaceOutputHandler sut = new RaceOutputHandler(writerFake, new RaceResultParser(new RaceResultValidator()));
 
         //when
         sut.handle(getRaceResult());

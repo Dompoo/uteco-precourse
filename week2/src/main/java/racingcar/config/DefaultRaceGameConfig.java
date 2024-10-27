@@ -11,6 +11,7 @@ import racingcar.io.RaceInputHandler;
 import racingcar.io.RaceInputValidator;
 import racingcar.io.RaceOutputHandler;
 import racingcar.io.RaceResultParser;
+import racingcar.io.RaceResultValidator;
 import racingcar.io.reader.MissionUtilsReader;
 import racingcar.io.reader.Reader;
 import racingcar.io.writer.SystemWriter;
@@ -46,7 +47,11 @@ public class DefaultRaceGameConfig implements RaceGameConfig {
     }
 
     private RaceResultParser getRaceResultParser() {
-        return new RaceResultParser();
+        return new RaceResultParser(getRaceResultValidator());
+    }
+
+    private RaceResultValidator getRaceResultValidator() {
+        return new RaceResultValidator();
     }
 
     private RaceFactory getRaceFactory() {

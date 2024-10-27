@@ -18,6 +18,8 @@ public class MissionUtilsReader implements Reader {
         try {
             String input = Console.readLine();
             return Integer.parseInt(input);
+        } catch (NumberFormatException ne) {
+            throw new IllegalArgumentException("잘못된 숫자형식입니다.", ne);
         } catch (Exception e) {
             throw new IllegalArgumentException("잘못된 입력입니다.", e);
         }

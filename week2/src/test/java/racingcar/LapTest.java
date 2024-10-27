@@ -12,7 +12,13 @@ class LapTest {
     @Test
     void 경주_결과를_반환한다() {
         //given
-        Lap sut = new Lap(getCars(), new MoveProviderStub());
+        List<Car> cars = List.of(
+                new Car("자동차 1"),
+                new Car("자동차 2"),
+                new Car("자동차 3")
+        );
+        MoveProviderStub moveProvider = new MoveProviderStub();
+        Lap sut = new Lap(cars, moveProvider);
 
         //when
         LapResult result = sut.oneLap();
@@ -22,14 +28,6 @@ class LapTest {
                 CarStatus.of("자동차 1", 1),
                 CarStatus.of("자동차 2", 1),
                 CarStatus.of("자동차 3", 1)
-        );
-    }
-
-    private List<Car> getCars() {
-        return List.of(
-                new Car("자동차 1"),
-                new Car("자동차 2"),
-                new Car("자동차 3")
         );
     }
 

@@ -1,6 +1,7 @@
 package racingcar.io.reader;
 
 import camp.nextstep.edu.missionutils.Console;
+import racingcar.constants.ExceptionMessages;
 
 public class MissionUtilsReader implements Reader {
 
@@ -9,7 +10,7 @@ public class MissionUtilsReader implements Reader {
         try {
             return Console.readLine();
         } catch (Exception e) {
-            throw new IllegalArgumentException("잘못된 입력입니다.", e);
+            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_INPUT, e);
         }
     }
 
@@ -19,9 +20,9 @@ public class MissionUtilsReader implements Reader {
             String input = Console.readLine();
             return Integer.parseInt(input);
         } catch (NumberFormatException ne) {
-            throw new IllegalArgumentException("잘못된 숫자형식입니다.", ne);
+            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_NUMBER_FORMAT, ne);
         } catch (Exception e) {
-            throw new IllegalArgumentException("잘못된 입력입니다.", e);
+            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_INPUT, e);
         }
     }
 }

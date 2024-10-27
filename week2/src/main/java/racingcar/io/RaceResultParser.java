@@ -2,6 +2,7 @@ package racingcar.io;
 
 import java.util.List;
 import java.util.StringJoiner;
+import racingcar.constants.ExceptionMessages;
 import racingcar.constants.OutputMessages;
 import racingcar.constants.StringConstants;
 import racingcar.dto.CarStatus;
@@ -25,7 +26,7 @@ public class RaceResultParser {
                 .append(StringConstants.NEW_LINE);
 
         if (lapResults == null || lapResults.isEmpty()) {
-            throw new IllegalArgumentException("경주 결과가 존재하지 않습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.LAP_RESULT_NOT_EXIST);
         }
 
         for (LapResult result : lapResults) {
@@ -38,7 +39,7 @@ public class RaceResultParser {
         sb.append(OutputMessages.FINAL_WINNER);
 
         if (winners == null || winners.isEmpty()) {
-            throw new IllegalArgumentException("최종 우승자가 존재하지 않습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.WINNER_NOT_EXIST);
         }
 
         StringJoiner stringJoiner = new StringJoiner(StringConstants.SEPARATOR);

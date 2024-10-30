@@ -1,6 +1,7 @@
 package lotto.io.reader;
 
 import camp.nextstep.edu.missionutils.Console;
+import lotto.constants.ExceptionMessages;
 
 public class MissionUtilsReader implements Reader {
 
@@ -9,7 +10,7 @@ public class MissionUtilsReader implements Reader {
         try {
             return Console.readLine();
         } catch (Exception exception) {
-            throw new IllegalArgumentException("잘못된 입력입니다.", exception);
+            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_INPUT.message, exception);
         }
     }
 
@@ -19,9 +20,9 @@ public class MissionUtilsReader implements Reader {
             String input = Console.readLine();
             return Integer.parseInt(input);
         } catch (NumberFormatException numberFormatException) {
-            throw new IllegalArgumentException("잘못된 숫자 형식입니다.", numberFormatException);
+            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_NUMBER_FORMAT.message, numberFormatException);
         } catch (Exception exception) {
-            throw new IllegalArgumentException("잘못된 입력입니다.", exception);
+            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_INPUT.message, exception);
         }
     }
 }

@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.List;
+import java.util.Set;
 import lotto.constants.ExceptionMessages;
 
 public class Lotto {
@@ -19,12 +20,20 @@ public class Lotto {
 
         numbers.forEach(number -> {
             if (!isNumberValid(number)) {
-                throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_NOT_VALID.message);
+                throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_INVALID.message);
             }
         });
+
+        if (hasDuplicatedNumber(numbers)) {
+            throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_DUPLICATED.message);
+        }
     }
 
-    private boolean isNumberValid(Integer number) {
+    private static boolean hasDuplicatedNumber(List<Integer> numbers) {
+        return Set.of(numbers).size() != numbers.size();
+    }
+
+    private static boolean isNumberValid(Integer number) {
         return 1 <= number && number <= 45;
     }
 

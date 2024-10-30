@@ -8,14 +8,14 @@ import lotto.domain.numberProvider.NumberPicker;
 
 public class Lotto {
 
-    private static final int NUMBER_COUNT = 6;
+    private static final int LOTTO_NUMBER_COUNT = 6;
     private static final int PRICE = 1000;
 
-    private final List<Number> numbers;
+    private final List<LottoNumber> lottoNumbers;
 
-    private Lotto(List<Number> numbers) {
-        validate(numbers);
-        this.numbers = numbers;
+    private Lotto(List<LottoNumber> lottoNumbers) {
+        validate(lottoNumbers);
+        this.lottoNumbers = lottoNumbers;
     }
 
     public static List<Lotto> purchase(Money money, NumberPicker numberPicker) {
@@ -23,8 +23,8 @@ public class Lotto {
 
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < purchaseAmount; i++) {
-            List<Number> numbers = Number.createUniqueNumbers(NUMBER_COUNT, numberPicker);
-            lottos.add(new Lotto(numbers));
+            List<LottoNumber> lottoNumbers = LottoNumber.createUniqueLottoNumbers(LOTTO_NUMBER_COUNT, numberPicker);
+            lottos.add(new Lotto(lottoNumbers));
         }
         return lottos;
     }
@@ -33,19 +33,17 @@ public class Lotto {
         return money.getAmountDividedBy(PRICE);
     }
 
-    private void validate(List<Number> numbers) {
-        if (numbers.size() != NUMBER_COUNT) {
+    private void validate(List<LottoNumber> lottoNumbers) {
+        if (lottoNumbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_NOT_6.message);
         }
 
-        if (hasDuplicatedNumber(numbers)) {
+        if (hasDuplicatedNumber(lottoNumbers)) {
             throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_DUPLICATED.message);
         }
     }
 
-    private static boolean hasDuplicatedNumber(List<Number> numbers) {
-        return Set.of(numbers).size() != numbers.size();
+    private static boolean hasDuplicatedNumber(List<LottoNumber> lottoNumbers) {
+        return Set.of(lottoNumbers).size() != lottoNumbers.size();
     }
-
-    // TODO: 추가 기능 구현
 }

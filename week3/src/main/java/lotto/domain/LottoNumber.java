@@ -5,21 +5,21 @@ import java.util.Objects;
 import lotto.constants.ExceptionMessages;
 import lotto.domain.numberProvider.NumberPicker;
 
-public class Number {
+public class LottoNumber {
 
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 45;
 
     private final int value;
 
-    private Number(int value) {
+    private LottoNumber(int value) {
         validate(value);
         this.value = value;
     }
 
-    public static List<Number> createUniqueNumbers(int count, NumberPicker numberPicker) {
-        return numberPicker.pickUniqueNumbersInRange(MIN_VALUE, MAX_VALUE, count).stream()
-                .map(Number::new)
+    public static List<LottoNumber> from(List<Integer> numbers) {
+        return numbers.stream()
+                .map(LottoNumber::new)
                 .toList();
     }
 
@@ -38,10 +38,10 @@ public class Number {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Number number)) {
+        if (!(o instanceof LottoNumber lottoNumber)) {
             return false;
         }
-        return getValue() == number.getValue();
+        return getValue() == lottoNumber.getValue();
     }
 
     @Override

@@ -8,6 +8,11 @@ import lotto.domain.numberProvider.NumberPicker;
 
 public class Lotto {
 
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
+    private static final int NUMBER_COUNT = 6;
+    private static final int PRICE = 1000;
+
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -20,18 +25,18 @@ public class Lotto {
 
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < purchaseAmount; i++) {
-            List<Integer> numbers = numberPicker.pickUniqueNumbersInRange(1, 45, 6);
+            List<Integer> numbers = numberPicker.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT);
             lottos.add(new Lotto(numbers));
         }
         return lottos;
     }
 
     private static int calculatePurchaseAmount(Money money) {
-        return money.getAmountDividedBy(1000);
+        return money.getAmountDividedBy(PRICE);
     }
 
     private void validate(List<Integer> numbers) {
-        if (numbers.size() != 6) {
+        if (numbers.size() != NUMBER_COUNT) {
             throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_NOT_6.message);
         }
 
@@ -51,7 +56,7 @@ public class Lotto {
     }
 
     private static boolean isNumberValid(Integer number) {
-        return 1 <= number && number <= 45;
+        return MIN_NUMBER <= number && number <= MAX_NUMBER;
     }
 
     // TODO: 추가 기능 구현

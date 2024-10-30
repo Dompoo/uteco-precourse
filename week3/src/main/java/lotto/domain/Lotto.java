@@ -8,14 +8,12 @@ import lotto.domain.numberProvider.NumberPicker;
 
 public class Lotto {
 
-    private static final int MIN_NUMBER = 1;
-    private static final int MAX_NUMBER = 45;
     private static final int NUMBER_COUNT = 6;
     private static final int PRICE = 1000;
 
-    private final List<Integer> numbers;
+    private final List<Number> numbers;
 
-    public Lotto(List<Integer> numbers) {
+    private Lotto(List<Number> numbers) {
         validate(numbers);
         this.numbers = numbers;
     }
@@ -25,7 +23,7 @@ public class Lotto {
 
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < purchaseAmount; i++) {
-            List<Integer> numbers = numberPicker.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT);
+            List<Number> numbers = Number.createUniqueNumbers(NUMBER_COUNT, numberPicker);
             lottos.add(new Lotto(numbers));
         }
         return lottos;
@@ -35,28 +33,18 @@ public class Lotto {
         return money.getAmountDividedBy(PRICE);
     }
 
-    private void validate(List<Integer> numbers) {
+    private void validate(List<Number> numbers) {
         if (numbers.size() != NUMBER_COUNT) {
             throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_NOT_6.message);
         }
-
-        numbers.forEach(number -> {
-            if (!isNumberValid(number)) {
-                throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_INVALID.message);
-            }
-        });
 
         if (hasDuplicatedNumber(numbers)) {
             throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_DUPLICATED.message);
         }
     }
 
-    private static boolean hasDuplicatedNumber(List<Integer> numbers) {
+    private static boolean hasDuplicatedNumber(List<Number> numbers) {
         return Set.of(numbers).size() != numbers.size();
-    }
-
-    private static boolean isNumberValid(Integer number) {
-        return MIN_NUMBER <= number && number <= MAX_NUMBER;
     }
 
     // TODO: 추가 기능 구현

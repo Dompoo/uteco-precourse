@@ -1,21 +1,29 @@
 package lotto.io.reader;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.Arrays;
+import java.util.List;
 import lotto.constants.ExceptionMessages;
 
 public class MissionUtilsReader implements Reader {
 
     @Override
-    public String readLine() {
+    public List<Integer> readLineAsNumbers(String spliter) {
         try {
-            return Console.readLine();
+            String input = Console.readLine();
+            return Arrays.stream(input.split(spliter))
+                    .map(String::trim)
+                    .map(Integer::parseInt)
+                    .toList();
+        } catch (NumberFormatException numberFormatException) {
+            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_NUMBER_FORMAT.message, numberFormatException);
         } catch (Exception exception) {
             throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_INPUT.message, exception);
         }
     }
 
     @Override
-    public int readLineAsInt() {
+    public int readLineAsNumber() {
         try {
             String input = Console.readLine();
             return Integer.parseInt(input);

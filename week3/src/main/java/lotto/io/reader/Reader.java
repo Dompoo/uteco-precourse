@@ -1,8 +1,10 @@
 package lotto.io.reader;
 
+import java.util.List;
+
 public interface Reader {
 
-    String readLine();
+    List<Integer> readLineAsNumbers(String spliter);
 
-    int readLineAsInt();
+    int readLineAsNumber();
 }

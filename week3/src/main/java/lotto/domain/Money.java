@@ -11,6 +11,10 @@ public class Money {
         this.amount = amount;
     }
 
+    public int getAmountDividedBy(int divide) {
+        return amount / divide;
+    }
+
     private void validate(int amount) {
         if (amount < 1000) {
             throw new IllegalArgumentException(ExceptionMessages.MONEY_AMONUT_LACK.message);

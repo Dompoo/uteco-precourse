@@ -23,7 +23,7 @@ public class OutputHandler {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(lottos.size());
-        stringBuilder.append("개를 구매했습니다.");
+        stringBuilder.append("개를 구매했습니다.\n");
 
         for (Lotto lotto : lottos) {
             stringBuilder.append(lotto);

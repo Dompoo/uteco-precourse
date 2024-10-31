@@ -21,16 +21,22 @@ public class InputHandler {
 
     public int handlePurchaseAmount() {
         writer.writeLine(PURCHASE_AMONUT_DESCRIPTION);
-        return reader.readLineAsNumber();
+        int input = reader.readLineAsNumber();
+        writer.writeLine("");
+        return input;
     }
 
     public List<Integer> handleWinningLottoNumbers() {
         writer.writeLine(WINNING_LOTTO_NUMBERS_DESCRPTION);
-        return reader.readLineAsNumbers(WINNING_LOTTO_NUMBERS_SEPARATOR);
+        List<Integer> input = reader.readLineAsNumbers(WINNING_LOTTO_NUMBERS_SEPARATOR);
+        writer.writeLine("");
+        return input;
     }
 
     public int handleWinningLottoBonusNumber() {
         writer.writeLine(WINNING_LOTTO_BONUS_NUMBER_DESCRPTION);
-        return reader.readLineAsNumber();
+        int input = reader.readLineAsNumber();
+        writer.writeLine("");
+        return input;
     }
 }

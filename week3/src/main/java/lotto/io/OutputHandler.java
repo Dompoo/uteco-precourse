@@ -1,5 +1,6 @@
 package lotto.io;
 
+import java.text.DecimalFormat;
 import java.util.EnumMap;
 import java.util.List;
 import lotto.domain.Lotto;
@@ -48,6 +49,17 @@ public class OutputHandler {
     }
 
     public void handleIncomeStatics(IncomeStatics incomeStatics) {
-        // TODO : 구현
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("총 수익률은 ");
+        stringBuilder.append(formatIncomeRate(incomeStatics.incomeRate()));
+        stringBuilder.append("입니다.");
+
+        writer.writeLine(stringBuilder.toString());
+    }
+
+    private String formatIncomeRate(float rate) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.0%");
+        return decimalFormat.format(rate / 100);
     }
 }

@@ -3,8 +3,9 @@ package lotto.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import lotto.constants.ExceptionMessages;
 import lotto.domain.numberProvider.NumberPicker;
+import lotto.exception.LottoNumberCountInvalidException;
+import lotto.exception.LottoNumberDuplicatedException;
 
 public class Lotto {
 
@@ -35,11 +36,11 @@ public class Lotto {
 
     private void validate(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() != LOTTO_NUMBER_COUNT) {
-            throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_NOT_6.message);
+            throw new LottoNumberCountInvalidException(LOTTO_NUMBER_COUNT);
         }
 
         if (hasDuplicatedNumber(lottoNumbers)) {
-            throw new IllegalArgumentException(ExceptionMessages.LOTTO_NUMBER_DUPLICATED.message);
+            throw new LottoNumberDuplicatedException();
         }
     }
 

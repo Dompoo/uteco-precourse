@@ -2,8 +2,8 @@ package lotto.domain;
 
 import java.util.List;
 import java.util.Objects;
-import lotto.constants.ExceptionMessages;
 import lotto.domain.numberProvider.NumberPicker;
+import lotto.exception.LottoNumberInvalidException;
 
 public class LottoNumber {
 
@@ -35,7 +35,7 @@ public class LottoNumber {
 
     private static void validate(int value) {
         if (!(MIN_VALUE <= value && value <= MAX_VALUE)) {
-            throw new IllegalArgumentException(ExceptionMessages.NUMBER_INVALID.message);
+            throw new LottoNumberInvalidException(MIN_VALUE, MAX_VALUE);
         }
     }
 

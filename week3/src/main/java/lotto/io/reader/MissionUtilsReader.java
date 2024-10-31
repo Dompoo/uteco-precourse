@@ -3,7 +3,8 @@ package lotto.io.reader;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
-import lotto.constants.ExceptionMessages;
+import lotto.exception.IllegalInputException;
+import lotto.exception.IllegalNumberFormatException;
 
 public class MissionUtilsReader implements Reader {
 
@@ -16,9 +17,9 @@ public class MissionUtilsReader implements Reader {
                     .map(Integer::parseInt)
                     .toList();
         } catch (NumberFormatException numberFormatException) {
-            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_NUMBER_FORMAT.message, numberFormatException);
+            throw new IllegalNumberFormatException();
         } catch (Exception exception) {
-            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_INPUT.message, exception);
+            throw new IllegalInputException();
         }
     }
 
@@ -28,9 +29,9 @@ public class MissionUtilsReader implements Reader {
             String input = Console.readLine();
             return Integer.parseInt(input);
         } catch (NumberFormatException numberFormatException) {
-            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_NUMBER_FORMAT.message, numberFormatException);
+            throw new IllegalNumberFormatException();
         } catch (Exception exception) {
-            throw new IllegalArgumentException(ExceptionMessages.ILLEGAL_INPUT.message, exception);
+            throw new IllegalInputException();
         }
     }
 }

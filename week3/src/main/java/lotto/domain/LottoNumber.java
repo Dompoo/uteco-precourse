@@ -23,6 +23,10 @@ public class LottoNumber {
                 .toList();
     }
 
+    public static LottoNumber from(int number) {
+        return new LottoNumber(number);
+    }
+
     public static List<LottoNumber> createUniqueLottoNumbers(int count, NumberPicker numberPicker) {
         List<Integer> numbers = numberPicker.pickUniqueNumbersInRange(MIN_VALUE, MAX_VALUE, count);
 

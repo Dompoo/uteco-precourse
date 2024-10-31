@@ -10,9 +10,13 @@ public class Money {
 
     private final int amount;
 
-    public Money(int amount) {
+    private Money(int amount) {
         validate(amount);
         this.amount = amount;
+    }
+
+    public static Money from(int amount) {
+        return new Money(amount);
     }
 
     public int getAmountDividedBy(int divide) {

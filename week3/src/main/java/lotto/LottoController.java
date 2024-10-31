@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.List;
+import lotto.config.LottoConfig;
 import lotto.domain.Lotto;
 import lotto.domain.LottoStatics;
 import lotto.domain.Money;
@@ -20,15 +21,12 @@ public class LottoController {
     private final NumberPicker numberPicker;
 
     public LottoController(
-            InputHandler inputHandler,
-            OutputHandler outputHandler,
-            RetryHandler retryHandler,
-            NumberPicker numberPicker
+            LottoConfig lottoConfig
     ) {
-        this.inputHandler = inputHandler;
-        this.outputHandler = outputHandler;
-        this.retryHandler = retryHandler;
-        this.numberPicker = numberPicker;
+        this.inputHandler = lottoConfig.getInputHandler();
+        this.outputHandler = lottoConfig.getOutputHandler();
+        this.retryHandler = lottoConfig.getRetryHandler();
+        this.numberPicker = lottoConfig.getNumberPicker();
     }
 
     public void run() {

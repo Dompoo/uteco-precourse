@@ -1,21 +1,20 @@
 package lotto;
 
-import lotto.domain.numberProvider.RandomNumberPicker;
-import lotto.io.InputHandler;
-import lotto.io.OutputHandler;
-import lotto.io.reader.MissionUtilsReader;
-import lotto.io.writer.SystemWriter;
+import lotto.config.LottoConfig;
+import lotto.config.numberPricker.DefaultNumberPickerConfig;
+import lotto.config.reader.DefaultReaderConfig;
+import lotto.config.writer.DefaultWriterConfig;
 
 public class Application {
+
     public static void main(String[] args) {
-        MissionUtilsReader reader = new MissionUtilsReader();
-        SystemWriter writer = new SystemWriter();
-        LottoController lottoController = new LottoController(
-                new InputHandler(reader, writer),
-                new OutputHandler(writer),
-                new RetryHandler(writer),
-                new RandomNumberPicker()
+        LottoConfig lottoConfig = new LottoConfig(
+                new DefaultReaderConfig(),
+                new DefaultWriterConfig(),
+                new DefaultNumberPickerConfig()
         );
+
+        LottoController lottoController = new LottoController(lottoConfig);
 
         lottoController.run();
     }

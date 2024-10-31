@@ -19,7 +19,17 @@ public class OutputHandler {
     }
 
     public void handlePurchasedLottos(List<Lotto> lottos) {
-        // TODO : 구현
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(lottos.size());
+        stringBuilder.append("개를 구매했습니다.");
+
+        for (Lotto lotto : lottos) {
+            stringBuilder.append(lotto);
+            stringBuilder.append("\n");
+        }
+
+        writer.writeLine(stringBuilder.toString());
     }
 
     public void handlePrizeStatics(PrizeStatics prizeStatics) {

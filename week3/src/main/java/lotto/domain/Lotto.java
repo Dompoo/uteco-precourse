@@ -47,7 +47,7 @@ public class Lotto {
     }
 
     private static int calculatePurchaseAmount(Money money) {
-        return money.getAmountDividedBy(PRICE);
+        return money.getAmount() / PRICE;
     }
 
     private static void validate(List<Number> numbers) {

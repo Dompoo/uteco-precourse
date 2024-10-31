@@ -19,8 +19,8 @@ public class Money {
         return new Money(amount);
     }
 
-    public int getAmountDividedBy(int divide) {
-        return amount / divide;
+    public int getAmount() {
+        return amount;
     }
 
     private static void validate(int amount) {

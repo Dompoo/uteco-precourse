@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.List;
+import java.util.Optional;
 import lotto.exception.BonusNumberDuplicatedException;
 import lotto.exception.BonusNumberNullException;
 import lotto.exception.LottoNullException;
@@ -34,7 +35,7 @@ public class WinningLotto {
         return new WinningLotto(Lotto.from(numbers), Number.from(bonusNumber));
     }
 
-    public LottoPrize match(Lotto targetLotto) {
+    public Optional<LottoPrize> match(Lotto targetLotto) {
         int numberMatch = targetLotto.getMatchCount(lotto);
         boolean bonusNumberMatch = targetLotto.contains(bonusNumber);
 

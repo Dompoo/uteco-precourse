@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum LottoPrize {
 
@@ -9,7 +10,6 @@ public enum LottoPrize {
     THIRD_PRIZE(5, 0, 1500000, "5개 일치 (1,500,000원)"),
     FOURTH_PRIZE(4, 0, 50000, "4개 일치 (50,000원)"),
     FIFTH_PRIZE(3, 0, 5000, "3개 일치 (5,000원)"),
-    NO_PRIZE(0, 0, 0, "2개 이하 일치 (0원)"),
     ;
 
     private final int numberMatch;
@@ -24,15 +24,14 @@ public enum LottoPrize {
         this.description = description;
     }
 
-    public static LottoPrize calculatePrize(int matchCount, boolean matchBonus) {
+    public static Optional<LottoPrize> calculatePrize(int matchCount, boolean matchBonus) {
         if (matchCount == 5 && matchBonus) {
-            return SECOND_PRIZE;
+            return Optional.of(SECOND_PRIZE);
         }
 
         return Arrays.stream(values())
                 .filter(prize -> prize.numberMatch == matchCount)
                 .filter(prize -> prize.bonusNumberMatch == 0)
-                .findFirst()
-                .orElse(NO_PRIZE);
+                .findFirst();
     }
 }

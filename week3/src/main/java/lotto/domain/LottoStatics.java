@@ -1,7 +1,9 @@
 package lotto.domain;
 
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lotto.dto.IncomeStatics;
 import lotto.dto.PrizeStatics;
@@ -40,13 +42,19 @@ public class LottoStatics {
     }
 
     private static EnumMap<LottoPrize, Long> calculatePrizeCount(List<Lotto> lottos, WinningLotto winningLotto) {
-        return lottos.stream()
+        EnumMap<LottoPrize, Long> prizeCount = lottos.stream()
                 .map(winningLotto::match)
+                .flatMap(Optional::stream)
                 .collect(Collectors.groupingBy(
                         rank -> rank,
                         () -> new EnumMap<>(LottoPrize.class),
                         Collectors.counting()
                 ));
+
+        Arrays.stream(LottoPrize.values())
+                .forEach(prize -> prizeCount.putIfAbsent(prize, 0L));
+
+        return prizeCount;
     }
 
     private static void validate(List<Lotto> lottos, WinningLotto winningLotto, Money money) {

@@ -30,6 +30,10 @@ public class Lotto {
         return lottos;
     }
 
+    public List<LottoNumber> getLottoNumbers() {
+        return lottoNumbers;
+    }
+
     private static int calculatePurchaseAmount(Money money) {
         return money.getAmountDividedBy(PRICE);
     }

@@ -5,8 +5,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lotto.dto.IncomeStatics;
-import lotto.dto.PrizeStatics;
 import lotto.exception.LottoNullException;
 import lotto.exception.MoneyNullException;
 import lotto.exception.WinningLottoNullException;
@@ -26,12 +24,12 @@ public class LottoStatics {
         return new LottoStatics(lottos, winningLotto, money);
     }
 
-    public PrizeStatics getPrizeStatics() {
-        return new PrizeStatics(this.prizeCount);
+    public EnumMap<LottoPrize, Long> getPrizeCount() {
+        return new EnumMap<>(this.prizeCount);
     }
 
-    public IncomeStatics getIncomeStatics() {
-        return new IncomeStatics((float) calculateTotalIncome() / this.money.getAmount());
+    public float getIncomeRate() {
+        return (float) calculateTotalIncome() / this.money.getAmount();
     }
 
     private long calculateTotalIncome() {

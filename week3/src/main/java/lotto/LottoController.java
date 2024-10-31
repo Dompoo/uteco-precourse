@@ -6,6 +6,8 @@ import lotto.domain.LottoStatics;
 import lotto.domain.Money;
 import lotto.domain.WinningLotto;
 import lotto.domain.numberProvider.NumberPicker;
+import lotto.dto.IncomeStatics;
+import lotto.dto.PrizeStatics;
 import lotto.dto.PurchasedLottoDto;
 import lotto.io.InputHandler;
 import lotto.io.OutputHandler;
@@ -51,7 +53,7 @@ public class LottoController {
 
         LottoStatics lottoStatics = LottoStatics.of(purchasedLottos, winningLotto, money);
 
-        outputHandler.handlePrizeStatics(lottoStatics.getPrizeStatics());
-        outputHandler.handleIncomeStatics(lottoStatics.getIncomeStatics());
+        outputHandler.handlePrizeStatics(PrizeStatics.from(lottoStatics));
+        outputHandler.handleIncomeStatics(IncomeStatics.from(lottoStatics));
     }
 }

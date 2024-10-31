@@ -6,6 +6,7 @@ import java.util.Set;
 import lotto.domain.numberProvider.NumberPicker;
 import lotto.exception.LottoNumberCountInvalidException;
 import lotto.exception.LottoNumberDuplicatedException;
+import lotto.exception.LottoNumberNullException;
 
 public class Lotto {
 
@@ -49,7 +50,11 @@ public class Lotto {
         return money.getAmountDividedBy(PRICE);
     }
 
-    private void validate(List<Number> numbers) {
+    private static void validate(List<Number> numbers) {
+        if (numbers == null) {
+            throw new LottoNumberNullException();
+        }
+
         if (numbers.size() != LOTTO_NUMBER_COUNT) {
             throw new LottoNumberCountInvalidException(LOTTO_NUMBER_COUNT);
         }

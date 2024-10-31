@@ -2,6 +2,8 @@ package lotto.domain;
 
 import java.util.List;
 import lotto.exception.BonusNumberDuplicatedException;
+import lotto.exception.BonusNumberNullException;
+import lotto.exception.LottoNullException;
 
 public class WinningLotto {
 
@@ -15,6 +17,14 @@ public class WinningLotto {
     }
 
     private static void validate(Lotto lotto, Number bonusNumber) {
+        if (lotto == null) {
+            throw new LottoNullException();
+        }
+
+        if (bonusNumber == null) {
+            throw new BonusNumberNullException();
+        }
+
         if (lotto.contains(bonusNumber)) {
             throw new BonusNumberDuplicatedException();
         }

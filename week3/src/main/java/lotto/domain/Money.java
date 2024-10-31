@@ -23,7 +23,7 @@ public class Money {
         return amount / divide;
     }
 
-    private void validate(int amount) {
+    private static void validate(int amount) {
         if (amount < 1000) {
             throw new MoneyAmountLackException(MIN_MONEY);
         }

@@ -5,7 +5,7 @@ import java.util.Objects;
 import lotto.domain.numberProvider.NumberPicker;
 import lotto.exception.LottoNumberInvalidException;
 
-public class Number {
+public class Number implements Comparable<Number> {
 
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 45;
@@ -40,6 +40,11 @@ public class Number {
     }
 
     @Override
+    public String toString() {
+        return Integer.toString(value);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -53,5 +58,10 @@ public class Number {
     @Override
     public int hashCode() {
         return Objects.hashCode(value);
+    }
+
+    @Override
+    public int compareTo(Number o) {
+        return this.value - o.value;
     }
 }

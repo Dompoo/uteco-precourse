@@ -1,8 +1,8 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import lotto.domain.numberProvider.NumberPicker;
 import lotto.exception.LottoNumberCountInvalidException;
 import lotto.exception.LottoNumberDuplicatedException;
@@ -17,7 +17,9 @@ public class Lotto {
 
     private Lotto(List<Number> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        this.numbers = numbers.stream()
+                .sorted()
+                .toList();
     }
 
     public static Lotto from(List<Integer> numbers) {
@@ -44,6 +46,11 @@ public class Lotto {
     public boolean contains(Number number) {
         return this.numbers.stream()
                 .anyMatch(number::equals);
+    }
+
+    @Override
+    public String toString() {
+        return numbers.toString();
     }
 
     private static int calculatePurchaseAmount(Money money) {

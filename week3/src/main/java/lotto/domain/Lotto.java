@@ -12,11 +12,15 @@ public class Lotto {
     private static final int LOTTO_NUMBER_COUNT = 6;
     private static final int PRICE = 1000;
 
-    private final List<LottoNumber> lottoNumbers;
+    private final List<Number> numbers;
 
-    private Lotto(List<LottoNumber> lottoNumbers) {
-        validate(lottoNumbers);
-        this.lottoNumbers = lottoNumbers;
+    private Lotto(List<Number> numbers) {
+        validate(numbers);
+        this.numbers = numbers;
+    }
+
+    public static Lotto from(List<Integer> numbers) {
+        return new Lotto(Number.from(numbers));
     }
 
     public static List<Lotto> purchase(Money money, NumberPicker numberPicker) {
@@ -24,31 +28,38 @@ public class Lotto {
 
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < purchaseAmount; i++) {
-            List<LottoNumber> lottoNumbers = LottoNumber.createUniqueLottoNumbers(LOTTO_NUMBER_COUNT, numberPicker);
-            lottos.add(new Lotto(lottoNumbers));
+            List<Number> numbers = Number.createUniqueNumbers(LOTTO_NUMBER_COUNT, numberPicker);
+            lottos.add(new Lotto(numbers));
         }
         return lottos;
     }
 
-    public List<LottoNumber> getLottoNumbers() {
-        return lottoNumbers;
+    public int getMatchCount(Lotto otherLotto) {
+        return (int) this.numbers.stream()
+                .filter(otherLotto.numbers::contains)
+                .count();
+    }
+
+    public boolean contains(Number number) {
+        return this.numbers.stream()
+                .anyMatch(number::equals);
     }
 
     private static int calculatePurchaseAmount(Money money) {
         return money.getAmountDividedBy(PRICE);
     }
 
-    private void validate(List<LottoNumber> lottoNumbers) {
-        if (lottoNumbers.size() != LOTTO_NUMBER_COUNT) {
+    private void validate(List<Number> numbers) {
+        if (numbers.size() != LOTTO_NUMBER_COUNT) {
             throw new LottoNumberCountInvalidException(LOTTO_NUMBER_COUNT);
         }
 
-        if (hasDuplicatedNumber(lottoNumbers)) {
+        if (hasDuplicatedNumber(numbers)) {
             throw new LottoNumberDuplicatedException();
         }
     }
 
-    private static boolean hasDuplicatedNumber(List<LottoNumber> lottoNumbers) {
-        return Set.of(lottoNumbers).size() != lottoNumbers.size();
+    private static boolean hasDuplicatedNumber(List<Number> numbers) {
+        return Set.of(numbers).size() != numbers.size();
     }
 }

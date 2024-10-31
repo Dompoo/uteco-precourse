@@ -4,27 +4,23 @@ import java.util.List;
 
 public class WinningLotto {
 
-    private final List<LottoNumber> numbers;
-    private final LottoNumber bonusNumber;
+    private final Lotto lotto;
+    private final Number bonusNumber;
 
-    private WinningLotto(List<LottoNumber> numbers, LottoNumber bonusNumber) {
-        this.numbers = numbers;
+    private WinningLotto(Lotto lotto, Number bonusNumber) {
+        // TODO : validation 필요
+        this.lotto = lotto;
         this.bonusNumber = bonusNumber;
     }
 
     public static WinningLotto of(List<Integer> numbers, int bonusNumber) {
-        return new WinningLotto(LottoNumber.from(numbers), LottoNumber.from(bonusNumber));
+        return new WinningLotto(Lotto.from(numbers), Number.from(bonusNumber));
     }
 
-    public LottoPrize match(Lotto lotto) {
-        List<LottoNumber> lottoNumbers = lotto.getLottoNumbers();
+    public LottoPrize match(Lotto targetLotto) {
+        int numberMatch = targetLotto.getMatchCount(lotto);
+        boolean bonusNumberMatch = targetLotto.contains(bonusNumber);
 
-        long numberMatch = this.numbers.stream()
-                .filter(lottoNumbers::contains)
-                .count();
-
-        boolean bonusNumberMatch = lottoNumbers.contains(bonusNumber);
-
-        return LottoPrize.calculatePrize((int) numberMatch, bonusNumberMatch);
+        return LottoPrize.calculatePrize(numberMatch, bonusNumberMatch);
     }
 }

@@ -5,36 +5,32 @@ import java.util.Objects;
 import lotto.domain.numberProvider.NumberPicker;
 import lotto.exception.LottoNumberInvalidException;
 
-public class LottoNumber {
+public class Number {
 
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 45;
 
     private final int value;
 
-    private LottoNumber(int value) {
+    private Number(int value) {
         validate(value);
         this.value = value;
     }
 
-    public static List<LottoNumber> from(List<Integer> numbers) {
+    public static Number from(int number) {
+        return new Number(number);
+    }
+
+    public static List<Number> from(List<Integer> numbers) {
         return numbers.stream()
-                .map(LottoNumber::new)
+                .map(Number::new)
                 .toList();
     }
 
-    public static LottoNumber from(int number) {
-        return new LottoNumber(number);
-    }
-
-    public static List<LottoNumber> createUniqueLottoNumbers(int count, NumberPicker numberPicker) {
+    public static List<Number> createUniqueNumbers(int count, NumberPicker numberPicker) {
         List<Integer> numbers = numberPicker.pickUniqueNumbersInRange(MIN_VALUE, MAX_VALUE, count);
 
         return from(numbers);
-    }
-
-    public int getValue() {
-        return value;
     }
 
     private static void validate(int value) {
@@ -48,14 +44,14 @@ public class LottoNumber {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof LottoNumber lottoNumber)) {
+        if (!(o instanceof Number number)) {
             return false;
         }
-        return getValue() == lottoNumber.getValue();
+        return this.value == number.value;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getValue());
+        return Objects.hashCode(value);
     }
 }

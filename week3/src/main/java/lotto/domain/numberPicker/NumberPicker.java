@@ -1,4 +1,4 @@
-package lotto.domain.numberProvider;
+package lotto.domain.numberPicker;
 
 import java.util.List;
 

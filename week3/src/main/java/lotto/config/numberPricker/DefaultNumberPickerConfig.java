@@ -1,7 +1,7 @@
 package lotto.config.numberPricker;
 
-import lotto.domain.numberProvider.NumberPicker;
-import lotto.domain.numberProvider.RandomNumberPicker;
+import lotto.domain.numberPicker.NumberPicker;
+import lotto.domain.numberPicker.RandomNumberPicker;
 
 public class DefaultNumberPickerConfig implements NumberPickerConfig {
 

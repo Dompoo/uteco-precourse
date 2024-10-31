@@ -1,4 +1,4 @@
-package lotto;
+package lotto.aop;
 
 import lotto.io.writer.Writer;
 

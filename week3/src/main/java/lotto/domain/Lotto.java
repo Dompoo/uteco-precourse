@@ -3,7 +3,7 @@ package lotto.domain;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import lotto.domain.numberProvider.NumberPicker;
+import lotto.domain.numberPicker.NumberPicker;
 import lotto.exception.LottoNumberCountInvalidException;
 import lotto.exception.LottoNumberDuplicatedException;
 import lotto.exception.LottoNumberNullException;

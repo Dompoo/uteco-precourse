@@ -1,10 +1,10 @@
 package lotto.config;
 
-import lotto.RetryHandler;
+import lotto.aop.RetryHandler;
 import lotto.config.numberPricker.NumberPickerConfig;
 import lotto.config.reader.ReaderConfig;
 import lotto.config.writer.WriterConfig;
-import lotto.domain.numberProvider.NumberPicker;
+import lotto.domain.numberPicker.NumberPicker;
 import lotto.io.InputHandler;
 import lotto.io.OutputHandler;
 

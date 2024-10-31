@@ -1,6 +1,6 @@
 package lotto.config.numberPricker;
 
-import lotto.domain.numberProvider.NumberPicker;
+import lotto.domain.numberPicker.NumberPicker;
 
 public interface NumberPickerConfig {
 

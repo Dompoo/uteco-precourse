@@ -1,4 +1,4 @@
-package lotto.domain.numberProvider;
+package lotto.domain.numberPicker;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.List;

@@ -2,7 +2,7 @@ package lotto.domain;
 
 import java.util.List;
 import java.util.Objects;
-import lotto.domain.numberProvider.NumberPicker;
+import lotto.domain.numberPicker.NumberPicker;
 import lotto.exception.LottoNumberInvalidException;
 
 public class Number implements Comparable<Number> {

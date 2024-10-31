@@ -6,6 +6,7 @@ import lotto.domain.LottoStatics;
 import lotto.domain.Money;
 import lotto.domain.WinningLotto;
 import lotto.domain.numberProvider.NumberPicker;
+import lotto.dto.PurchasedLottoDto;
 import lotto.io.InputHandler;
 import lotto.io.OutputHandler;
 
@@ -36,7 +37,7 @@ public class LottoController {
 
         List<Lotto> purchasedLottos = Lotto.purchase(money, numberPicker);
 
-        outputHandler.handlePurchasedLottos(purchasedLottos);
+        outputHandler.handlePurchasedLottos(PurchasedLottoDto.from(purchasedLottos));
 
         Lotto lotto = retryHandler.tryUntilSuccess(() -> {
             List<Integer> numbers = inputHandler.handleWinningLottoNumbers();

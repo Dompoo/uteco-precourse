@@ -2,11 +2,10 @@ package lotto.io;
 
 import java.text.DecimalFormat;
 import java.util.EnumMap;
-import java.util.List;
-import lotto.domain.Lotto;
 import lotto.domain.LottoPrize;
 import lotto.dto.IncomeStatics;
 import lotto.dto.PrizeStatics;
+import lotto.dto.PurchasedLottoDto;
 import lotto.io.writer.Writer;
 
 public class OutputHandler {
@@ -19,14 +18,14 @@ public class OutputHandler {
         this.writer = writer;
     }
 
-    public void handlePurchasedLottos(List<Lotto> lottos) {
+    public void handlePurchasedLottos(PurchasedLottoDto purchasedLottoDto) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(lottos.size());
+        stringBuilder.append(purchasedLottoDto.lottos().size());
         stringBuilder.append("개를 구매했습니다.\n");
 
-        for (Lotto lotto : lottos) {
-            stringBuilder.append(lotto);
+        for (String lottoValue : purchasedLottoDto.lottos()) {
+            stringBuilder.append(lottoValue);
             stringBuilder.append("\n");
         }
 

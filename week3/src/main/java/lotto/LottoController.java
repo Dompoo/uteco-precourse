@@ -38,10 +38,14 @@ public class LottoController {
 
         outputHandler.handlePurchasedLottos(purchasedLottos);
 
-        WinningLotto winningLotto = retryHandler.tryUntilSuccess(() -> {
+        Lotto lotto = retryHandler.tryUntilSuccess(() -> {
             List<Integer> numbers = inputHandler.handleWinningLottoNumbers();
+            return Lotto.from(numbers);
+        });
+
+        WinningLotto winningLotto = retryHandler.tryUntilSuccess(() -> {
             int bonusNumber = inputHandler.handleWinningLottoBonusNumber();
-            return WinningLotto.of(numbers, bonusNumber);
+            return WinningLotto.of(lotto, bonusNumber);
         });
 
         LottoStatics lottoStatics = LottoStatics.of(purchasedLottos, winningLotto, money);

@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import java.util.List;
 import java.util.Optional;
 import lotto.exception.BonusNumberDuplicatedException;
 import lotto.exception.BonusNumberNullException;
@@ -31,8 +30,8 @@ public class WinningLotto {
         }
     }
 
-    public static WinningLotto of(List<Integer> numbers, int bonusNumber) {
-        return new WinningLotto(Lotto.from(numbers), Number.from(bonusNumber));
+    public static WinningLotto of(Lotto lotto, int bonusNumber) {
+        return new WinningLotto(lotto, Number.from(bonusNumber));
     }
 
     public Optional<LottoPrize> match(Lotto targetLotto) {

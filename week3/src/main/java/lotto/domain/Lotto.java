@@ -65,6 +65,6 @@ public class Lotto {
     }
 
     private static boolean hasDuplicatedNumber(List<Number> numbers) {
-        return Set.of(numbers).size() != numbers.size();
+        return new HashSet<>(numbers).size() != numbers.size();
     }
 }

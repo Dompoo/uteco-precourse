@@ -60,6 +60,6 @@ public class OutputHandler {
 
     private String formatIncomeRate(float rate) {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.0%");
-        return decimalFormat.format(rate / 100);
+        return decimalFormat.format(rate);
     }
 }

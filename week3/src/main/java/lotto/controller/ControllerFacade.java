@@ -22,10 +22,9 @@ public class ControllerFacade {
     private final LottoStaticsController lottoStaticsController;
 
     public ControllerFacade(LottoConfig lottoConfig) {
-        this.moneyController = new MoneyControllerImpl(lottoConfig.getInputHandler(), lottoConfig.getRetryHandler());
+        this.moneyController = new MoneyControllerImpl(lottoConfig.getInputHandler());
         this.lottoController = new LottoControllerImpl(lottoConfig.getOutputHandler(), lottoConfig.getNumberPicker());
-        this.winningLottoController = new WinningLottoControllerImpl(lottoConfig.getInputHandler(),
-                lottoConfig.getRetryHandler());
+        this.winningLottoController = new WinningLottoControllerImpl(lottoConfig.getInputHandler());
         this.lottoStaticsController = new LottoStaticsControllerImpl(lottoConfig.getOutputHandler());
     }
 

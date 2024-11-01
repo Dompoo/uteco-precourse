@@ -61,4 +61,14 @@ public class OutputHandler {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.0%");
         return decimalFormat.format(rate);
     }
+
+    public void handleException(Exception e) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("[ERROR] ");
+        stringBuilder.append(e.getMessage());
+        stringBuilder.append("\n");
+
+        writer.writeLine(stringBuilder.toString());
+    }
 }

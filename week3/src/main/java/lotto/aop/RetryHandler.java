@@ -1,16 +1,16 @@
 package lotto.aop;
 
 import lotto.exception.OverMaxRetryAttempt;
-import lotto.io.writer.Writer;
+import lotto.io.OutputHandler;
 
 public class RetryHandler {
 
     private static final int MAX_RETRY = 10;
 
-    private final Writer writer;
+    private final OutputHandler outputHandler;
 
-    public RetryHandler(Writer writer) {
-        this.writer = writer;
+    public RetryHandler(OutputHandler outputHandler) {
+        this.outputHandler = outputHandler;
     }
 
     public <T> T tryUntilSuccess(ExceptionThrower<T> thrower) {
@@ -19,7 +19,7 @@ public class RetryHandler {
             try {
                 return thrower.run();
             } catch (Exception e) {
-                writer.writeLine(e.getMessage());
+                outputHandler.handleException(e);
             }
         }
         throw new OverMaxRetryAttempt();

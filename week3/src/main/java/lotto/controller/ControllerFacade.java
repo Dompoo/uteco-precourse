@@ -32,7 +32,8 @@ public class ControllerFacade {
     public void run() {
         Money money = moneyController.getMoney();
         List<Lotto> purchasedLottos = lottoController.purchaseLottos(money);
-        WinningLotto winningLotto = winningLottoController.getWinningLotto();
+        Lotto lotto = winningLottoController.getWinningNumbers();
+        WinningLotto winningLotto = winningLottoController.getWinningLotto(lotto);
         lottoStaticsController.calculateStatics(purchasedLottos, winningLotto, money);
     }
 }

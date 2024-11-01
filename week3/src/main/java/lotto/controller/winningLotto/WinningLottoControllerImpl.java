@@ -2,6 +2,7 @@ package lotto.controller.winningLotto;
 
 import java.util.List;
 import lotto.aop.RetryHandler;
+import lotto.domain.Lotto;
 import lotto.domain.WinningLotto;
 import lotto.io.InputHandler;
 
@@ -16,12 +17,18 @@ public class WinningLottoControllerImpl implements WinningLottoController {
     }
 
     @Override
-    public WinningLotto getWinningLotto() {
+    public Lotto getWinningNumbers() {
         return retryHandler.tryUntilSuccess(() -> {
             List<Integer> winningNumbers = inputHandler.handleWinningNumbers();
-            int bonusNumber = inputHandler.handleBonusNumber();
+            return Lotto.from(winningNumbers);
+        });
+    }
 
-            return WinningLotto.of(winningNumbers, bonusNumber);
+    @Override
+    public WinningLotto getWinningLotto(Lotto lotto) {
+        return retryHandler.tryUntilSuccess(() -> {
+            int bonusNumber = inputHandler.handleBonusNumber();
+            return WinningLotto.of(lotto, bonusNumber);
         });
     }
 }

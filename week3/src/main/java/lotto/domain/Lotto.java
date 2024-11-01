@@ -22,10 +22,6 @@ public class Lotto {
                 .toList();
     }
 
-    public static Lotto from(List<Integer> numbers) {
-        return new Lotto(Number.from(numbers));
-    }
-
     public static List<Lotto> purchase(Money money, NumberPicker numberPicker) {
         int purchaseAmount = calculatePurchaseAmount(money);
 
@@ -37,9 +33,9 @@ public class Lotto {
         return lottos;
     }
 
-    public int getMatchCount(Lotto otherLotto) {
+    public int getMatchCount(List<Number> numbers) {
         return (int) this.numbers.stream()
-                .filter(otherLotto.numbers::contains)
+                .filter(numbers::contains)
                 .count();
     }
 

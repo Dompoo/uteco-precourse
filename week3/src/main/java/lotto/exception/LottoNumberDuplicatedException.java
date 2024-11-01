@@ -2,7 +2,7 @@ package lotto.exception;
 
 public class LottoNumberDuplicatedException extends IllegalArgumentException {
 
-    private static final String MESSAGE = "중복된 로또 번호입니다.";
+    private static final String MESSAGE = "로또 번호에 중복된 숫자가 있습니다.";
 
     public LottoNumberDuplicatedException() {
         super(MESSAGE);

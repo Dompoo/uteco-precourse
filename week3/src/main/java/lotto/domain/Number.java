@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import lotto.domain.numberPicker.NumberPicker;
 import lotto.exception.LottoNumberInvalidException;
+import lotto.exception.LottoNumberNullException;
 
 public class Number implements Comparable<Number> {
 
@@ -22,6 +23,7 @@ public class Number implements Comparable<Number> {
     }
 
     public static List<Number> from(List<Integer> numbers) {
+        validate(numbers);
         return numbers.stream()
                 .map(Number::new)
                 .toList();
@@ -36,6 +38,12 @@ public class Number implements Comparable<Number> {
     private static void validate(int value) {
         if (!(MIN_VALUE <= value && value <= MAX_VALUE)) {
             throw new LottoNumberInvalidException(MIN_VALUE, MAX_VALUE);
+        }
+    }
+
+    private static void validate(List<Integer> numbers) {
+        if (numbers == null) {
+            throw new LottoNumberNullException();
         }
     }
 

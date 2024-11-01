@@ -1,7 +1,6 @@
-package lotto;
+package lotto.controller;
 
 import java.util.List;
-import lotto.aop.RetryHandler;
 import lotto.config.LottoConfig;
 import lotto.domain.Lotto;
 import lotto.domain.LottoStatics;
@@ -14,45 +13,45 @@ import lotto.dto.PurchasedLottoDto;
 import lotto.io.InputHandler;
 import lotto.io.OutputHandler;
 
-public class LottoController {
+public class LottoControllerImpl implements LottoController {
 
     private final InputHandler inputHandler;
     private final OutputHandler outputHandler;
-    private final RetryHandler retryHandler;
     private final NumberPicker numberPicker;
 
-    public LottoController(
+    public LottoControllerImpl(
             LottoConfig lottoConfig
     ) {
         this.inputHandler = lottoConfig.getInputHandler();
         this.outputHandler = lottoConfig.getOutputHandler();
-        this.retryHandler = lottoConfig.getRetryHandler();
         this.numberPicker = lottoConfig.getNumberPicker();
     }
 
     public void run() {
-        Money money = retryHandler.tryUntilSuccess(() -> {
-            int amount = inputHandler.handlePurchaseAmount();
-            return Money.from(amount);
-        });
+        Money money = getMoney();
 
         List<Lotto> purchasedLottos = Lotto.purchase(money, numberPicker);
 
         outputHandler.handlePurchasedLottos(PurchasedLottoDto.from(purchasedLottos));
 
-        Lotto lotto = retryHandler.tryUntilSuccess(() -> {
-            List<Integer> numbers = inputHandler.handleWinningLottoNumbers();
-            return Lotto.from(numbers);
-        });
-
-        WinningLotto winningLotto = retryHandler.tryUntilSuccess(() -> {
-            int bonusNumber = inputHandler.handleWinningLottoBonusNumber();
-            return WinningLotto.of(lotto, bonusNumber);
-        });
+        WinningLotto winningLotto = getWinningLotto();
 
         LottoStatics lottoStatics = LottoStatics.of(purchasedLottos, winningLotto, money);
 
         outputHandler.handlePrizeStatics(PrizeStatics.from(lottoStatics));
         outputHandler.handleIncomeStatics(IncomeStatics.from(lottoStatics));
+    }
+
+    @Override
+    public Money getMoney() {
+        int amount = inputHandler.handlePurchaseCost();
+        return Money.from(amount);
+    }
+
+    @Override
+    public WinningLotto getWinningLotto() {
+        List<Integer> winningNumbers = inputHandler.handleWinningNumbers();
+        int bonusNumber = inputHandler.handleBonusNumber();
+        return WinningLotto.of(winningNumbers, bonusNumber);
     }
 }

@@ -31,6 +31,4 @@ public class Money {
             throw new MoneyUnitInvalidException(MONEY_UNIT);
         }
     }
-
-    // TODO : 추가 기능 구현
 }

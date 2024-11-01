@@ -2,7 +2,7 @@ package lotto.io;
 
 import lotto.dto.IncomeStatics;
 import lotto.dto.PrizeStatics;
-import lotto.dto.PurchasedLottoDto;
+import lotto.dto.PurchasedLottos;
 import lotto.io.writer.Writer;
 
 public class OutputHandler {
@@ -15,8 +15,8 @@ public class OutputHandler {
         this.outputParser = outputParser;
     }
 
-    public void handlePurchasedLottos(PurchasedLottoDto purchasedLottoDto) {
-        String message = outputParser.parsePurchasedLottos(purchasedLottoDto);
+    public void handlePurchasedLottos(PurchasedLottos purchasedLottos) {
+        String message = outputParser.parsePurchasedLottos(purchasedLottos);
         writer.writeLine(message);
     }
 

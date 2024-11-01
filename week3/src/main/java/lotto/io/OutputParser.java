@@ -3,28 +3,28 @@ package lotto.io;
 import java.text.DecimalFormat;
 import lotto.dto.IncomeStatics;
 import lotto.dto.PrizeStatics;
-import lotto.dto.PurchasedLottoDto;
+import lotto.dto.PurchasedLottos;
 
 public class OutputParser {
 
     private static final String NEW_LINE = "\n";
 
-    String parsePurchasedLottos(PurchasedLottoDto purchasedLottoDto) {
+    String parsePurchasedLottos(PurchasedLottos purchasedLottos) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(NEW_LINE);
-        stringBuilder.append(purchasedLottoDto.lottos().size());
+        stringBuilder.append(purchasedLottos.lottos().size());
         stringBuilder.append("개를 구매했습니다.");
         stringBuilder.append(NEW_LINE);
-        stringBuilder.append(getPurchasedLottoString(purchasedLottoDto));
+        stringBuilder.append(getPurchasedLottoString(purchasedLottos));
 
         return stringBuilder.toString();
     }
 
-    private static String getPurchasedLottoString(PurchasedLottoDto purchasedLottoDto) {
+    private static String getPurchasedLottoString(PurchasedLottos purchasedLottos) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        purchasedLottoDto.lottos().forEach(lotto -> {
+        purchasedLottos.lottos().forEach(lotto -> {
             stringBuilder.append(lotto);
             stringBuilder.append(NEW_LINE);
         });

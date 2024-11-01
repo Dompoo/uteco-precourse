@@ -4,7 +4,7 @@ import java.util.List;
 import lotto.domain.Lotto;
 import lotto.domain.Money;
 import lotto.domain.numberPicker.NumberPicker;
-import lotto.dto.PurchasedLottoDto;
+import lotto.dto.PurchasedLottos;
 import lotto.io.OutputHandler;
 
 public class LottoControllerImpl implements LottoController {
@@ -20,7 +20,7 @@ public class LottoControllerImpl implements LottoController {
     @Override
     public List<Lotto> purchaseLottos(Money money) {
         List<Lotto> purchasedLottos = Lotto.purchase(money, numberPicker);
-        outputHandler.handlePurchasedLottos(PurchasedLottoDto.from(purchasedLottos));
+        outputHandler.handlePurchasedLottos(PurchasedLottos.from(purchasedLottos));
         return purchasedLottos;
     }
 }

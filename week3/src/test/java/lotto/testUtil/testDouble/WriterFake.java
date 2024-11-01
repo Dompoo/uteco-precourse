@@ -1,4 +1,4 @@
-package lotto.testutil;
+package lotto.testUtil.testDouble;
 
 import java.util.ArrayList;
 import java.util.List;

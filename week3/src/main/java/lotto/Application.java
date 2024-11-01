@@ -4,6 +4,7 @@ import lotto.config.LottoConfig;
 import lotto.config.numberPricker.DefaultNumberPickerConfig;
 import lotto.config.reader.DefaultReaderConfig;
 import lotto.config.writer.DefaultWriterConfig;
+import lotto.controller.ControllerFacade;
 
 public class Application {
 
@@ -14,8 +15,8 @@ public class Application {
                 new DefaultNumberPickerConfig()
         );
 
-        LottoController lottoController = new LottoController(lottoConfig);
+        ControllerFacade controller = new ControllerFacade(lottoConfig);
 
-        lottoController.run();
+        controller.run();
     }
 }

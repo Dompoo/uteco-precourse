@@ -1,22 +1,14 @@
 package lotto;
 
-import lotto.config.LottoConfig;
-import lotto.config.numberPricker.DefaultNumberPickerConfig;
-import lotto.config.reader.DefaultReaderConfig;
-import lotto.config.writer.DefaultWriterConfig;
-import lotto.controller.ControllerFacade;
+import lotto.config.ApplicationConfig;
+import lotto.controller.LottoApplication;
 
 public class Application {
 
     public static void main(String[] args) {
-        LottoConfig lottoConfig = new LottoConfig(
-                new DefaultReaderConfig(),
-                new DefaultWriterConfig(),
-                new DefaultNumberPickerConfig()
-        );
+        ApplicationConfig applicationConfig = new ApplicationConfig();
 
-        ControllerFacade controller = new ControllerFacade(lottoConfig);
-
-        controller.run();
+        LottoApplication lottoApplication = applicationConfig.getLottoApplication();
+        lottoApplication.run();
     }
 }

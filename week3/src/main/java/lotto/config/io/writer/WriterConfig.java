@@ -1,4 +1,4 @@
-package lotto.config.writer;
+package lotto.config.io.writer;
 
 import lotto.io.writer.Writer;
 

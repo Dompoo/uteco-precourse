@@ -1,4 +1,4 @@
-package lotto.config.reader;
+package lotto.config.io.reader;
 
 import lotto.io.reader.MissionUtilsReader;
 import lotto.io.reader.Reader;

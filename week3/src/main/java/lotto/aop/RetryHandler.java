@@ -19,14 +19,14 @@ public class RetryHandler {
             try {
                 return thrower.run();
             } catch (IllegalArgumentException illegalArgumentException) {
-                outputHandler.handleException(illegalArgumentException);
+                outputHandler.handleExceptionMessage(illegalArgumentException);
             } catch (Exception exception) {
-                outputHandler.handleException(exception);
+                outputHandler.handleExceptionMessage(exception);
                 throw exception;
             }
         }
         OverMaxRetryException overMaxRetryException = new OverMaxRetryException();
-        outputHandler.handleException(overMaxRetryException);
+        outputHandler.handleExceptionMessage(overMaxRetryException);
         throw overMaxRetryException;
     }
 

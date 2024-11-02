@@ -1,6 +1,5 @@
 package lotto.io;
 
-import java.text.DecimalFormat;
 import lotto.dto.IncomeStatics;
 import lotto.dto.PrizeStatics;
 import lotto.dto.PurchasedLottos;
@@ -9,7 +8,7 @@ public class OutputParser {
 
     private static final String NEW_LINE = "\n";
 
-    String parsePurchasedLottos(PurchasedLottos purchasedLottos) {
+    public String parsePurchasedLottos(PurchasedLottos purchasedLottos) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(NEW_LINE);
@@ -32,7 +31,7 @@ public class OutputParser {
         return stringBuilder.toString();
     }
 
-    String parsePrizeStatics(PrizeStatics prizeStatics) {
+    public String parsePrizeStatics(PrizeStatics prizeStatics) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(NEW_LINE);
@@ -58,22 +57,21 @@ public class OutputParser {
         return stringBuilder.toString();
     }
 
-    String parseIncomeStatics(IncomeStatics incomeStatics) {
+    public String parseIncomeStatics(IncomeStatics incomeStatics) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("총 수익률은 ");
         stringBuilder.append(formatRate(incomeStatics.incomeRate()));
-        stringBuilder.append("입니다.");
+        stringBuilder.append("%입니다.");
 
         return stringBuilder.toString();
     }
 
     private static String formatRate(float rate) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.0%");
-        return decimalFormat.format(rate);
+        return String.valueOf((float) Math.round(rate * 1000) / 10);
     }
 
-    String parseException(Exception e) {
+    public String parseExceptionMessage(Exception e) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(NEW_LINE);

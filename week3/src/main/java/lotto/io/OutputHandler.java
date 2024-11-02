@@ -30,8 +30,8 @@ public class OutputHandler {
         writer.writeLine(message);
     }
 
-    public void handleException(Exception exception) {
-        String message = outputParser.parseException(exception);
+    public void handleExceptionMessage(Exception exception) {
+        String message = outputParser.parseExceptionMessage(exception);
         writer.writeLine(message);
     }
 }

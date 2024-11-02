@@ -3,7 +3,7 @@ package lotto.controller.winningLotto;
 import java.util.List;
 import lotto.domain.Lotto;
 import lotto.domain.WinningLotto;
-import lotto.io.InputHandler;
+import lotto.io.inputHandler.InputHandler;
 
 public class WinningLottoControllerImpl implements WinningLottoController {
 

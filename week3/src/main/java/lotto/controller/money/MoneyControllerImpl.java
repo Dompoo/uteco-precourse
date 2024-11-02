@@ -1,7 +1,7 @@
 package lotto.controller.money;
 
 import lotto.domain.Money;
-import lotto.io.InputHandler;
+import lotto.io.inputHandler.InputHandler;
 
 public class MoneyControllerImpl implements MoneyController {
 

@@ -5,6 +5,7 @@ import java.util.Objects;
 import lotto.domain.numberPicker.NumberPicker;
 import lotto.domain.validator.ParamsValidator;
 import lotto.exception.LottoNumberInvalidException;
+import lotto.exception.NumberCreationCountExceedException;
 
 public class Number implements Comparable<Number> {
 
@@ -41,9 +42,19 @@ public class Number implements Comparable<Number> {
     public static List<Number> createUniqueNumbers(Integer count, NumberPicker numberPicker) {
         ParamsValidator.validateParamsNotNull(Number.class, count, numberPicker);
 
+        validateCreationCountWithinLimit(count);
+
         List<Integer> numbers = numberPicker.pickUniqueNumbersInRange(MIN_VALUE, MAX_VALUE, count);
 
         return from(numbers);
+    }
+
+    private static void validateCreationCountWithinLimit(Integer count) {
+        int maxCreationCount = MAX_VALUE - MIN_VALUE + 1;
+
+        if (count > maxCreationCount) {
+            throw new NumberCreationCountExceedException(maxCreationCount);
+        }
     }
 
     @Override

@@ -52,4 +52,15 @@ class MoneyTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("구입금액은 1000원 단위입니다.");
     }
+
+    @Test
+    void 금액이_null이면_예외가_발생한다() {
+        //given
+        Integer amount = null;
+
+        //expected
+        assertThatThrownBy(() -> Money.from(amount))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Money에 전달된 파라미터가 null입니다.");
+    }
 }

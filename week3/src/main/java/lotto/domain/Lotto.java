@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import lotto.domain.numberPicker.NumberPicker;
+import lotto.domain.validator.ParamsValidator;
 import lotto.exception.LottoNumberCountInvalidException;
 import lotto.exception.LottoNumberDuplicatedException;
-import lotto.exception.LottoNumberNullException;
 
 public class Lotto {
 
@@ -16,17 +16,38 @@ public class Lotto {
     private final List<Number> numbers;
 
     private Lotto(List<Number> numbers) {
-        validate(numbers);
+        validateNumbersCount(numbers);
+        validateNumbersNotDuplicated(numbers);
         this.numbers = numbers.stream()
                 .sorted()
                 .toList();
     }
 
+    private static void validateNumbersCount(List<Number> numbers) {
+        if (numbers.size() != LOTTO_NUMBER_COUNT) {
+            throw new LottoNumberCountInvalidException(LOTTO_NUMBER_COUNT);
+        }
+    }
+
+    private static void validateNumbersNotDuplicated(List<Number> numbers) {
+        if (hasDuplicatedNumber(numbers)) {
+            throw new LottoNumberDuplicatedException();
+        }
+    }
+
+    private static boolean hasDuplicatedNumber(List<Number> numbers) {
+        return new HashSet<>(numbers).size() != numbers.size();
+    }
+
     public static Lotto from(List<Integer> numbers) {
+        ParamsValidator.validateParamsNotNull(Lotto.class, numbers);
+
         return new Lotto(Number.from(numbers));
     }
 
     public static List<Lotto> purchase(Money money, NumberPicker numberPicker) {
+        ParamsValidator.validateParamsNotNull(Lotto.class, money, numberPicker);
+
         int purchaseAmount = calculatePurchaseAmount(money);
 
         List<Lotto> lottos = new ArrayList<>();
@@ -37,13 +58,21 @@ public class Lotto {
         return lottos;
     }
 
+    private static int calculatePurchaseAmount(Money money) {
+        return money.getAmount() / PRICE;
+    }
+
     public int getMatchCount(Lotto otherLotto) {
+        ParamsValidator.validateParamsNotNull(Lotto.class, otherLotto);
+
         return (int) this.numbers.stream()
                 .filter(otherLotto.numbers::contains)
                 .count();
     }
 
     public boolean contains(Number number) {
+        ParamsValidator.validateParamsNotNull(Lotto.class, number);
+
         return this.numbers.stream()
                 .anyMatch(number::equals);
     }
@@ -51,27 +80,5 @@ public class Lotto {
     @Override
     public String toString() {
         return numbers.toString();
-    }
-
-    private static int calculatePurchaseAmount(Money money) {
-        return money.getAmount() / PRICE;
-    }
-
-    private static void validate(List<Number> numbers) {
-        if (numbers == null) {
-            throw new LottoNumberNullException();
-        }
-
-        if (numbers.size() != LOTTO_NUMBER_COUNT) {
-            throw new LottoNumberCountInvalidException(LOTTO_NUMBER_COUNT);
-        }
-
-        if (hasDuplicatedNumber(numbers)) {
-            throw new LottoNumberDuplicatedException();
-        }
-    }
-
-    private static boolean hasDuplicatedNumber(List<Number> numbers) {
-        return new HashSet<>(numbers).size() != numbers.size();
     }
 }

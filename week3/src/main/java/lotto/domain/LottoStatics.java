@@ -5,9 +5,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lotto.exception.LottoNullException;
-import lotto.exception.MoneyNullException;
-import lotto.exception.WinningLottoNullException;
+import lotto.domain.validator.ParamsValidator;
 
 public class LottoStatics {
 
@@ -15,28 +13,8 @@ public class LottoStatics {
     private final Money money;
 
     private LottoStatics(List<Lotto> lottos, WinningLotto winningLotto, Money money) {
-        validate(lottos, winningLotto, money);
         this.prizeCount = calculatePrizeCount(lottos, winningLotto);
         this.money = money;
-    }
-
-    public static LottoStatics of(List<Lotto> lottos, WinningLotto winningLotto, Money money) {
-        return new LottoStatics(lottos, winningLotto, money);
-    }
-
-    public EnumMap<LottoPrize, Long> getPrizeCount() {
-        return new EnumMap<>(this.prizeCount);
-    }
-
-    public float getIncomeRate() {
-        return (float) calculateTotalIncome() / this.money.getAmount();
-    }
-
-    private long calculateTotalIncome() {
-        return prizeCount.keySet().stream()
-                .map(lottoPrize -> lottoPrize.prizeMoney * prizeCount.get(lottoPrize))
-                .reduce(Long::sum)
-                .orElse(0L);
     }
 
     private static EnumMap<LottoPrize, Long> calculatePrizeCount(List<Lotto> lottos, WinningLotto winningLotto) {
@@ -55,17 +33,23 @@ public class LottoStatics {
         return prizeCount;
     }
 
-    private static void validate(List<Lotto> lottos, WinningLotto winningLotto, Money money) {
-        if (lottos == null) {
-            throw new LottoNullException();
-        }
+    public static LottoStatics of(List<Lotto> lottos, WinningLotto winningLotto, Money money) {
+        ParamsValidator.validateParamsNotNull(LottoStatics.class, lottos, winningLotto, money);
+        return new LottoStatics(lottos, winningLotto, money);
+    }
 
-        if (winningLotto == null) {
-            throw new WinningLottoNullException();
-        }
+    public EnumMap<LottoPrize, Long> getPrizeCount() {
+        return new EnumMap<>(this.prizeCount);
+    }
 
-        if (money == null) {
-            throw new MoneyNullException();
-        }
+    public float getIncomeRate() {
+        return (float) calculateTotalIncome() / this.money.getAmount();
+    }
+
+    private long calculateTotalIncome() {
+        return prizeCount.keySet().stream()
+                .map(lottoPrize -> lottoPrize.prizeMoney * prizeCount.get(lottoPrize))
+                .reduce(Long::sum)
+                .orElse(0L);
     }
 }

@@ -1,7 +1,7 @@
 package lotto.domain;
 
-import lotto.exception.MoneyAmountLackException;
-import lotto.exception.MoneyAmountOverException;
+import lotto.domain.validator.ParamsValidator;
+import lotto.exception.MoneyAmountOutOfRangeException;
 import lotto.exception.MoneyUnitInvalidException;
 
 public class Money {
@@ -13,29 +13,30 @@ public class Money {
     private final int amount;
 
     private Money(int amount) {
-        validate(amount);
+        validateMoneyInRange(amount);
+        validateMoneyUnit(amount);
         this.amount = amount;
     }
 
-    public static Money from(int amount) {
+    private static void validateMoneyInRange(int amount) {
+        if (amount < MIN_MONEY || MAX_MONEY < amount) {
+            throw new MoneyAmountOutOfRangeException(MIN_MONEY, MAX_MONEY);
+        }
+    }
+
+    private static void validateMoneyUnit(int amount) {
+        if (amount % MONEY_UNIT != 0) {
+            throw new MoneyUnitInvalidException(MONEY_UNIT);
+        }
+    }
+
+    public static Money from(Integer amount) {
+        ParamsValidator.validateParamsNotNull(Money.class, amount);
+
         return new Money(amount);
     }
 
     public int getAmount() {
         return amount;
-    }
-
-    private static void validate(int amount) {
-        if (amount < MIN_MONEY) {
-            throw new MoneyAmountLackException(MIN_MONEY);
-        }
-
-        if (amount > MAX_MONEY) {
-            throw new MoneyAmountOverException(MAX_MONEY);
-        }
-
-        if (amount % MONEY_UNIT != 0) {
-            throw new MoneyUnitInvalidException(MONEY_UNIT);
-        }
     }
 }

@@ -32,8 +32,8 @@ class LottoTest {
 
         //expected
         assertThatThrownBy(() -> Lotto.from(numbers))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("유효하지 않은 로또 번호입니다.");
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("Lotto에 전달된 파라미터가 null입니다.");
     }
 
     @Test
@@ -96,7 +96,7 @@ class LottoTest {
             "1000, 1",
             "2000, 2",
             "3000, 3",
-            "10000000, 10000",
+            "100000, 100",
     })
     void 로또를_여러개_구매한다(int moneyAmount, int expectedCount) {
         //given

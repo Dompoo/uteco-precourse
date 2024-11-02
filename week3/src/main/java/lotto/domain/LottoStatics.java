@@ -19,7 +19,7 @@ public class LottoStatics {
 
     private static EnumMap<LottoPrize, Long> calculatePrizeCount(List<Lotto> lottos, WinningLotto winningLotto) {
         EnumMap<LottoPrize, Long> prizeCount = lottos.stream()
-                .map(winningLotto::match)
+                .map(winningLotto::matchLotto)
                 .flatMap(Optional::stream)
                 .collect(Collectors.groupingBy(
                         rank -> rank,

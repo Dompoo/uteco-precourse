@@ -6,31 +6,31 @@ import lotto.exception.BonusNumberDuplicatedException;
 
 public class WinningLotto {
 
-    private final Lotto lotto;
+    private final Lotto winningNumbers;
     private final Number bonusNumber;
 
-    private WinningLotto(Lotto lotto, Number bonusNumber) {
-        validateBonusNumberNotDuplicated(lotto, bonusNumber);
-        this.lotto = lotto;
+    private WinningLotto(Lotto winningNumbers, Number bonusNumber) {
+        validateBonusNumberNotDuplicated(winningNumbers, bonusNumber);
+        this.winningNumbers = winningNumbers;
         this.bonusNumber = bonusNumber;
     }
 
-    private static void validateBonusNumberNotDuplicated(Lotto lotto, Number bonusNumber) {
-        if (lotto.contains(bonusNumber)) {
+    private static void validateBonusNumberNotDuplicated(Lotto winningNumbers, Number bonusNumber) {
+        if (winningNumbers.contains(bonusNumber)) {
             throw new BonusNumberDuplicatedException();
         }
     }
 
-    public static WinningLotto of(Lotto lotto, Integer bonusNumber) {
-        ParamsValidator.validateParamsNotNull(WinningLotto.class, lotto, bonusNumber);
+    public static WinningLotto of(Lotto winningNumbers, Integer bonusNumber) {
+        ParamsValidator.validateParamsNotNull(WinningLotto.class, winningNumbers, bonusNumber);
 
-        return new WinningLotto(lotto, Number.from(bonusNumber));
+        return new WinningLotto(winningNumbers, Number.from(bonusNumber));
     }
 
-    public Optional<LottoPrize> match(Lotto targetLotto) {
+    public Optional<LottoPrize> matchLotto(Lotto targetLotto) {
         ParamsValidator.validateParamsNotNull(WinningLotto.class, targetLotto);
 
-        int numberMatch = targetLotto.getMatchCount(lotto);
+        int numberMatch = targetLotto.getMatchCount(winningNumbers);
         boolean bonusNumberMatch = targetLotto.contains(bonusNumber);
 
         return LottoPrize.calculatePrize(numberMatch, bonusNumberMatch);

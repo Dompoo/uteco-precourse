@@ -144,7 +144,7 @@ class NumberTest {
     }
 
     @Test
-    void 생성된_로또번호는_내부_값으로_비교된다() {
+    void 로또번호는_내부_값으로_비교된다() {
         //given
         int value = 30;
         Number sut = Number.from(value);
@@ -154,6 +154,18 @@ class NumberTest {
 
         //then
         assertThat(sut).isEqualTo(target);
+    }
+
+    @Test
+    void 로또번호를_다른_타입의_객체와_비교하면_거짓이다() {
+        //given
+        Number sut = Number.from(30);
+
+        //when
+        Object target = new Object();
+
+        //then
+        assertThat(sut).isNotEqualTo(target);
     }
 
 

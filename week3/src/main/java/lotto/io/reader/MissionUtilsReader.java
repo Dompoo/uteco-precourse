@@ -3,35 +3,35 @@ package lotto.io.reader;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
-import lotto.exception.IllegalInputException;
+import java.util.function.Supplier;
 import lotto.exception.IllegalNumberFormatException;
 
 public class MissionUtilsReader implements Reader {
 
     @Override
     public List<Integer> readLineAsNumbers(String spliter) {
-        try {
+        return withHandleException(() -> {
             String input = Console.readLine();
             return Arrays.stream(input.split(spliter))
                     .map(String::trim)
                     .map(Integer::parseInt)
                     .toList();
-        } catch (NumberFormatException numberFormatException) {
-            throw new IllegalNumberFormatException();
-        } catch (Exception exception) {
-            throw new IllegalInputException();
-        }
+        });
     }
 
     @Override
     public int readLineAsNumber() {
-        try {
+        return withHandleException(() -> {
             String input = Console.readLine();
             return Integer.parseInt(input);
+        });
+    }
+
+    private static <T> T withHandleException(Supplier<T> supplier) {
+        try {
+            return supplier.get();
         } catch (NumberFormatException numberFormatException) {
             throw new IllegalNumberFormatException();
-        } catch (Exception exception) {
-            throw new IllegalInputException();
         }
     }
 }

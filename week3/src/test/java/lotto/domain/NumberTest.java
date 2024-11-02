@@ -168,7 +168,6 @@ class NumberTest {
         assertThat(sut).isNotEqualTo(target);
     }
 
-
     private static Stream<Arguments> provideNumbersWithLessThan1() {
         return Stream.of(
                 Arguments.of(List.of(-100, 2, 3, 4, 5, 7)),

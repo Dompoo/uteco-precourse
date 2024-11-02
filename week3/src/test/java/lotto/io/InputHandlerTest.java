@@ -56,5 +56,4 @@ class InputHandlerTest {
         assertThat(result).isEqualTo(7);
         assertThat(writerFake.getOutputs()).contains("보너스 번호를 입력해 주세요.");
     }
-
 }

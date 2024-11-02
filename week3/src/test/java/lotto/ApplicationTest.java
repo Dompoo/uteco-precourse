@@ -1,16 +1,15 @@
 package lotto;
 
-import camp.nextstep.edu.missionutils.test.NsTest;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomUniqueNumbersInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import camp.nextstep.edu.missionutils.test.NsTest;
+import java.util.List;
+import org.junit.jupiter.api.Test;
 
 class ApplicationTest extends NsTest {
-    private static final String ERROR_MESSAGE = "[ERROR]";
 
     @Test
     void 기능_테스트() {
@@ -47,10 +46,23 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 예외_테스트() {
+    void 구입금액에_문자가_들어가면_예외메시지가_출력된다() {
         assertSimpleTest(() -> {
             runException("1000j");
-            assertThat(output()).contains(ERROR_MESSAGE);
+            assertThat(output()).contains("[ERROR]");
+        });
+    }
+
+    @Test
+    void 잘못된_값을_10번_입력하면_예외가_발생한다() {
+        assertSimpleTest(() -> {
+            assertThatThrownBy(() -> runException(
+                    "1000j", "1000j", "1000j", "1000j", "1000j",
+                    "1000j", "1000j", "1000j", "1000j", "1000j"))
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage("최대 시도 횟수를 초과했습니다.");
+
+            assertThat(output()).contains("최대 시도 횟수를 초과했습니다.");
         });
     }
 

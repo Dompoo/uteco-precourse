@@ -14,7 +14,7 @@ public class MoneyControllerRetryProxy implements MoneyController {
     }
 
     @Override
-    public Money getMoney() {
-        return retryHandler.tryUntilSuccess(target::getMoney);
+    public Money readMoney() {
+        return retryHandler.tryUntilSuccess(target::readMoney);
     }
 }

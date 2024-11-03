@@ -15,12 +15,12 @@ public class WinningLottoControllerRetryProxy implements WinningLottoController 
     }
 
     @Override
-    public Lotto getWinningNumbers() {
-        return retryHandler.tryUntilSuccess(target::getWinningNumbers);
+    public Lotto readWinningNumbers() {
+        return retryHandler.tryUntilSuccess(target::readWinningNumbers);
     }
 
     @Override
-    public WinningLotto getWinningLotto(Lotto lotto) {
-        return retryHandler.tryUntilSuccess(() -> target.getWinningLotto(lotto));
+    public WinningLotto createWinningLotto(Lotto lotto) {
+        return retryHandler.tryUntilSuccess(() -> target.createWinningLotto(lotto));
     }
 }

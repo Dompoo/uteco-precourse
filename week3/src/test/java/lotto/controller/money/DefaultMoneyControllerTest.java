@@ -16,7 +16,7 @@ class DefaultMoneyControllerTest {
         inputHandlerStub.stubPurchaseCost(10000);
 
         //when
-        Money result = sut.getMoney();
+        Money result = sut.readMoney();
 
         //then
         assertThat(result.getAmount()).isEqualTo(10000);

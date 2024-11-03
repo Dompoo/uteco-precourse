@@ -7,5 +7,5 @@ import lotto.domain.WinningLotto;
 
 public interface LottoStaticsController {
 
-    void calculateStatics(List<Lotto> purchasedLottos, WinningLotto winningLotto, Money money);
+    void printLottoStatics(List<Lotto> purchasedLottos, WinningLotto winningLotto, Money money);
 }

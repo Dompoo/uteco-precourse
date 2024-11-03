@@ -18,7 +18,7 @@ public class DefaultLottoStaticsController implements LottoStaticsController {
     }
 
     @Override
-    public void calculateStatics(List<Lotto> purchasedLottos, WinningLotto winningLotto, Money money) {
+    public void printLottoStatics(List<Lotto> purchasedLottos, WinningLotto winningLotto, Money money) {
         LottoStatics lottoStatics = LottoStatics.of(purchasedLottos, winningLotto, money);
         outputHandler.handlePrizeStatics(PrizeStatics.from(lottoStatics));
         outputHandler.handleIncomeStatics(IncomeStatics.from(lottoStatics));

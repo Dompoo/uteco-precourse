@@ -29,10 +29,10 @@ public class LottoApplication {
     }
 
     public void run() {
-        Money money = moneyController.getMoney();
+        Money money = moneyController.readMoney();
         List<Lotto> purchasedLottos = lottoController.purchaseLottos(money);
-        Lotto lotto = winningLottoController.getWinningNumbers();
-        WinningLotto winningLotto = winningLottoController.getWinningLotto(lotto);
-        lottoStaticsController.calculateStatics(purchasedLottos, winningLotto, money);
+        Lotto lotto = winningLottoController.readWinningNumbers();
+        WinningLotto winningLotto = winningLottoController.createWinningLotto(lotto);
+        lottoStaticsController.printLottoStatics(purchasedLottos, winningLotto, money);
     }
 }

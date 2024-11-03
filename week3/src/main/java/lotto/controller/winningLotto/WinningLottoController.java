@@ -5,7 +5,7 @@ import lotto.domain.WinningLotto;
 
 public interface WinningLottoController {
 
-    Lotto getWinningNumbers();
+    Lotto readWinningNumbers();
 
-    WinningLotto getWinningLotto(Lotto lotto);
+    WinningLotto createWinningLotto(Lotto lotto);
 }

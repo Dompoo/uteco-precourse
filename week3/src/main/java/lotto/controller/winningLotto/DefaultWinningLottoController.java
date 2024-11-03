@@ -14,13 +14,13 @@ public class DefaultWinningLottoController implements WinningLottoController {
     }
 
     @Override
-    public Lotto getWinningNumbers() {
+    public Lotto readWinningNumbers() {
         List<Integer> winningNumbers = inputHandler.handleWinningNumbers();
         return Lotto.from(winningNumbers);
     }
 
     @Override
-    public WinningLotto getWinningLotto(Lotto lotto) {
+    public WinningLotto createWinningLotto(Lotto lotto) {
         int bonusNumber = inputHandler.handleBonusNumber();
         return WinningLotto.of(lotto, bonusNumber);
     }

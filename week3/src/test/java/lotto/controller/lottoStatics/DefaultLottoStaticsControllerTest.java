@@ -25,7 +25,7 @@ class DefaultLottoStaticsControllerTest {
         Money money = Money.from(2000);
 
         //when
-        sut.calculateStatics(purchasedLottos, winningLotto, money);
+        sut.printLottoStatics(purchasedLottos, winningLotto, money);
 
         //then
         assertThat(writerFake.getOutputs().get(0)).contains(

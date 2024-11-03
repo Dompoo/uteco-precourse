@@ -4,5 +4,5 @@ import lotto.domain.Money;
 
 public interface MoneyController {
 
-    Money getMoney();
+    Money readMoney();
 }

@@ -20,7 +20,7 @@ class DefaultWinningLottoControllerTest {
         inputHandlerStub.stubWinningNumbers(1, 2, 3, 4, 5, 6);
 
         //when
-        Lotto result = sut.getWinningNumbers();
+        Lotto result = sut.readWinningNumbers();
 
         //then
         assertThat(result.contains(Number.from(1))).isTrue();
@@ -40,7 +40,7 @@ class DefaultWinningLottoControllerTest {
         Lotto winningNumbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
         //when
-        WinningLotto result = sut.getWinningLotto(winningNumbers);
+        WinningLotto result = sut.createWinningLotto(winningNumbers);
 
         //then
         assertThat(result.matchLotto(winningNumbers).isPresent()).isTrue();

@@ -12,7 +12,7 @@ public class DefaultMoneyController implements MoneyController {
     }
 
     @Override
-    public Money getMoney() {
+    public Money readMoney() {
         int amount = inputHandler.handlePurchaseCost();
         return Money.from(amount);
     }

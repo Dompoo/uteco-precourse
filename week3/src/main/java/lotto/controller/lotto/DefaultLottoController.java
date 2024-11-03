@@ -7,12 +7,12 @@ import lotto.domain.numberPicker.NumberPicker;
 import lotto.dto.PurchasedLottos;
 import lotto.io.OutputHandler;
 
-public class LottoControllerImpl implements LottoController {
+public class DefaultLottoController implements LottoController {
 
     private final OutputHandler outputHandler;
     private final NumberPicker numberPicker;
 
-    public LottoControllerImpl(OutputHandler outputHandler, NumberPicker numberPicker) {
+    public DefaultLottoController(OutputHandler outputHandler, NumberPicker numberPicker) {
         this.outputHandler = outputHandler;
         this.numberPicker = numberPicker;
     }

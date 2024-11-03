@@ -3,11 +3,11 @@ package lotto.controller.money;
 import lotto.domain.Money;
 import lotto.io.inputHandler.InputHandler;
 
-public class MoneyControllerImpl implements MoneyController {
+public class DefaultMoneyController implements MoneyController {
 
     private final InputHandler inputHandler;
 
-    public MoneyControllerImpl(InputHandler inputHandler) {
+    public DefaultMoneyController(InputHandler inputHandler) {
         this.inputHandler = inputHandler;
     }
 

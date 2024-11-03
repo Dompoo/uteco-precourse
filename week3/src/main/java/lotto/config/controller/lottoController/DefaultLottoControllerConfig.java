@@ -2,8 +2,8 @@ package lotto.config.controller.lottoController;
 
 import lotto.config.io.OutputHandlerConfig;
 import lotto.config.numberPricker.NumberPickerConfig;
+import lotto.controller.lotto.DefaultLottoController;
 import lotto.controller.lotto.LottoController;
-import lotto.controller.lotto.LottoControllerImpl;
 
 public class DefaultLottoControllerConfig implements LottoControllerConfig {
 
@@ -13,7 +13,7 @@ public class DefaultLottoControllerConfig implements LottoControllerConfig {
             OutputHandlerConfig outputHandlerConfig,
             NumberPickerConfig numberPickerConfig
     ) {
-        this.lottoController = new LottoControllerImpl(
+        this.lottoController = new DefaultLottoController(
                 outputHandlerConfig.getOutputHandler(),
                 numberPickerConfig.getNumberPicker()
         );

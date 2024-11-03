@@ -3,14 +3,14 @@ package lotto.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import lotto.controller.lotto.DefaultLottoController;
 import lotto.controller.lotto.LottoController;
-import lotto.controller.lotto.LottoControllerImpl;
+import lotto.controller.lottoStatics.DefaultLottoStaticsController;
 import lotto.controller.lottoStatics.LottoStaticsController;
-import lotto.controller.lottoStatics.LottoStaticsControllerImpl;
+import lotto.controller.money.DefaultMoneyController;
 import lotto.controller.money.MoneyController;
-import lotto.controller.money.MoneyControllerImpl;
+import lotto.controller.winningLotto.DefaultWinningLottoController;
 import lotto.controller.winningLotto.WinningLottoController;
-import lotto.controller.winningLotto.WinningLottoControllerImpl;
 import lotto.io.OutputHandler;
 import lotto.io.OutputParser;
 import lotto.testUtil.testDouble.InputHandlerStub;
@@ -33,10 +33,10 @@ class LottoApplicationTest {
         OutputHandler outputHandler = new OutputHandler(writerFake, new OutputParser());
         this.numberPickerFake = new NumberPickerFake();
 
-        MoneyController moneyController = new MoneyControllerImpl(inputHandlerStub);
-        LottoController lottoController = new LottoControllerImpl(outputHandler, numberPickerFake);
-        WinningLottoController winningLottoController = new WinningLottoControllerImpl(inputHandlerStub);
-        LottoStaticsController lottoStaticsController = new LottoStaticsControllerImpl(outputHandler);
+        MoneyController moneyController = new DefaultMoneyController(inputHandlerStub);
+        LottoController lottoController = new DefaultLottoController(outputHandler, numberPickerFake);
+        WinningLottoController winningLottoController = new DefaultWinningLottoController(inputHandlerStub);
+        LottoStaticsController lottoStaticsController = new DefaultLottoStaticsController(outputHandler);
 
         this.sut = new LottoApplication(
                 moneyController,

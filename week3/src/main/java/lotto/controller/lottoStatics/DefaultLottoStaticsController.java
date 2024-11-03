@@ -9,11 +9,11 @@ import lotto.dto.IncomeStatics;
 import lotto.dto.PrizeStatics;
 import lotto.io.OutputHandler;
 
-public class LottoStaticsControllerImpl implements LottoStaticsController {
+public class DefaultLottoStaticsController implements LottoStaticsController {
 
     private final OutputHandler outputHandler;
 
-    public LottoStaticsControllerImpl(OutputHandler outputHandler) {
+    public DefaultLottoStaticsController(OutputHandler outputHandler) {
         this.outputHandler = outputHandler;
     }
 

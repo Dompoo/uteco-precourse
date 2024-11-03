@@ -2,8 +2,8 @@ package lotto.config.controller.winningLottoController;
 
 import lotto.config.RetryHandlerConfig;
 import lotto.config.io.InputHandlerConfig;
+import lotto.controller.winningLotto.DefaultWinningLottoController;
 import lotto.controller.winningLotto.WinningLottoController;
-import lotto.controller.winningLotto.WinningLottoControllerImpl;
 import lotto.controller.winningLotto.WinningLottoControllerRetryProxy;
 
 public class DefaultWinningLottoControllerConfig implements WinningLottoControllerConfig {
@@ -14,11 +14,11 @@ public class DefaultWinningLottoControllerConfig implements WinningLottoControll
             InputHandlerConfig inputHandlerConfig,
             RetryHandlerConfig retryHandlerConfig
     ) {
-        WinningLottoControllerImpl winningLottoController = new WinningLottoControllerImpl(
+        DefaultWinningLottoController defaultWinningLottoController = new DefaultWinningLottoController(
                 inputHandlerConfig.getInputHandler()
         );
         this.winningLottoController = new WinningLottoControllerRetryProxy(
-                winningLottoController,
+                defaultWinningLottoController,
                 retryHandlerConfig.getRetryHandler()
         );
     }

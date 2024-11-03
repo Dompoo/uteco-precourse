@@ -5,11 +5,11 @@ import lotto.domain.Lotto;
 import lotto.domain.WinningLotto;
 import lotto.io.inputHandler.InputHandler;
 
-public class WinningLottoControllerImpl implements WinningLottoController {
+public class DefaultWinningLottoController implements WinningLottoController {
 
     private final InputHandler inputHandler;
 
-    public WinningLottoControllerImpl(InputHandler inputHandler) {
+    public DefaultWinningLottoController(InputHandler inputHandler) {
         this.inputHandler = inputHandler;
     }
 

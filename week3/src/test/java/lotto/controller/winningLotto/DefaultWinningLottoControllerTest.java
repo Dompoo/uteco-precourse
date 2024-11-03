@@ -10,13 +10,13 @@ import lotto.domain.WinningLotto;
 import lotto.testUtil.testDouble.InputHandlerStub;
 import org.junit.jupiter.api.Test;
 
-class WinningLottoControllerImplTest {
+class DefaultWinningLottoControllerTest {
 
     @Test
     void 당첨번호를_반환한다() {
         //given
         InputHandlerStub inputHandlerStub = new InputHandlerStub();
-        WinningLottoControllerImpl sut = new WinningLottoControllerImpl(inputHandlerStub);
+        DefaultWinningLottoController sut = new DefaultWinningLottoController(inputHandlerStub);
         inputHandlerStub.stubWinningNumbers(1, 2, 3, 4, 5, 6);
 
         //when
@@ -35,7 +35,7 @@ class WinningLottoControllerImplTest {
     void 당첨로또를_반환한다() {
         //given
         InputHandlerStub inputHandlerStub = new InputHandlerStub();
-        WinningLottoControllerImpl sut = new WinningLottoControllerImpl(inputHandlerStub);
+        DefaultWinningLottoController sut = new DefaultWinningLottoController(inputHandlerStub);
         inputHandlerStub.stubBonusNumber(7);
         Lotto winningNumbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 

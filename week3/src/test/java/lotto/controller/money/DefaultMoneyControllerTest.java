@@ -6,13 +6,13 @@ import lotto.domain.Money;
 import lotto.testUtil.testDouble.InputHandlerStub;
 import org.junit.jupiter.api.Test;
 
-class MoneyControllerRetryProxyTest {
+class DefaultMoneyControllerTest {
 
     @Test
     void 돈을_반환한다() {
         //given
         InputHandlerStub inputHandlerStub = new InputHandlerStub();
-        MoneyControllerImpl sut = new MoneyControllerImpl(inputHandlerStub);
+        DefaultMoneyController sut = new DefaultMoneyController(inputHandlerStub);
         inputHandlerStub.stubPurchaseCost(10000);
 
         //when

@@ -1,4 +1,4 @@
-package lotto.controller.lotto;
+package lotto.controller.lottoController;
 
 import java.util.List;
 import lotto.domain.Lotto;

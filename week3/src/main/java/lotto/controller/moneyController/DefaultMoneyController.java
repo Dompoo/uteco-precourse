@@ -1,4 +1,4 @@
-package lotto.controller.money;
+package lotto.controller.moneyController;
 
 import lotto.domain.Money;
 import lotto.io.inputHandler.InputHandler;

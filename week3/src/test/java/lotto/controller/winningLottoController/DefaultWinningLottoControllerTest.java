@@ -1,4 +1,4 @@
-package lotto.controller.winningLotto;
+package lotto.controller.winningLottoController;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,4 +1,4 @@
-package lotto.controller.winningLotto;
+package lotto.controller.winningLottoController;
 
 import lotto.aop.RetryHandler;
 import lotto.domain.Lotto;

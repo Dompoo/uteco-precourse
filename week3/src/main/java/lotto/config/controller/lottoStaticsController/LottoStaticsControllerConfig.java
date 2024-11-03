@@ -1,6 +1,6 @@
 package lotto.config.controller.lottoStaticsController;
 
-import lotto.controller.lottoStatics.LottoStaticsController;
+import lotto.controller.lottoStaticsController.LottoStaticsController;
 
 public interface LottoStaticsControllerConfig {
 

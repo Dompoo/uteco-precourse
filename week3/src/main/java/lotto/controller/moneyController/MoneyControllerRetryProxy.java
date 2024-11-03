@@ -1,4 +1,4 @@
-package lotto.controller.money;
+package lotto.controller.moneyController;
 
 import lotto.aop.RetryHandler;
 import lotto.domain.Money;

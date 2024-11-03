@@ -1,6 +1,6 @@
 package lotto.config.controller.moneyController;
 
-import lotto.controller.money.MoneyController;
+import lotto.controller.moneyController.MoneyController;
 
 public interface MoneyControllerConfig {
 

@@ -2,9 +2,9 @@ package lotto.config.controller.winningLottoController;
 
 import lotto.config.RetryHandlerConfig;
 import lotto.config.io.InputHandlerConfig;
-import lotto.controller.winningLotto.DefaultWinningLottoController;
-import lotto.controller.winningLotto.WinningLottoController;
-import lotto.controller.winningLotto.WinningLottoControllerRetryProxy;
+import lotto.controller.winningLottoController.DefaultWinningLottoController;
+import lotto.controller.winningLottoController.WinningLottoController;
+import lotto.controller.winningLottoController.WinningLottoControllerRetryProxy;
 
 public class DefaultWinningLottoControllerConfig implements WinningLottoControllerConfig {
 

@@ -1,8 +1,8 @@
 package lotto.config.controller.lottoStaticsController;
 
 import lotto.config.io.OutputHandlerConfig;
-import lotto.controller.lottoStatics.DefaultLottoStaticsController;
-import lotto.controller.lottoStatics.LottoStaticsController;
+import lotto.controller.lottoStaticsController.DefaultLottoStaticsController;
+import lotto.controller.lottoStaticsController.LottoStaticsController;
 
 public class DefaultLottoStaticsControllerConfig implements LottoStaticsControllerConfig {
 

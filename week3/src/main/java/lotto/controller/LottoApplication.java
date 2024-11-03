@@ -1,10 +1,10 @@
 package lotto.controller;
 
 import java.util.List;
-import lotto.controller.lotto.LottoController;
-import lotto.controller.lottoStatics.LottoStaticsController;
-import lotto.controller.money.MoneyController;
-import lotto.controller.winningLotto.WinningLottoController;
+import lotto.controller.lottoController.LottoController;
+import lotto.controller.lottoStaticsController.LottoStaticsController;
+import lotto.controller.moneyController.MoneyController;
+import lotto.controller.winningLottoController.WinningLottoController;
 import lotto.domain.Lotto;
 import lotto.domain.Money;
 import lotto.domain.WinningLotto;

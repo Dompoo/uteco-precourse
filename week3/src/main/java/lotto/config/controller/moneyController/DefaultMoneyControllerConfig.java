@@ -2,9 +2,9 @@ package lotto.config.controller.moneyController;
 
 import lotto.config.RetryHandlerConfig;
 import lotto.config.io.InputHandlerConfig;
-import lotto.controller.money.DefaultMoneyController;
-import lotto.controller.money.MoneyController;
-import lotto.controller.money.MoneyControllerRetryProxy;
+import lotto.controller.moneyController.DefaultMoneyController;
+import lotto.controller.moneyController.MoneyController;
+import lotto.controller.moneyController.MoneyControllerRetryProxy;
 
 public class DefaultMoneyControllerConfig implements MoneyControllerConfig {
 

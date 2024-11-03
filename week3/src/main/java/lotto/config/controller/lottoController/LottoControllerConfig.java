@@ -1,6 +1,6 @@
 package lotto.config.controller.lottoController;
 
-import lotto.controller.lotto.LottoController;
+import lotto.controller.lottoController.LottoController;
 
 public interface LottoControllerConfig {
 

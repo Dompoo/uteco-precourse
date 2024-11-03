@@ -1,6 +1,6 @@
 package lotto.config.controller.winningLottoController;
 
-import lotto.controller.winningLotto.WinningLottoController;
+import lotto.controller.winningLottoController.WinningLottoController;
 
 public interface WinningLottoControllerConfig {
 

@@ -7,7 +7,7 @@ import lotto.domain.validator.ParamsValidator;
 import lotto.exception.number.NumberCreationCountExceedException;
 import lotto.exception.number.NumberOutOfRangeException;
 
-public class Number implements Comparable<Number> {
+final public class Number implements Comparable<Number> {
 
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 45;
@@ -31,7 +31,7 @@ public class Number implements Comparable<Number> {
         return new Number(number);
     }
 
-    public static List<Number> from(List<Integer> numbers) {
+    public static List<Number> from(final List<Integer> numbers) {
         ParamsValidator.validateParamsNotNull(Number.class, numbers);
 
         return numbers.stream()

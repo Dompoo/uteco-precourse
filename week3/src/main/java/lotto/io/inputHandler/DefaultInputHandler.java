@@ -8,7 +8,7 @@ public class DefaultInputHandler implements InputHandler {
 
     private static final String PURCHASE_COST_DESCRIPTION = "구입금액을 입력해 주세요.";
     private static final String WINNING_NUMBERS_DESCRPTION = "당첨 번호를 입력해 주세요.";
-    private static final String WINNING_NUMBERS_SEPARATOR = ",";
+    private static final String WINNING_NUMBERS_SPLITER = ",";
     private static final String BONUS_NUMBER_DESCRPTION = "보너스 번호를 입력해 주세요.";
 
     private final Reader reader;
@@ -28,7 +28,7 @@ public class DefaultInputHandler implements InputHandler {
     @Override
     public List<Integer> handleWinningNumbers() {
         writer.writeLine(WINNING_NUMBERS_DESCRPTION);
-        return reader.readLineAsNumbers(WINNING_NUMBERS_SEPARATOR);
+        return reader.readLineAsNumbers(WINNING_NUMBERS_SPLITER);
     }
 
     @Override

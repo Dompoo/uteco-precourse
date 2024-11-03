@@ -8,14 +8,14 @@ import lotto.domain.validator.ParamsValidator;
 import lotto.exception.lotto.LottoNumberCountInvalidException;
 import lotto.exception.lotto.LottoNumberDuplicatedException;
 
-public class Lotto {
+final public class Lotto {
 
     private static final int LOTTO_NUMBER_COUNT = 6;
     private static final int PRICE = 1000;
 
     private final List<Number> numbers;
 
-    private Lotto(List<Number> numbers) {
+    private Lotto(final List<Number> numbers) {
         validateNumbersCount(numbers);
         validateNumbersNotDuplicated(numbers);
         this.numbers = numbers.stream()
@@ -45,7 +45,7 @@ public class Lotto {
         return new Lotto(Number.from(numbers));
     }
 
-    public static List<Lotto> purchase(Money money, NumberPicker numberPicker) {
+    public static List<Lotto> purchase(final Money money, final NumberPicker numberPicker) {
         ParamsValidator.validateParamsNotNull(Lotto.class, money, numberPicker);
 
         int purchaseAmount = calculatePurchaseAmount(money);
@@ -62,7 +62,7 @@ public class Lotto {
         return money.getAmount() / PRICE;
     }
 
-    public int getMatchCount(Lotto otherLotto) {
+    public int getMatchCount(final Lotto otherLotto) {
         ParamsValidator.validateParamsNotNull(Lotto.class, otherLotto);
 
         return (int) this.numbers.stream()
@@ -70,7 +70,7 @@ public class Lotto {
                 .count();
     }
 
-    public boolean contains(Number number) {
+    public boolean contains(final Number number) {
         ParamsValidator.validateParamsNotNull(Lotto.class, number);
 
         return this.numbers.stream()

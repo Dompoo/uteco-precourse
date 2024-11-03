@@ -13,7 +13,7 @@ public class RetryHandler {
         this.outputHandler = outputHandler;
     }
 
-    public <T> T tryUntilSuccess(IllegalArgumentExceptionThrower<T> thrower) {
+    public <T> T tryUntilSuccess(final IllegalArgumentExceptionThrower<T> thrower) {
         int attemps = 1;
         while (attemps++ <= MAX_RETRY) {
             try {

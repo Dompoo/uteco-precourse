@@ -4,7 +4,7 @@ import lotto.domain.validator.ParamsValidator;
 import lotto.exception.money.MoneyAmountOutOfRangeException;
 import lotto.exception.money.MoneyUnitInvalidException;
 
-public class Money {
+final public class Money {
 
     private static final int MIN_MONEY = 1000;
     private static final int MAX_MONEY = 100000;

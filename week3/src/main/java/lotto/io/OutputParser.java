@@ -8,7 +8,7 @@ public class OutputParser {
 
     private static final String NEW_LINE = "\n";
 
-    public String parsePurchasedLottos(PurchasedLottos purchasedLottos) {
+    public String parsePurchasedLottos(final PurchasedLottos purchasedLottos) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(NEW_LINE);
@@ -20,7 +20,7 @@ public class OutputParser {
         return stringBuilder.toString();
     }
 
-    private static String getPurchasedLottoString(PurchasedLottos purchasedLottos) {
+    private static String getPurchasedLottoString(final PurchasedLottos purchasedLottos) {
         StringBuilder stringBuilder = new StringBuilder();
 
         purchasedLottos.lottos().forEach(lotto -> {
@@ -31,7 +31,7 @@ public class OutputParser {
         return stringBuilder.toString();
     }
 
-    public String parsePrizeStatics(PrizeStatics prizeStatics) {
+    public String parsePrizeStatics(final PrizeStatics prizeStatics) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(NEW_LINE);
@@ -43,7 +43,7 @@ public class OutputParser {
         return stringBuilder.toString();
     }
 
-    private static String getPrizeCountString(PrizeStatics prizeStatics) {
+    private static String getPrizeCountString(final PrizeStatics prizeStatics) {
         StringBuilder stringBuilder = new StringBuilder();
 
         prizeStatics.prizeCount().forEach((prize, count) -> {
@@ -57,7 +57,7 @@ public class OutputParser {
         return stringBuilder.toString();
     }
 
-    public String parseIncomeStatics(IncomeStatics incomeStatics) {
+    public String parseIncomeStatics(final IncomeStatics incomeStatics) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("총 수익률은 ");
@@ -67,11 +67,11 @@ public class OutputParser {
         return stringBuilder.toString();
     }
 
-    private static String formatRate(float rate) {
+    private static String formatRate(final float rate) {
         return String.valueOf((float) Math.round(rate * 1000) / 10);
     }
 
-    public String parseExceptionMessage(Exception e) {
+    public String parseExceptionMessage(final Exception e) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(NEW_LINE);

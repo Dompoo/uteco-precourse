@@ -4,7 +4,7 @@ import java.util.Optional;
 import lotto.domain.validator.ParamsValidator;
 import lotto.exception.winningLotto.BonusNumberDuplicatedException;
 
-public class WinningLotto {
+final public class WinningLotto {
 
     private final Lotto winningNumbers;
     private final Number bonusNumber;

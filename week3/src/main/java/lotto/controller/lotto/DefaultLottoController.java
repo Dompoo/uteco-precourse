@@ -18,7 +18,7 @@ public class DefaultLottoController implements LottoController {
     }
 
     @Override
-    public List<Lotto> purchaseLottos(Money money) {
+    public List<Lotto> purchaseLottos(final Money money) {
         List<Lotto> purchasedLottos = Lotto.purchase(money, numberPicker);
         outputHandler.handlePurchasedLottos(PurchasedLottos.from(purchasedLottos));
         return purchasedLottos;

@@ -4,7 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
-import lotto.exception.IllegalNumberFormatException;
+import lotto.exception.io.IllegalNumberFormatException;
 
 public class MissionUtilsReader implements Reader {
 

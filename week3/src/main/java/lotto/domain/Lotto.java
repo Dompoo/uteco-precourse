@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import lotto.domain.numberPicker.NumberPicker;
 import lotto.domain.validator.ParamsValidator;
-import lotto.exception.LottoNumberCountInvalidException;
-import lotto.exception.LottoNumberDuplicatedException;
+import lotto.exception.lotto.LottoNumberCountInvalidException;
+import lotto.exception.lotto.LottoNumberDuplicatedException;
 
 public class Lotto {
 

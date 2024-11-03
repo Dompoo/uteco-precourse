@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Objects;
 import lotto.domain.numberPicker.NumberPicker;
 import lotto.domain.validator.ParamsValidator;
-import lotto.exception.LottoNumberInvalidException;
-import lotto.exception.NumberCreationCountExceedException;
+import lotto.exception.number.NumberCreationCountExceedException;
+import lotto.exception.number.NumberOutOfRangeException;
 
 public class Number implements Comparable<Number> {
 
@@ -20,8 +20,8 @@ public class Number implements Comparable<Number> {
     }
 
     private static void validateValueInRange(int value) {
-        if (!(MIN_VALUE <= value && value <= MAX_VALUE)) {
-            throw new LottoNumberInvalidException(MIN_VALUE, MAX_VALUE);
+        if (value < MIN_VALUE || MAX_VALUE < value) {
+            throw new NumberOutOfRangeException(MIN_VALUE, MAX_VALUE);
         }
     }
 

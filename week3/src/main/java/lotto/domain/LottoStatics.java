@@ -35,6 +35,7 @@ public class LottoStatics {
 
     public static LottoStatics of(List<Lotto> lottos, WinningLotto winningLotto, Money money) {
         ParamsValidator.validateParamsNotNull(LottoStatics.class, lottos, winningLotto, money);
+
         return new LottoStatics(lottos, winningLotto, money);
     }
 

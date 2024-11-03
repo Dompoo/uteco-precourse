@@ -2,7 +2,7 @@ package lotto.domain;
 
 import java.util.Optional;
 import lotto.domain.validator.ParamsValidator;
-import lotto.exception.BonusNumberDuplicatedException;
+import lotto.exception.winningLotto.BonusNumberDuplicatedException;
 
 public class WinningLotto {
 

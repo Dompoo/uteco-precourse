@@ -1,4 +1,4 @@
-package lotto.exception;
+package lotto.exception.money;
 
 public class MoneyUnitInvalidException extends IllegalArgumentException {
 

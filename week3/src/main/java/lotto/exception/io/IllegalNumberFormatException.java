@@ -1,4 +1,4 @@
-package lotto.exception;
+package lotto.exception.io;
 
 public class IllegalNumberFormatException extends IllegalArgumentException {
 

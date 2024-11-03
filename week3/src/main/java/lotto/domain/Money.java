@@ -1,8 +1,8 @@
 package lotto.domain;
 
 import lotto.domain.validator.ParamsValidator;
-import lotto.exception.MoneyAmountOutOfRangeException;
-import lotto.exception.MoneyUnitInvalidException;
+import lotto.exception.money.MoneyAmountOutOfRangeException;
+import lotto.exception.money.MoneyUnitInvalidException;
 
 public class Money {
 

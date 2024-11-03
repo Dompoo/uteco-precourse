@@ -1,4 +1,4 @@
-package lotto.exception;
+package lotto.exception.number;
 
 public class NumberCreationCountExceedException extends IllegalArgumentException {
 

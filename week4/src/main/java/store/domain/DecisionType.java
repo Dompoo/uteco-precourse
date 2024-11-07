@@ -8,15 +8,17 @@ public enum DecisionType {
     PROMOTION_STOCK_LACK,
     ;
 
-    public static DecisionType getDecisionType(
+    public static DecisionType of(
             int purchaseAmount,
             int defaultStock,
             int promotionStock,
             int promotionBuy,
-            int promotionGet
+            int promotionGet,
+            boolean canPromotion
     ) {
         validateStockSufficient(purchaseAmount, defaultStock, promotionStock);
-        if (promotionStock == 0) {
+
+        if (!canPromotion || promotionStock == 0) {
             return FULL_DEFAULT;
         }
         if (purchaseAmount % (promotionBuy + promotionGet) == 0

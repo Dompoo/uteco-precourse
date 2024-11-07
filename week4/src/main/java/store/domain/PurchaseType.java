@@ -14,7 +14,8 @@ public enum PurchaseType {
     ),
     FULL_PROMOTION_BRING_FREE(
             (info) -> info.purchaseAmount() + info.promotionGet(),
-            (info) -> ((info.purchaseAmount() + info.promotionGet()) / (info.promotionBuy() + info.promotionGet())) * info.promotionGet(),
+            (info) -> ((info.purchaseAmount() + info.promotionGet()) / (info.promotionBuy() + info.promotionGet()))
+                    * info.promotionGet(),
             (info) -> info.purchaseAmount() + info.promotionGet()
     ),
     FULL_PROMOTION_NOT_BRING_FREE(
@@ -25,9 +26,11 @@ public enum PurchaseType {
     PORTION_PROMOTION_BRING_BACK(
             (info) -> {
                 if (info.purchaseAmount() > info.promotionStock()) {
-                    return (info.promotionStock() / (info.promotionBuy() + info.promotionGet())) * (info.promotionGet() + info.promotionBuy());
+                    return (info.promotionStock() / (info.promotionBuy() + info.promotionGet()))
+                            * (info.promotionGet() + info.promotionBuy());
                 }
-                return (info.purchaseAmount() / (info.promotionBuy() + info.promotionGet())) * (info.promotionGet() + info.promotionBuy());
+                return (info.purchaseAmount() / (info.promotionBuy() + info.promotionGet()))
+                        * (info.promotionGet() + info.promotionBuy());
             },
             (info) -> {
                 if (info.purchaseAmount() > info.promotionStock()) {
@@ -37,18 +40,23 @@ public enum PurchaseType {
             },
             (info) -> {
                 if (info.purchaseAmount() > info.promotionStock()) {
-                    return (info.promotionStock() / (info.promotionBuy() + info.promotionGet())) * (info.promotionGet() + info.promotionBuy());
+                    return (info.promotionStock() / (info.promotionBuy() + info.promotionGet()))
+                            * (info.promotionGet() + info.promotionBuy());
                 }
-                return (info.purchaseAmount() / (info.promotionBuy() + info.promotionGet())) * (info.promotionGet() + info.promotionBuy());
+                return (info.purchaseAmount() / (info.promotionBuy() + info.promotionGet()))
+                        * (info.promotionGet() + info.promotionBuy());
             }
     ),
     PORTION_PROMOTION_NOT_BRING_BACK(
             PurchaseInfo::purchaseAmount,
             (info) -> {
                 if (info.purchaseAmount() > info.promotionStock()) {
-                    return ((info.promotionStock() - (info.promotionStock() % (info.promotionBuy() + info.promotionGet()))) / (info.promotionBuy() + info.promotionGet())) * info.promotionGet();
+                    return ((info.promotionStock() - (info.promotionStock() % (info.promotionBuy()
+                            + info.promotionGet()))) / (info.promotionBuy() + info.promotionGet()))
+                            * info.promotionGet();
                 }
-                return ((info.purchaseAmount() - (info.purchaseAmount() % (info.promotionBuy() + info.promotionGet()))) / (info.promotionBuy() + info.promotionGet())) * info.promotionGet();
+                return ((info.purchaseAmount() - (info.purchaseAmount() % (info.promotionBuy() + info.promotionGet())))
+                        / (info.promotionBuy() + info.promotionGet())) * info.promotionGet();
             },
             (info) -> {
                 if (info.purchaseAmount() > info.promotionStock()) {
@@ -59,21 +67,21 @@ public enum PurchaseType {
     ),
     ;
 
-    private final StoreCalculator<Integer> totalPurchase;
-    private final StoreCalculator<Integer> promotionGet;
+    private final StoreCalculator<Integer> finalPurchaseAmount;
+    private final StoreCalculator<Integer> promotionGetAmount;
     private final StoreCalculator<Integer> decreasePromotionStock;
 
-    PurchaseType(StoreCalculator<Integer> totalPurchase, StoreCalculator<Integer> promotionGet,
+    PurchaseType(StoreCalculator<Integer> finalPurchaseAmount, StoreCalculator<Integer> promotionGetAmount,
                  StoreCalculator<Integer> decreasePromotionStock) {
-        this.totalPurchase = totalPurchase;
-        this.promotionGet = promotionGet;
+        this.finalPurchaseAmount = finalPurchaseAmount;
+        this.promotionGetAmount = promotionGetAmount;
         this.decreasePromotionStock = decreasePromotionStock;
     }
 
     public PurchaseResult purchase(PurchaseInfo purchaseInfo) {
         return new PurchaseResult(
-                this.totalPurchase.calculate(purchaseInfo),
-                this.promotionGet.calculate(purchaseInfo),
+                this.finalPurchaseAmount.calculate(purchaseInfo),
+                this.promotionGetAmount.calculate(purchaseInfo),
                 this.decreasePromotionStock.calculate(purchaseInfo)
         );
     }
@@ -94,8 +102,8 @@ public enum PurchaseType {
     }
 
     public record PurchaseResult(
-            int totalPurchase,
-            int promotionGet,
+            int finalPurchaseAmount,
+            int promotionGetAmount,
             int decreasePromotionStock
     ) {
     }

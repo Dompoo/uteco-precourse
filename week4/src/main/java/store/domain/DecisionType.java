@@ -19,10 +19,12 @@ public enum DecisionType {
         if (promotionStock == 0) {
             return FULL_DEFAULT;
         }
-        if (purchaseAmount % (promotionBuy + promotionGet) == 0 && purchaseAmount <= promotionStock) {
+        if (purchaseAmount % (promotionBuy + promotionGet) == 0
+                && purchaseAmount <= promotionStock) {
             return FULL_PROMOTION;
         }
-        if (purchaseAmount % (promotionBuy + promotionGet) == promotionBuy && purchaseAmount + promotionGet <= promotionStock) {
+        if (purchaseAmount % (promotionBuy + promotionGet) == promotionBuy
+                && purchaseAmount + promotionGet <= promotionStock) {
             return CAN_GET_FREE_PRODUCT;
         }
         return PROMOTION_STOCK_LACK;

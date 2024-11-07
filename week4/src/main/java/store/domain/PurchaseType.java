@@ -1,5 +1,8 @@
 package store.domain;
 
+import store.domain.vo.PurchaseInfo;
+import store.domain.vo.PurchaseStatus;
+
 public enum PurchaseType {
 
     FULL_DEFAULT(
@@ -78,8 +81,8 @@ public enum PurchaseType {
         this.decreasePromotionStock = decreasePromotionStock;
     }
 
-    public PurchaseResult purchase(PurchaseInfo purchaseInfo) {
-        return new PurchaseResult(
+    public PurchaseStatus purchase(PurchaseInfo purchaseInfo) {
+        return new PurchaseStatus(
                 this.finalPurchaseAmount.calculate(purchaseInfo),
                 this.promotionGetAmount.calculate(purchaseInfo),
                 this.decreasePromotionStock.calculate(purchaseInfo)
@@ -91,21 +94,6 @@ public enum PurchaseType {
         T calculate(
                 PurchaseInfo purchaseInfo
         );
-    }
-
-    public record PurchaseInfo(
-            int purchaseAmount,
-            int promotionStock,
-            int promotionBuy,
-            int promotionGet
-    ) {
-    }
-
-    public record PurchaseResult(
-            int finalPurchaseAmount,
-            int promotionGetAmount,
-            int decreasePromotionStock
-    ) {
     }
 }
 

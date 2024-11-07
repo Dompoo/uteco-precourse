@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import store.domain.PurchaseType.PurchaseInfo;
 import store.domain.PurchaseType.PurchaseResult;
 
-class PurchaseTypeTest {
+class PurchasedProductTypeTest {
 
     @ParameterizedTest
     @CsvSource({
@@ -37,7 +37,7 @@ class PurchaseTypeTest {
 
         //then
         assertThat(result).extracting(
-                "totalPurchase", "promotionGet", "decreasePromotionStock"
+                "finalPurchaseAmount", "promotionGetAmount", "decreasePromotionStock"
         ).containsExactly(
                 totalPurchase, promotionGet, decreasePromotionStock
         );
@@ -76,7 +76,7 @@ class PurchaseTypeTest {
 
         //then
         assertThat(result).extracting(
-                "totalPurchase", "promotionGet", "decreasePromotionStock"
+                "finalPurchaseAmount", "promotionGetAmount", "decreasePromotionStock"
         ).containsExactly(
                 totalPurchase, promotionGet, decreasePromotionStock
         );
@@ -115,7 +115,7 @@ class PurchaseTypeTest {
 
         //then
         assertThat(result).extracting(
-                "totalPurchase", "promotionGet", "decreasePromotionStock"
+                "finalPurchaseAmount", "promotionGetAmount", "decreasePromotionStock"
         ).containsExactly(
                 totalPurchase, promotionGet, decreasePromotionStock
         );
@@ -154,7 +154,7 @@ class PurchaseTypeTest {
 
         //then
         assertThat(result).extracting(
-                "totalPurchase", "promotionGet", "decreasePromotionStock"
+                "finalPurchaseAmount", "promotionGetAmount", "decreasePromotionStock"
         ).containsExactly(
                 totalPurchase, promotionGet, decreasePromotionStock
         );
@@ -201,7 +201,7 @@ class PurchaseTypeTest {
 
         //then
         assertThat(result).extracting(
-                "totalPurchase", "promotionGet", "decreasePromotionStock"
+                "finalPurchaseAmount", "promotionGetAmount", "decreasePromotionStock"
         ).containsExactly(
                 totalPurchase, promotionGet, decreasePromotionStock
         );
@@ -248,7 +248,7 @@ class PurchaseTypeTest {
 
         //then
         assertThat(result).extracting(
-                "totalPurchase", "promotionGet", "decreasePromotionStock"
+                "finalPurchaseAmount", "promotionGetAmount", "decreasePromotionStock"
         ).containsExactly(
                 totalPurchase, promotionGet, decreasePromotionStock
         );

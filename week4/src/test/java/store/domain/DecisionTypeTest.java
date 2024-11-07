@@ -24,12 +24,43 @@ class DecisionTypeTest {
         int promotionGet = 1;
 
         //when
-        DecisionType result = DecisionType.getDecisionType(
+        DecisionType result = DecisionType.of(
                 purchaseAmount,
                 defaultStock,
                 promotionStock,
                 promotionBuy,
-                promotionGet
+                promotionGet,
+                true
+        );
+
+        //then
+        assertThat(result).isEqualTo(DecisionType.FULL_DEFAULT);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1, 0, 3",
+            "2, 0, 3",
+            "3, 0, 3",
+            "4, 0, 3",
+            "1, 0, 1",
+            "2, 0, 2",
+            "3, 0, 3",
+            "4, 0, 4",
+    })
+    void 프로모션_기간이_아니면_그냥_구매한다(int purchaseAmount, int promotionStock, int promotionBuy) {
+        //given
+        int defaultStock = 100;
+        int promotionGet = 1;
+
+        //when
+        DecisionType result = DecisionType.of(
+                purchaseAmount,
+                defaultStock,
+                promotionStock,
+                promotionBuy,
+                promotionGet,
+                false
         );
 
         //then
@@ -58,12 +89,13 @@ class DecisionTypeTest {
         int promotionGet = 1;
 
         //when
-        DecisionType result = DecisionType.getDecisionType(
+        DecisionType result = DecisionType.of(
                 purchaseAmount,
                 defaultStock,
                 promotionStock,
                 promotionBuy,
-                promotionGet
+                promotionGet,
+                true
         );
 
         //then
@@ -92,12 +124,13 @@ class DecisionTypeTest {
         int promotionGet = 1;
 
         //when
-        DecisionType result = DecisionType.getDecisionType(
+        DecisionType result = DecisionType.of(
                 purchaseAmount,
                 defaultStock,
                 promotionStock,
                 promotionBuy,
-                promotionGet
+                promotionGet,
+                true
         );
 
         //then
@@ -134,12 +167,13 @@ class DecisionTypeTest {
         int promotionGet = 1;
 
         //when
-        DecisionType result = DecisionType.getDecisionType(
+        DecisionType result = DecisionType.of(
                 purchaseAmount,
                 defaultStock,
                 promotionStock,
                 promotionBuy,
-                promotionGet
+                promotionGet,
+                true
         );
 
         //then

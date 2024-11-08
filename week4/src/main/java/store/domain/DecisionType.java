@@ -17,19 +17,35 @@ public enum DecisionType {
             boolean canPromotion
     ) {
         validateStockSufficient(purchaseAmount, defaultStock, promotionStock);
-
         if (!canPromotion || promotionStock == 0) {
             return FULL_DEFAULT;
         }
-        if (purchaseAmount % (promotionBuy + promotionGet) == 0
-                && purchaseAmount <= promotionStock) {
+        if (isJustRightPromotionUnit(purchaseAmount, promotionStock, promotionBuy, promotionGet)) {
             return FULL_PROMOTION;
         }
-        if (purchaseAmount % (promotionBuy + promotionGet) == promotionBuy
-                && purchaseAmount + promotionGet <= promotionStock) {
+        if (canGetFreePromotion(purchaseAmount, promotionStock, promotionBuy, promotionGet)) {
             return CAN_GET_FREE_PRODUCT;
         }
         return PROMOTION_STOCK_LACK;
+    }
+
+    private static boolean isJustRightPromotionUnit(
+            int purchaseAmount,
+            int promotionStock,
+            int promotionBuy,
+            int promotionGet
+    ) {
+        return purchaseAmount % (promotionBuy + promotionGet) == 0 && purchaseAmount <= promotionStock;
+    }
+
+    private static boolean canGetFreePromotion(
+            int purchaseAmount,
+            int promotionStock,
+            int promotionBuy,
+            int promotionGet
+    ) {
+        return purchaseAmount % (promotionBuy + promotionGet) >= promotionBuy
+                && purchaseAmount + promotionGet <= promotionStock;
     }
 
     private static void validateStockSufficient(int purchaseAmount, int defaultStock, int promotionStock) {

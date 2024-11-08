@@ -6,4 +6,8 @@ public record PurchaseInfo(
         int promotionBuy,
         int promotionGet
 ) {
+
+    public int promotionUnit() {
+        return this.promotionBuy + this.promotionGet;
+    }
 }

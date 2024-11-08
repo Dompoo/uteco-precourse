@@ -89,7 +89,7 @@ final public class Receipt {
         ) {
             int originalPurchaseCost = originalPurchaseCost(purchasedProducts);
             int promotionSaleCost = calculatePromotionSaleCost(promotionedProducts);
-            int membershipSaleCost = membership.calculateMembershipSaleAmount(originalPurchaseCost, promotionSaleCost);
+            int membershipSaleCost = membership.calculateMembershipSaleAmount(purchaseResults);
             int finalPrice = calculateFinalPrice(originalPurchaseCost, promotionSaleCost, membershipSaleCost);
             return new PurchaseCost(originalPurchaseCost, promotionSaleCost, membershipSaleCost, finalPrice);
         }

@@ -38,6 +38,10 @@ public class Service {
 
         Promotion promotion = product.getPromotion();
 
+        if (promotion == null) {
+            return DecisionType.FULL_DEFAULT;
+        }
+
         //TODO : null 가능성
         return DecisionType.of(
                 purchaseRequest.count(),
@@ -84,6 +88,7 @@ public class Service {
         return new PurchaseResult(
                 product.getName(),
                 purchaseStatus.finalPurchaseAmount(),
+                purchaseStatus.promotionedProductAmount(),
                 product.getPrice(),
                 purchaseStatus.promotionGetAmount()
         );

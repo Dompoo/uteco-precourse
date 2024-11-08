@@ -19,11 +19,11 @@ public enum StoreExceptions {
             IllegalArgumentException.class
     ),
     FILE_NOT_READABLE(
-            "파일 읽기 중 오류가 발생했습니다",
+            "파일 읽기 중 오류가 발생했습니다.",
             IllegalStateException.class
     ),
     FILE_NOT_WRITEABLE(
-            "파일 쓰기 중 오류가 발생했습니다",
+            "파일 쓰기 중 오류가 발생했습니다.",
             IllegalStateException.class
     )
     ;

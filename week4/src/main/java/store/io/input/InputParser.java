@@ -20,9 +20,7 @@ public class InputParser {
 
     private static PurchaseRequest parseToParchaseRequest(String input) {
         String[] split = input.substring(1, input.length() - 1).split("-");
-        return new PurchaseRequest(
-                split[0],
-                Integer.parseInt(split[1])
+        return new PurchaseRequest(split[0], Integer.parseInt(split[1])
         );
     }
 }

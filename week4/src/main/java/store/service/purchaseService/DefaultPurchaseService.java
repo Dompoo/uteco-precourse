@@ -25,7 +25,7 @@ public class DefaultPurchaseService implements PurchaseService {
     public List<PurchaseRequest> getPurchases(Supplier<List<PurchaseRequest>> purchaseRequestsSupplier) {
         List<PurchaseRequest> purchaseRequests = purchaseRequestsSupplier.get();
         if (!isAllPurchaseProductValid(purchaseRequests)) {
-            throw new IllegalArgumentException("zz");
+            throw StoreExceptions.PRODUCT_NOT_FOUND.get();
         }
         return purchaseRequests;
     }

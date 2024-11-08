@@ -1,28 +1,26 @@
 package store.io.reader;
 
 import camp.nextstep.edu.missionutils.Console;
-import java.util.function.Supplier;
+import store.exception.StoreExceptions;
 
 public class MissionUtilsReader implements Reader {
 
     @Override
     public String[] readLineAsStrings(String spliter) {
-        return withHandleException(() -> {
+        try {
             String input = Console.readLine();
             return input.split(spliter);
-        });
+        } catch (IllegalArgumentException illegalArgumentException) {
+            throw StoreExceptions.INVALID_PURCHASE_FORMAT.get();
+        }
     }
 
     @Override
     public String readLineAsString() {
-        return withHandleException(Console::readLine);
-    }
-
-    private static <T> T withHandleException(Supplier<T> supplier) {
         try {
-            return supplier.get();
+            return Console.readLine();
         } catch (IllegalArgumentException illegalArgumentException) {
-            throw new IllegalArgumentException("[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요.");
+            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
     }
 }

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import store.exception.StoreExceptions;
 import store.infra.entity.DatabaseEntity;
 
 public abstract class FileDatabase<T extends DatabaseEntity> implements Database<T> {
@@ -22,7 +23,7 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
         try (BufferedReader reader = new BufferedReader(new FileReader(getFilePath()))) {
             this.headerLine = reader.readLine();
         } catch (IOException e) {
-            throw new RuntimeException("파일 읽기 중 오류가 발생했습니다", e);
+            throw StoreExceptions.FILE_NOT_READABLE.get();
         }
     }
 
@@ -31,7 +32,7 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
         try (BufferedReader reader = new BufferedReader(new FileReader(getFilePath()))) {
             return buildObjects(reader);
         } catch (IOException e) {
-            throw new RuntimeException("파일 읽기 중 오류가 발생했습니다", e);
+            throw StoreExceptions.FILE_NOT_READABLE.get();
         }
     }
 
@@ -60,7 +61,7 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(getFilePath(), false))) {
             writer.write(buildUpdateScript(objects));
         } catch (IOException e) {
-            throw new RuntimeException("파일 업데이트 중 오류가 발생했습니다", e);
+            throw StoreExceptions.FILE_NOT_WRITEABLE.get();
         }
     }
 

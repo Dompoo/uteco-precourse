@@ -1,15 +1,12 @@
 package store.infra.database;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 import store.exception.StoreExceptions;
 import store.infra.entity.DatabaseEntity;
 
@@ -54,26 +51,6 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
             dataMap.put(columns[i], datas[i]);
         }
         return dataMap;
-    }
-
-    @Override
-    public void updateAll(List<T> objects) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(getFilePath(), false))) {
-            writer.write(buildUpdateScript(objects));
-        } catch (IOException e) {
-            throw StoreExceptions.FILE_NOT_WRITEABLE.get();
-        }
-    }
-
-    private String buildUpdateScript(List<T> objects) {
-        StringJoiner stringJoiner = new StringJoiner("\n");
-        stringJoiner.add(headerLine);
-        for (T object : objects) {
-            String line = object.toLine(headerLine.split(COLUMN_SEPARATOR));
-            stringJoiner.add(line);
-        }
-        stringJoiner.add("");
-        return stringJoiner.toString();
     }
 
     protected abstract String getFilePath();

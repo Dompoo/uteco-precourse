@@ -8,7 +8,6 @@ import store.config.infra.database.PromotionDatabaseConfig;
 import store.config.infra.database.PromotionFileDatabaseConfig;
 import store.config.infra.repository.DefaultProductRepositoryConfig;
 import store.config.infra.repository.ProductRepositoryConfig;
-import store.config.infra.repository.RepositoryConfig;
 import store.config.io.inputHandler.InputHandlerConfig;
 import store.config.io.outputHandler.OutputHandlerConfig;
 import store.config.io.reader.MissionUtilsReaderConfig;
@@ -35,7 +34,6 @@ public class StoreApplication {
                 new PurchaseServiceConfig(productRepositoryConfig, retryHandlerConfig),
                 new DecisionServiceConfig(productRepositoryConfig, retryHandlerConfig),
                 new ProductServiceConfig(productRepositoryConfig),
-                new RepositoryConfig(productRepositoryConfig),
                 retryHandlerConfig
         ).getController();
     }

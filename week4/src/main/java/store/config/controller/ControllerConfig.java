@@ -1,7 +1,6 @@
 package store.config.controller;
 
 import store.config.aop.RetryHandlerConfig;
-import store.config.infra.repository.RepositoryConfig;
 import store.config.io.inputHandler.InputHandlerConfig;
 import store.config.io.outputHandler.OutputHandlerConfig;
 import store.config.service.dateProvider.DateProviderConfig;
@@ -11,7 +10,6 @@ import store.config.service.purchaseService.PurchaseServiceConfig;
 import store.controller.Controller;
 import store.controller.DefaultController;
 import store.controller.RePurchaseControllerProxy;
-import store.controller.TransactionControllerProxy;
 
 public class ControllerConfig {
 
@@ -24,17 +22,15 @@ public class ControllerConfig {
             PurchaseServiceConfig purchaseServiceConfig,
             DecisionServiceConfig decisionServiceConfig,
             ProductServiceConfig productServiceConfig,
-            RepositoryConfig repositoryConfig,
             RetryHandlerConfig retryHandlerConfig
     ) {
         DefaultController defaultController = configDefaultController(inputHandlerConfig, outputHandlerConfig,
                 dateProviderConfig, purchaseServiceConfig, decisionServiceConfig, productServiceConfig);
-        RePurchaseControllerProxy rePurchaseControllerProxy = configRePurchaseController(
+        this.controller = configRePurchaseController(
                 inputHandlerConfig,
                 retryHandlerConfig,
                 defaultController
         );
-        this.controller = configTransactionController(repositoryConfig, rePurchaseControllerProxy);
     }
 
     private static DefaultController configDefaultController(
@@ -64,16 +60,6 @@ public class ControllerConfig {
                 controller,
                 inputHandlerConfig.getInputHandler(),
                 retryHandlerConfig.getRetryHandler()
-        );
-    }
-
-    private static TransactionControllerProxy configTransactionController(
-            RepositoryConfig repositoryConfig,
-            Controller controller
-    ) {
-        return new TransactionControllerProxy(
-                controller,
-                repositoryConfig.getRepositories()
         );
     }
 

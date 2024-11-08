@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
-import store.domain.Promotion;
 
 public record PromotionEntity(
         String name,
@@ -20,16 +19,6 @@ public record PromotionEntity(
         int get = Integer.parseInt(dataMap.get("get"));
         LocalDate startDate = LocalDate.parse(dataMap.get("start_date"));
         LocalDate endDate = LocalDate.parse(dataMap.get("end_date"));
-
-        return new PromotionEntity(name, buy, get, startDate, endDate);
-    }
-
-    public static PromotionEntity from(Promotion promotion) {
-        String name = promotion.getName();
-        int buy = promotion.getBuy();
-        int get = promotion.getGet();
-        LocalDate startDate = promotion.getStartDate();
-        LocalDate endDate = promotion.getEndDate();
 
         return new PromotionEntity(name, buy, get, startDate, endDate);
     }

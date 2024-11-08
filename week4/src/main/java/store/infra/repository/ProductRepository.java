@@ -10,30 +10,22 @@ import store.infra.database.Database;
 import store.infra.entity.ProductEntity;
 import store.infra.entity.PromotionEntity;
 import store.infra.repository.convertor.ProductConverter;
-import store.infra.repository.convertor.ProductEntityConverter;
 import store.infra.repository.convertor.PromotionConverter;
-import store.infra.repository.convertor.PromotionEntityConverter;
 
 public class ProductRepository implements Repository<Product> {
 
     private final Database<ProductEntity> productDatabase;
     private final Database<PromotionEntity> promotionDatabase;
-    private final ProductEntityConverter productEntityConverter;
-    private final PromotionEntityConverter promotionEntityConverter;
     private final List<Product> products = new ArrayList<>();
 
     public ProductRepository(
             Database<ProductEntity> productDatabase,
             Database<PromotionEntity> promotionDatabase,
             ProductConverter productConverter,
-            PromotionConverter promotionConverter,
-            ProductEntityConverter productEntityConverter,
-            PromotionEntityConverter promotionEntityConverter
+            PromotionConverter promotionConverter
     ) {
         this.productDatabase = productDatabase;
         this.promotionDatabase = promotionDatabase;
-        this.productEntityConverter = productEntityConverter;
-        this.promotionEntityConverter = promotionEntityConverter;
         List<Promotion> promotions = promotionConverter.convert(promotionDatabase.readAll());
         this.products.addAll(productConverter.convert(productDatabase.readAll(), promotions));
     }
@@ -62,11 +54,5 @@ public class ProductRepository implements Repository<Product> {
 
         products.remove(findProduct);
         products.add(product);
-    }
-
-    @Override
-    public void updateDatabaseInBatch() {
-        productDatabase.updateAll(productEntityConverter.convert(products));
-        promotionDatabase.updateAll(promotionEntityConverter.convert(products));
     }
 }

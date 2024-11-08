@@ -15,10 +15,7 @@ public record ProductResponse(
         for (Product product : products) {
             String productName = product.getName();
             int price = product.getPrice();
-            if (product.hasDefaultStock()) {
-                int defaultStock = product.getDefaultStock();
-                productResponses.add(new ProductResponse(productName, price, defaultStock, ""));
-            }
+            productResponses.add(new ProductResponse(productName, price, product.getDefaultStock(), ""));
             if (product.hasPromotionStock()) {
                 int promotionStock = product.getPromotionStock();
                 String promotionName = product.getPromotion().getName();

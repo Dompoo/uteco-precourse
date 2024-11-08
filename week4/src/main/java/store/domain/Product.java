@@ -1,5 +1,7 @@
 package store.domain;
 
+import store.domain.validator.ParamsValidator;
+
 final public class Product {
 
     private final String name;
@@ -17,6 +19,7 @@ final public class Product {
             int promotionStock,
             Promotion promotion
     ) {
+        ParamsValidator.validateParamsNotNull(Product.class, name, stockType);
         this.name = name;
         this.price = price;
         this.stockType = stockType;
@@ -38,8 +41,12 @@ final public class Product {
         return price;
     }
 
-    public StockType getStockType() {
-        return stockType;
+    public boolean haveDefaultStock() {
+        return stockType == StockType.DEFAULT_ONLY || stockType == StockType.DEFAULT_AND_PROMOTION;
+    }
+
+    public boolean havePromotionStock() {
+        return stockType == StockType.PROMOTION_ONLY || stockType == StockType.DEFAULT_AND_PROMOTION;
     }
 
     public int getDefaultStock() {
@@ -52,30 +59,6 @@ final public class Product {
 
     public Promotion getPromotion() {
         return promotion;
-    }
-
-    @Override
-    public String toString() {
-        String defaultStockString = String.join(",",
-                name,
-                String.valueOf(price),
-                String.valueOf(defaultStock),
-                "null"
-        );
-        if (promotionStock != 0) {
-            return stringWithPromotionStock(defaultStockString);
-        }
-        return defaultStockString;
-    }
-
-    private String stringWithPromotionStock(String defaultStockString) {
-        String promotionStockString = String.join(",",
-                name,
-                String.valueOf(price),
-                String.valueOf(promotionStock),
-                promotion.getName()
-        );
-        return defaultStockString + "\n" + promotionStockString;
     }
 
     public static class ProductBuilder {

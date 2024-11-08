@@ -34,6 +34,10 @@ final public class Promotion {
         return get;
     }
 
+    public int getPromotionUnit() {
+        return buy + get;
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }

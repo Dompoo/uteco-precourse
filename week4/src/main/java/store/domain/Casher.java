@@ -36,8 +36,7 @@ final public class Casher {
     }
 
     private static int calculatePromotionGetCount(Product product, int purchaseAmount) {
-        int promotionUnit = product.getPromotion().getBuy() + product.getPromotion().getGet();
-
+        int promotionUnit = product.getPromotion().getPromotionUnit();
         return (((purchaseAmount / promotionUnit) + 1) * promotionUnit) - purchaseAmount;
     }
 
@@ -53,7 +52,7 @@ final public class Casher {
     }
 
     private static int calculateDefaultProductBackCount(Product product, int purchaseAmount) {
-        int promotionUnit = product.getPromotion().getBuy() + product.getPromotion().getGet();
+        int promotionUnit = product.getPromotion().getPromotionUnit();
         if (purchaseAmount < product.getPromotionStock()) {
             return purchaseAmount % promotionUnit;
         }

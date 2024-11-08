@@ -55,11 +55,11 @@ final public class Product {
         return price;
     }
 
-    public boolean haveDefaultStock() {
+    public boolean hasDefaultStock() {
         return stockType == StockType.DEFAULT_ONLY || stockType == StockType.DEFAULT_AND_PROMOTION;
     }
 
-    public boolean havePromotionStock() {
+    public boolean hasPromotionStock() {
         return stockType == StockType.PROMOTION_ONLY || stockType == StockType.DEFAULT_AND_PROMOTION;
     }
 

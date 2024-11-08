@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 import store.infra.entity.DatabaseEntity;
 
 public abstract class FileDatabase<T extends DatabaseEntity> implements Database<T> {
@@ -27,17 +28,21 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
 
     @Override
     public List<T> readAll() {
-        List<T> objects = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(getFilePath()))) {
-            reader.readLine();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                objects.add(convertLineToObject(mapData(line)));
-            }
-            return objects;
+            return buildObjects(reader);
         } catch (IOException e) {
             throw new RuntimeException("파일 읽기 중 오류가 발생했습니다", e);
         }
+    }
+
+    private List<T> buildObjects(BufferedReader reader) throws IOException {
+        List<T> objects = new ArrayList<>();
+        reader.readLine();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            objects.add(convertLineToObject(mapData(line)));
+        }
+        return objects;
     }
 
     private Map<String, String> mapData(String line) {
@@ -53,16 +58,21 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
     @Override
     public void updateAll(List<T> objects) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(getFilePath(), false))) {
-            writer.write(headerLine);
-            for (T object : objects) {
-
-                String line = object.toLine(headerLine.split(COLUMN_SEPARATOR));
-                writer.write(line);
-                writer.newLine();
-            }
+            writer.write(buildUpdateScript(objects));
         } catch (IOException e) {
             throw new RuntimeException("파일 업데이트 중 오류가 발생했습니다", e);
         }
+    }
+
+    private String buildUpdateScript(List<T> objects) {
+        StringJoiner stringJoiner = new StringJoiner("\n");
+        stringJoiner.add(headerLine);
+        for (T object : objects) {
+            String line = object.toLine(headerLine.split(COLUMN_SEPARATOR));
+            stringJoiner.add(line);
+        }
+        stringJoiner.add("");
+        return stringJoiner.toString();
     }
 
     protected abstract String getFilePath();

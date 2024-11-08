@@ -3,6 +3,7 @@ package store.infra.entity;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
+import java.util.StringJoiner;
 import store.domain.Promotion;
 
 public record PromotionEntity(
@@ -35,25 +36,25 @@ public record PromotionEntity(
 
     @Override
     public String toLine(String[] columns) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringJoiner stringJoiner = new StringJoiner(",");
         for (String column : columns) {
             if (column.equals("name")) {
-                stringBuilder.append(name);
+                stringJoiner.add(name);
             }
             if (column.equals("buy")) {
-                stringBuilder.append(buy);
+                stringJoiner.add(String.valueOf(buy));
             }
             if (column.equals("get")) {
-                stringBuilder.append(get);
+                stringJoiner.add(String.valueOf(get));
             }
-            if (column.equals("startDate")) {
-                stringBuilder.append(startDate);
+            if (column.equals("start_date")) {
+                stringJoiner.add(String.valueOf(startDate));
             }
-            if (column.equals("endDate")) {
-                stringBuilder.append(endDate);
+            if (column.equals("end_date")) {
+                stringJoiner.add(String.valueOf(endDate));
             }
         }
-        return stringBuilder.toString();
+        return stringJoiner.toString();
     }
 
     @Override

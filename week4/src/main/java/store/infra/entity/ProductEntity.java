@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.stream.Stream;
 import store.domain.Product;
 
@@ -29,23 +30,13 @@ public record ProductEntity(
         List<ProductEntity> productEntities = new ArrayList<>();
         String name = product.getName();
         int price = product.getPrice();
-        int stock = product.getDefaultStock();
-        String promotionName = "null";
-        productEntities.add(new ProductEntity(name, price, stock, promotionName));
-        if (product.hasPromotion()) {
-            productEntities.add(createPromotionProduct(product, name, price));
+        if (product.hasDefaultStock()) {
+            productEntities.add(new ProductEntity(name, price, product.getDefaultStock(), "null"));
+        }
+        if (product.hasPromotionStock()) {
+            productEntities.add(new ProductEntity(name, price, product.getPromotionStock(), product.getPromotion().getName()));
         }
         return productEntities.stream();
-    }
-
-    private static ProductEntity createPromotionProduct(
-            Product product,
-            String name,
-            int price
-    ) {
-        int stock = product.getPromotionStock();
-        String promotionName = product.getPromotion().getName();
-        return new ProductEntity(name, price, stock, promotionName);
     }
 
     public boolean isPromotionStockEntity() {
@@ -54,22 +45,22 @@ public record ProductEntity(
 
     @Override
     public String toLine(String[] columns) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringJoiner stringJoiner = new StringJoiner(",");
         for (String column : columns) {
             if (column.equals("name")) {
-                stringBuilder.append(name);
+                stringJoiner.add(name);
             }
             if (column.equals("price")) {
-                stringBuilder.append(price);
+                stringJoiner.add(String.valueOf(price));
             }
             if (column.equals("quantity")) {
-                stringBuilder.append(quantity);
+                stringJoiner.add(String.valueOf(quantity));
             }
-            if (column.equals("promotionName")) {
-                stringBuilder.append(promotionName);
+            if (column.equals("promotion")) {
+                stringJoiner.add(promotionName);
             }
         }
-        return stringBuilder.toString();
+        return stringJoiner.toString();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package store.config.controller;
 
+import store.config.aop.RetryHandlerConfig;
 import store.config.infra.repository.RepositoryConfig;
 import store.config.io.inputHandler.InputHandlerConfig;
 import store.config.io.outputHandler.OutputHandlerConfig;
@@ -23,12 +24,16 @@ public class ControllerConfig {
             PurchaseServiceConfig purchaseServiceConfig,
             DecisionServiceConfig decisionServiceConfig,
             ProductServiceConfig productServiceConfig,
-            RepositoryConfig repositoryConfig
+            RepositoryConfig repositoryConfig,
+            RetryHandlerConfig retryHandlerConfig
     ) {
         DefaultController defaultController = configDefaultController(inputHandlerConfig, outputHandlerConfig,
                 dateProviderConfig, purchaseServiceConfig, decisionServiceConfig, productServiceConfig);
-        RePurchaseControllerProxy rePurchaseControllerProxy = configRePurchaseController(inputHandlerConfig,
-                defaultController);
+        RePurchaseControllerProxy rePurchaseControllerProxy = configRePurchaseController(
+                inputHandlerConfig,
+                retryHandlerConfig,
+                defaultController
+        );
         this.controller = configTransactionController(repositoryConfig, rePurchaseControllerProxy);
     }
 
@@ -52,11 +57,13 @@ public class ControllerConfig {
 
     private static RePurchaseControllerProxy configRePurchaseController(
             InputHandlerConfig inputHandlerConfig,
+            RetryHandlerConfig retryHandlerConfig,
             Controller controller
     ) {
         return new RePurchaseControllerProxy(
                 controller,
-                inputHandlerConfig.getInputHandler()
+                inputHandlerConfig.getInputHandler(),
+                retryHandlerConfig.getRetryHandler()
         );
     }
 

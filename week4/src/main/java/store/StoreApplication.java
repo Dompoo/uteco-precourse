@@ -35,7 +35,8 @@ public class StoreApplication {
                 new PurchaseServiceConfig(productRepositoryConfig, retryHandlerConfig),
                 new DecisionServiceConfig(productRepositoryConfig, retryHandlerConfig),
                 new ProductServiceConfig(productRepositoryConfig),
-                new RepositoryConfig(productRepositoryConfig)
+                new RepositoryConfig(productRepositoryConfig),
+                retryHandlerConfig
         ).getController();
     }
 

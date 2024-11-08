@@ -46,9 +46,9 @@ final public class Casher {
                 product.getName(),
                 calculateDefaultProductBackCount(product, purchaseRequest.count())
         )) {
-            return PurchaseType.PORTION_PROMOTION_BRING_BACK;
+            return PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK;
         }
-        return PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK;
+        return PurchaseType.PORTION_PROMOTION_BRING_BACK;
     }
 
     private static int calculateDefaultProductBackCount(Product product, int purchaseAmount) {

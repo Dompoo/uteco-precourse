@@ -2,6 +2,8 @@ package store.infra.entity;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.Objects;
+import store.domain.Promotion;
 
 public record PromotionEntity(
         String name,
@@ -15,8 +17,18 @@ public record PromotionEntity(
         String name = dataMap.get("name");
         int buy = Integer.parseInt(dataMap.get("buy"));
         int get = Integer.parseInt(dataMap.get("get"));
-        LocalDate startDate = LocalDate.parse(dataMap.get("startDate"));
-        LocalDate endDate = LocalDate.parse(dataMap.get("endDate"));
+        LocalDate startDate = LocalDate.parse(dataMap.get("start_date"));
+        LocalDate endDate = LocalDate.parse(dataMap.get("end_date"));
+
+        return new PromotionEntity(name, buy, get, startDate, endDate);
+    }
+
+    public static PromotionEntity from(Promotion promotion) {
+        String name = promotion.getName();
+        int buy = promotion.getBuy();
+        int get = promotion.getGet();
+        LocalDate startDate = promotion.getStartDate();
+        LocalDate endDate = promotion.getEndDate();
 
         return new PromotionEntity(name, buy, get, startDate, endDate);
     }
@@ -42,5 +54,21 @@ public record PromotionEntity(
             }
         }
         return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PromotionEntity that)) {
+            return false;
+        }
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
     }
 }

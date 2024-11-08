@@ -1,5 +1,6 @@
 package store.io.output;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
 import store.dto.response.ProductResponse;
@@ -12,20 +13,27 @@ public class OutputParser {
     private static final String RECEIPT_OUTPUT_FORMAT = "%s\t\t\t\t%s\t\t  %s";
 
     public String parseProductResponses(List<ProductResponse> productResponses) {
+        Collections.sort(productResponses);
         StringBuilder stringBuilder = new StringBuilder();
         for (ProductResponse productResponse : productResponses) {
             StringJoiner stringJoiner = new StringJoiner(" ");
             stringJoiner.add("-");
             stringJoiner.add(productResponse.productName());
             stringJoiner.add(productResponse.price() + "원");
-
-            stringJoiner.add(productResponse.stock() + "개");
+            stringJoiner.add(getStock(productResponse.stock()));
             if (!productResponse.promotionName().isBlank()) {
                 stringJoiner.add(productResponse.promotionName());
             }
             stringBuilder.append(stringJoiner).append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    private static String getStock(int stock) {
+        if (stock == 0) {
+            return "재고없음";
+        }
+        return stock + "개";
     }
 
     public String parsePurchasedProductsResponses(List<PurchasedProductResponse> purchasedProductResponses) {

@@ -12,7 +12,7 @@ public class OutputHandler {
     private static final String GREETING_MESSAGE = "안녕하세요. W편의점입니다.";
     private static final String PRODUCTS_MESSAGE = "현재 보유하고 있는 상품입니다.\n\n";
     private static final String PRODUCT_START_MESSAGE = "==============W 편의점================\n";
-    private static final String PRODUCT_COLUMN_MESSAGE = "상품명                수량      금액\n";
+    private static final String PRODUCT_COLUMN_MESSAGE = "상품명\t\t\t\t수량\t\t  금액\n";
     private static final String PROMOTION_START_MESSAGE = "=============증     정===============\n";
     private static final String COST_START_MESSAGE = "====================================\n";
 

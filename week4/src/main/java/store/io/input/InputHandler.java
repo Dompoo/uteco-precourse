@@ -31,21 +31,27 @@ public class InputHandler {
         writer.writeLine(PURCHASE_MESSAGE);
         List<String> purchases = Arrays.stream(reader.readLineAsStrings(PURCHASE_SEPARATOR)).toList();
         inputValidator.validatePurchases(purchases);
-        return inputParser.parsePurchases(purchases);
+        List<PurchaseRequest> result = inputParser.parsePurchases(purchases);
+        writer.writeEmptyLine();
+        return result;
     }
 
     public boolean handleFreeProductDecision(String productName, int freeCount) {
         writer.writeLine(FREE_PRODUCT_MESSAGE_FORMAT.formatted(productName, freeCount));
         String freeProductDecision = reader.readLineAsString();
         inputValidator.validateYOrN(freeProductDecision);
-        return inputParser.parseYesOrNo(freeProductDecision);
+        boolean result = inputParser.parseYesOrNo(freeProductDecision);
+        writer.writeEmptyLine();
+        return result;
     }
 
     public boolean handleBringDefaultProductBackDecision(String productName, int noPromotionCount) {
         writer.writeLine(BRING_PRODUCT_BACK_MESSAGE.formatted(productName, noPromotionCount));
         String bringDefaultProductBackDecision = reader.readLineAsString();
         inputValidator.validateYOrN(bringDefaultProductBackDecision);
-        return inputParser.parseYesOrNo(bringDefaultProductBackDecision);
+        boolean result = inputParser.parseYesOrNo(bringDefaultProductBackDecision);
+        writer.writeEmptyLine();
+        return result;
     }
 
     public boolean handleMembershipDecision() {

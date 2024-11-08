@@ -9,9 +9,7 @@ import store.dto.response.PurchasedProductResponse;
 
 public class OutputParser {
 
-    private static final String PURCHASED_PRODUCT_FORMAT = "%-20s %8s %12s%n";
-    private static final String PROMOTIONED_PRODUCT_FORMAT = "%-20s %8s%n";
-    private static final String PURCHASED_COST_FORMAT = "%-20s%n";
+    private static final String RECEIPT_OUTPUT_FORMAT = "%s\t\t\t\t%s\t\t  %s";
 
     public String parseProductResponses(List<ProductResponse> productResponses) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -31,37 +29,51 @@ public class OutputParser {
     }
 
     public String parsePurchasedProductsResponses(List<PurchasedProductResponse> purchasedProductResponses) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringJoiner stringJoiner = new StringJoiner("\n");
         for (PurchasedProductResponse purchasedProductResponse : purchasedProductResponses) {
-            stringBuilder.append(PURCHASED_PRODUCT_FORMAT.formatted(
+            stringJoiner.add(RECEIPT_OUTPUT_FORMAT.formatted(
                     purchasedProductResponse.productName(),
                     purchasedProductResponse.purchaseAmount(),
                     purchasedProductResponse.purchaseAmount() * purchasedProductResponse.price()
             ));
         }
-        return stringBuilder.toString();
+        return stringJoiner.toString();
     }
 
     public String parsePromotionedProductsResponses(List<PromotionedProductResponse> promotionedProductResponses) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringJoiner stringJoiner = new StringJoiner("\n");
         for (PromotionedProductResponse promotionedProductResponse : promotionedProductResponses) {
-            stringBuilder.append(PROMOTIONED_PRODUCT_FORMAT.formatted(
+            stringJoiner.add(RECEIPT_OUTPUT_FORMAT.formatted(
                     promotionedProductResponse.productName(),
-                    promotionedProductResponse.promotionedAmount()
+                    promotionedProductResponse.promotionedAmount(),
+                    ""
             ));
         }
-        return stringBuilder.toString();
+        return stringJoiner.toString();
     }
 
     public String parsePurchaseCostResponse(PurchaseCostResponse purchaseCostResponse) {
         StringJoiner stringJoiner = new StringJoiner("\n");
-        stringJoiner.add(PROMOTIONED_PRODUCT_FORMAT.formatted(
-                purchaseCostResponse.originalPurchaseCost(),
-                purchaseCostResponse.purchaseAmount()
+        stringJoiner.add(RECEIPT_OUTPUT_FORMAT.formatted(
+                "총구매액",
+                purchaseCostResponse.purchaseAmount(),
+                purchaseCostResponse.originalPurchaseCost()
         ));
-        stringJoiner.add(PURCHASED_COST_FORMAT.formatted(purchaseCostResponse.promotionSaleCost()));
-        stringJoiner.add(PURCHASED_COST_FORMAT.formatted(purchaseCostResponse.membershipSaleCost()));
-        stringJoiner.add(PURCHASED_COST_FORMAT.formatted(purchaseCostResponse.finalPrice()));
+        stringJoiner.add(RECEIPT_OUTPUT_FORMAT.formatted(
+                "행사할인",
+                "",
+                "-" + purchaseCostResponse.promotionSaleCost()
+        ));
+        stringJoiner.add(RECEIPT_OUTPUT_FORMAT.formatted(
+                "멤버십할인",
+                "",
+                "-" + purchaseCostResponse.membershipSaleCost()
+        ));
+        stringJoiner.add(RECEIPT_OUTPUT_FORMAT.formatted(
+                "내실돈",
+                "",
+                purchaseCostResponse.finalPrice()
+        ));
         return stringJoiner.toString();
     }
 }

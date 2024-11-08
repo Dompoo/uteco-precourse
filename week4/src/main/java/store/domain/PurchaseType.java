@@ -18,7 +18,7 @@ public enum PurchaseType {
     FULL_PROMOTION_BRING_FREE(
             (info) -> ((info.purchaseAmount() / info.promotionUnit()) + 1) * info.promotionUnit(),
             (info) -> ((info.purchaseAmount() / info.promotionUnit()) + 1) * info.promotionGet(),
-            (info) -> info.purchaseAmount() + info.promotionGet()
+            (info) -> ((info.purchaseAmount() / info.promotionUnit()) + 1) * info.promotionUnit()
     ),
     FULL_PROMOTION_NOT_BRING_FREE(
             PurchaseInfo::purchaseAmount,

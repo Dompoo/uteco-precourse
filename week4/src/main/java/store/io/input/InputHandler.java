@@ -1,6 +1,5 @@
 package store.io.input;
 
-import java.util.Arrays;
 import java.util.List;
 import store.dto.request.PurchaseRequest;
 import store.io.reader.Reader;
@@ -30,7 +29,7 @@ public class InputHandler {
 
     public List<PurchaseRequest> handlePurchases() {
         writer.writeLine(PURCHASE_MESSAGE);
-        List<String> purchases = Arrays.asList(reader.readLineAsStrings(PURCHASE_SEPARATOR));
+        List<String> purchases = reader.readLineAsStrings(PURCHASE_SEPARATOR);
         inputValidator.validatePurchases(purchases);
         return inputParser.parsePurchases(purchases);
     }

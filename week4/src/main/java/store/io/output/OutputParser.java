@@ -33,7 +33,7 @@ public class OutputParser {
 
     private static String getStock(int stock) {
         if (stock == 0) {
-            return "재고없음";
+            return "재고 없음";
         }
         return stock + "개";
     }

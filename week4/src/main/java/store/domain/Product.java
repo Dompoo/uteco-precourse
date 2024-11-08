@@ -47,16 +47,16 @@ final public class Product {
         defaultStock -= (totalDecreaseStock - promotionDecreaseStock);
     }
 
+    public boolean isStockSufficient(int count) {
+        return count <= defaultStock + promotionStock;
+    }
+
     public String getName() {
         return name;
     }
 
     public int getPrice() {
         return price;
-    }
-
-    public boolean hasDefaultStock() {
-        return stockType == StockType.DEFAULT_ONLY || stockType == StockType.DEFAULT_AND_PROMOTION;
     }
 
     public boolean hasPromotionStock() {

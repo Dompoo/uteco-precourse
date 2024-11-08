@@ -1,9 +1,7 @@
 package store.service.purchaseService;
 
 import java.util.List;
-import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import store.domain.Product;
 import store.domain.PurchaseType;
 import store.domain.vo.PurchaseInfo;
@@ -24,22 +22,18 @@ public class DefaultPurchaseService implements PurchaseService {
     @Override
     public List<PurchaseRequest> getPurchases(Supplier<List<PurchaseRequest>> purchaseRequestsSupplier) {
         List<PurchaseRequest> purchaseRequests = purchaseRequestsSupplier.get();
-        if (!isAllPurchaseProductValid(purchaseRequests)) {
-            throw StoreExceptions.PRODUCT_NOT_FOUND.get();
-        }
+        validatePurchaseProducts(purchaseRequests);
         return purchaseRequests;
     }
 
-    private boolean isAllPurchaseProductValid(List<PurchaseRequest> purchaseRequests) {
-        Set<String> validNames = productRepository.findAll().stream()
-                .map(Product::getName)
-                .collect(Collectors.toSet());
-
-        Set<String> requestNames = purchaseRequests.stream()
-                .map(PurchaseRequest::productName)
-                .collect(Collectors.toSet());
-
-        return validNames.containsAll(requestNames);
+    private void validatePurchaseProducts(List<PurchaseRequest> purchaseRequests) {
+        for (PurchaseRequest purchaseRequest : purchaseRequests) {
+            Product product = productRepository.findByName(purchaseRequest.productName())
+                    .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
+            if (!product.isStockSufficient(purchaseRequest.count())) {
+                throw StoreExceptions.PURCHASE_OVER_STOCK.get();
+            }
+        }
     }
 
     @Override

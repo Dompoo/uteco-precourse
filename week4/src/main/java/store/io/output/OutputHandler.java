@@ -54,6 +54,7 @@ public class OutputHandler {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(COST_START_MESSAGE);
         stringBuilder.append(outputParser.parsePurchaseCostResponse(purchaseCostResponse));
+        stringBuilder.append("\n");
         writer.writeLine(stringBuilder.toString());
     }
 }

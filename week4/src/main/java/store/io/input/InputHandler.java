@@ -14,6 +14,7 @@ public class InputHandler {
     private static final String BRING_PRODUCT_BACK_MESSAGE = "현재 %s %d개는 프로모션 할인이 적용되지 않습니다. "
             + "그래도 구매하시겠습니까? (Y/N)";
     private static final String MEMBERSHIP_MESSAGE = "멤버십 할인을 받으시겠습니까? (Y/N)";
+    private static final String RE_PURCHASE_MESSAGE = "감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)";
 
     private final Reader reader;
     private final Writer writer;
@@ -58,6 +59,17 @@ public class InputHandler {
         writer.writeLine(MEMBERSHIP_MESSAGE);
         String membershipDecision = reader.readLineAsString();
         inputValidator.validateYOrN(membershipDecision);
-        return inputParser.parseYesOrNo(membershipDecision);
+        boolean result = inputParser.parseYesOrNo(membershipDecision);
+        writer.writeEmptyLine();
+        return result;
+    }
+
+    public boolean handleRePuchase() {
+        writer.writeLine(RE_PURCHASE_MESSAGE);
+        String rePurchaseDecision = reader.readLineAsString();
+        inputValidator.validateYOrN(rePurchaseDecision);
+        boolean result = inputParser.parseYesOrNo(rePurchaseDecision);
+        writer.writeEmptyLine();
+        return result;
     }
 }

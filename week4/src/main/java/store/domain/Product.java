@@ -1,6 +1,7 @@
 package store.domain;
 
 import store.domain.validator.ParamsValidator;
+import store.exception.StoreExceptions;
 
 final public class Product {
 
@@ -20,12 +21,25 @@ final public class Product {
             Promotion promotion
     ) {
         ParamsValidator.validateParamsNotNull(Product.class, name, stockType);
+        validate(price, defaultStock, promotionStock);
         this.name = name;
         this.price = price;
         this.stockType = stockType;
         this.defaultStock = defaultStock;
         this.promotionStock = promotionStock;
         this.promotion = promotion;
+    }
+
+    private static void validate(int price, int defaultStock, int promotionStock) {
+        if (price < 0) {
+            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
+        }
+        if (defaultStock < 0) {
+            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
+        }
+        if (promotionStock < 0) {
+            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
+        }
     }
 
     public void reduceStock(int totalDecreaseStock, int promotionDecreaseStock) {

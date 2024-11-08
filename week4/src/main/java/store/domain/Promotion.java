@@ -2,6 +2,7 @@ package store.domain;
 
 import java.time.LocalDate;
 import store.domain.validator.ParamsValidator;
+import store.exception.StoreExceptions;
 
 final public class Promotion {
 
@@ -13,11 +14,24 @@ final public class Promotion {
 
     public Promotion(String name, int buy, int get, LocalDate startDate, LocalDate endDate) {
         ParamsValidator.validateParamsNotNull(Promotion.class, name, startDate, endDate);
+        validate(name, buy, get);
         this.name = name;
         this.buy = buy;
         this.get = get;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    private static void validate(String name, int buy, int get) {
+        if (name.isBlank()) {
+            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
+        }
+        if (buy <= 0) {
+            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
+        }
+        if (get <= 0) {
+            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
+        }
     }
 
     public boolean canPromotion(LocalDate localDate) {

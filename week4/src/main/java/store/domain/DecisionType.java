@@ -1,5 +1,7 @@
 package store.domain;
 
+import store.exception.StoreExceptions;
+
 public enum DecisionType {
 
     FULL_DEFAULT,
@@ -50,7 +52,7 @@ public enum DecisionType {
 
     private static void validateStockSufficient(int purchaseAmount, int defaultStock, int promotionStock) {
         if (purchaseAmount > defaultStock + promotionStock) {
-            throw new RuntimeException("재고부족");
+            throw StoreExceptions.PURCHASE_OVER_STOCK.get();
         }
     }
 }

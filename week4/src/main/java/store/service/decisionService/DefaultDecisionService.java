@@ -11,6 +11,7 @@ import store.domain.membership.Membership;
 import store.domain.membership.NoMembership;
 import store.domain.membership.RatioMembership;
 import store.dto.request.PurchaseRequest;
+import store.exception.StoreExceptions;
 import store.infra.repository.Repository;
 
 public class DefaultDecisionService implements DecisionService {
@@ -24,7 +25,7 @@ public class DefaultDecisionService implements DecisionService {
     @Override
     public DecisionType getDecisionType(PurchaseRequest purchaseRequest, LocalDate localDate) {
         Product product = productRepository.findByName(purchaseRequest.productName())
-                .orElseThrow();
+                .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
         if (!product.hasPromotion()) {
             return DecisionType.FULL_DEFAULT;
@@ -50,7 +51,7 @@ public class DefaultDecisionService implements DecisionService {
             DecisionSupplier<Boolean> bringDefaultProductBackDecisionSupplier
     ) {
         Product product = productRepository.findByName(purchaseRequest.productName())
-                .orElseThrow();
+                .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
         return Casher.decidePurchaseType(
                 product,

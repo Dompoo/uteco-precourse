@@ -10,6 +10,7 @@ import store.domain.vo.PurchaseInfo;
 import store.domain.vo.PurchaseStatus;
 import store.dto.request.PurchaseRequest;
 import store.dto.response.PurchaseResult;
+import store.exception.StoreExceptions;
 import store.infra.repository.Repository;
 
 public class DefaultPurchaseService implements PurchaseService {
@@ -44,7 +45,7 @@ public class DefaultPurchaseService implements PurchaseService {
     @Override
     public PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType) {
         Product product = productRepository.findByName(purchaseRequest.productName())
-                .orElseThrow();
+                .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
         PurchaseStatus purchaseStatus = purchaseType.purchase(new PurchaseInfo(
                 purchaseRequest.count(),

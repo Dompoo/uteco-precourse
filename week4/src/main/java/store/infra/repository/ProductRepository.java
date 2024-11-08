@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import store.domain.Product;
 import store.domain.Promotion;
+import store.exception.StoreExceptions;
 import store.infra.database.Database;
 import store.infra.entity.ProductEntity;
 import store.infra.entity.PromotionEntity;
@@ -57,7 +58,7 @@ public class ProductRepository implements Repository<Product> {
         Product findProduct = products.stream()
                 .filter(products -> products.getName().equals(product.getName()))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
         products.remove(findProduct);
         products.add(product);

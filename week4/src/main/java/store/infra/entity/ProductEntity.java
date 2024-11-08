@@ -32,21 +32,20 @@ public record ProductEntity(
         int stock = product.getDefaultStock();
         String promotionName = "null";
         productEntities.add(new ProductEntity(name, price, stock, promotionName));
-        if (product.getPromotion() != null) {
-            addPromotionProduct(product, productEntities, name, price);
+        if (product.hasPromotion()) {
+            productEntities.add(createPromotionProduct(product, name, price));
         }
         return productEntities.stream();
     }
 
-    private static void addPromotionProduct(
+    private static ProductEntity createPromotionProduct(
             Product product,
-            List<ProductEntity> productEntities,
             String name,
             int price
     ) {
         int stock = product.getPromotionStock();
         String promotionName = product.getPromotion().getName();
-        productEntities.add(new ProductEntity(name, price, stock, promotionName));
+        return new ProductEntity(name, price, stock, promotionName);
     }
 
     public boolean isPromotionStockEntity() {

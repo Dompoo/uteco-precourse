@@ -1,6 +1,7 @@
 package store.domain;
 
 import java.time.LocalDate;
+import store.domain.validator.ParamsValidator;
 
 final public class Promotion {
 
@@ -11,6 +12,7 @@ final public class Promotion {
     private final LocalDate endDate;
 
     public Promotion(String name, int buy, int get, LocalDate startDate, LocalDate endDate) {
+        ParamsValidator.validateParamsNotNull(Promotion.class, name, startDate, endDate);
         this.name = name;
         this.buy = buy;
         this.get = get;

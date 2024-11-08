@@ -57,6 +57,10 @@ final public class Product {
         return promotionStock;
     }
 
+    public boolean hasPromotion() {
+        return promotion != null;
+    }
+
     public Promotion getPromotion() {
         return promotion;
     }

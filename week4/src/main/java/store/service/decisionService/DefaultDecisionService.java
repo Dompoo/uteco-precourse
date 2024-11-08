@@ -26,11 +26,11 @@ public class DefaultDecisionService implements DecisionService {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow();
 
-        Promotion promotion = product.getPromotion();
-
-        if (promotion == null) {
+        if (!product.hasPromotion()) {
             return DecisionType.FULL_DEFAULT;
         }
+
+        Promotion promotion = product.getPromotion();
 
         return DecisionType.of(
                 purchaseRequest.count(),

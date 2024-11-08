@@ -47,12 +47,7 @@ public class DefaultPurchaseService implements PurchaseService {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
-        PurchaseStatus purchaseStatus = purchaseType.purchase(new PurchaseInfo(
-                purchaseRequest.count(),
-                product.getPromotionStock(),
-                product.getPromotion().getBuy(),
-                product.getPromotion().getGet()
-        ));
+        PurchaseStatus purchaseStatus = purchaseType.purchase(createPurchaseInfo(purchaseRequest, product));
 
         product.reduceStock(purchaseStatus.finalPurchaseAmount(), purchaseStatus.decreasePromotionStock());
         productRepository.update(product);
@@ -64,5 +59,15 @@ public class DefaultPurchaseService implements PurchaseService {
                 product.getPrice(),
                 purchaseStatus.promotionGetAmount()
         );
+    }
+
+    private static PurchaseInfo createPurchaseInfo(PurchaseRequest purchaseRequest, Product product) {
+        int buy = 1;
+        int get = 1;
+        if (product.hasPromotion()) {
+            buy = product.getPromotion().getBuy();
+            get = product.getPromotion().getGet();
+        }
+        return new PurchaseInfo(purchaseRequest.count(), product.getPromotionStock(), buy, get);
     }
 }

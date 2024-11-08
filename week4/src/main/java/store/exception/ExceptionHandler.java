@@ -14,5 +14,6 @@ public class ExceptionHandler {
 
     public void handleException(Exception exception) {
         writer.writeLine(EXCEPTION_MESSAGE_PREFIX + exception.getMessage());
+        writer.writeEmptyLine();
     }
 }

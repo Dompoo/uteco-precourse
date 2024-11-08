@@ -1,4 +1,4 @@
-package store.domain.dateProvider;
+package store.service.dateProvider;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package store.domain.dateProvider;
+package store.service.dateProvider;
 
 import java.time.LocalDate;
 

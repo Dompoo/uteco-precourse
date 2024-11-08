@@ -2,8 +2,11 @@ package store.aop;
 
 
 import store.exception.ExceptionHandler;
+import store.exception.StoreExceptions;
 
 public class RetryHandler {
+
+    private static final int MAX_ATTEMPTS = 10;
 
     private final ExceptionHandler exceptionHandler;
 
@@ -12,13 +15,15 @@ public class RetryHandler {
     }
 
     public <T> T tryUntilSuccess(final IllegalArgumentExceptionThrower<T> thrower) {
-        while (true) {
+        int attempt = 0;
+        while (attempt++ < MAX_ATTEMPTS) {
             try {
                 return thrower.run();
             } catch (IllegalArgumentException illegalArgumentException) {
                 exceptionHandler.handleException(illegalArgumentException);
             }
         }
+        throw StoreExceptions.OVER_MAX_RETRY_ATTEPMT.get();
     }
 
     @FunctionalInterface

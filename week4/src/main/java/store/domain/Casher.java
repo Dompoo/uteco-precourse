@@ -1,7 +1,7 @@
 package store.domain;
 
-import java.util.function.BiPredicate;
 import store.dto.request.PurchaseRequest;
+import store.service.decisionService.DecisionSupplier;
 
 final public class Casher {
 
@@ -9,8 +9,8 @@ final public class Casher {
             Product product,
             PurchaseRequest purchaseRequest,
             DecisionType decisionType,
-            BiPredicate<String, Integer> bringFreeProductPredicate,
-            BiPredicate<String, Integer> bringDefaultProductBackPredicate
+            DecisionSupplier<Boolean> bringFreeProductSupplier,
+            DecisionSupplier<Boolean> bringDefaultProductBackSupplier
     ) {
         if (decisionType == DecisionType.FULL_DEFAULT) {
             return PurchaseType.FULL_DEFAULT;
@@ -19,14 +19,14 @@ final public class Casher {
             return PurchaseType.FULL_PROMOTION;
         }
         if (decisionType == DecisionType.CAN_GET_FREE_PRODUCT) {
-            return decideBringFreeProduct(product, purchaseRequest, bringFreeProductPredicate);
+            return decideBringFreeProduct(product, purchaseRequest, bringFreeProductSupplier);
         }
-        return decideBringDefaultProductBack(product, purchaseRequest, bringDefaultProductBackPredicate);
+        return decideBringDefaultProductBack(product, purchaseRequest, bringDefaultProductBackSupplier);
     }
 
     private static PurchaseType decideBringFreeProduct(Product product, PurchaseRequest purchaseRequest,
-                                                BiPredicate<String, Integer> bringFreeProductPredicate) {
-        if (bringFreeProductPredicate.test(
+                                                DecisionSupplier<Boolean> bringFreeProductPredicate) {
+        if (bringFreeProductPredicate.get(
                 product.getName(),
                 calculatePromotionGetCount(product, purchaseRequest.count()))
         ) {
@@ -42,8 +42,8 @@ final public class Casher {
     }
 
     private static PurchaseType decideBringDefaultProductBack(Product product, PurchaseRequest purchaseRequest,
-                                                BiPredicate<String, Integer> bringDefaultProductBackPredicate) {
-        if (bringDefaultProductBackPredicate.test(
+                                                DecisionSupplier<Boolean> bringDefaultProductBackPredicate) {
+        if (bringDefaultProductBackPredicate.get(
                 product.getName(),
                 calculateDefaultProductBackCount(product, purchaseRequest.count())
         )) {

@@ -10,11 +10,9 @@ final public class RatioMembership implements Membership {
 
     @Override
     public int calculateMembershipSaleAmount(List<PurchaseResult> purchaseResults) {
-        int totalDefaultPurchasePrice = 0;
-        for (PurchaseResult purchaseResult : purchaseResults) {
-            int defaultPurchaseAmount = purchaseResult.purchaseAmount() - purchaseResult.promotionedProductAmount();
-            totalDefaultPurchasePrice += defaultPurchaseAmount * purchaseResult.price();
-        }
+        int totalDefaultPurchasePrice = purchaseResults.stream()
+                .mapToInt(PurchaseResult::getDefaultPurchasePrice)
+                .sum();
         return (int) Math.min(totalDefaultPurchasePrice * MEMBERSHIP_SALE_RATIO, MAX_MEMBERSHIP_SALE_AMOUNT);
     }
 }

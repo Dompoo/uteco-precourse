@@ -6,8 +6,8 @@ import store.exception.StoreExceptions;
 
 final public class Promotion {
 
-    private static final int MIN_BUY = 1;
-    private static final int MIN_GET = 1;
+    private static final int MIN_BUY = 0;
+    private static final int MIN_GET = 0;
 
     private final String name;
     private final int buy;

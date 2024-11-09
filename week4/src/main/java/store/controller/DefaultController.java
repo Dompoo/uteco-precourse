@@ -5,14 +5,10 @@ import java.util.List;
 import store.domain.DecisionType;
 import store.domain.PurchaseType;
 import store.domain.Receipt;
-import store.domain.Receipt.ReceiptBuilder;
 import store.domain.membership.Membership;
 import store.dto.request.PurchaseRequest;
 import store.dto.response.ProductResponse;
-import store.dto.response.PromotionedProductResponse;
-import store.dto.response.PurchaseCostResponse;
 import store.dto.response.PurchaseResult;
-import store.dto.response.PurchasedProductResponse;
 import store.io.input.InputHandler;
 import store.io.output.OutputHandler;
 import store.service.dateProvider.DateProvider;
@@ -43,12 +39,12 @@ public class DefaultController implements Controller {
     public void run() {
         processGreetingAndProducts(dateProvider.getDate());
         List<PurchaseRequest> purchaseRequests = purchaseService.getPurchases(inputHandler::handlePurchases);
-        ReceiptBuilder receiptBuilder = new ReceiptBuilder();
+        Receipt receipt = new Receipt();
         for (PurchaseRequest purchaseRequest : purchaseRequests) {
-            processPurchaseRequest(purchaseRequest, receiptBuilder, dateProvider.getDate());
+            processPurchaseRequest(purchaseRequest, receipt, dateProvider.getDate());
         }
-        processMembership(receiptBuilder);
-        processReceipt(receiptBuilder);
+        processMembership(receipt);
+        processReceipt(receipt);
     }
 
     private void processGreetingAndProducts(LocalDate localDate) {
@@ -57,7 +53,7 @@ public class DefaultController implements Controller {
         outputHandler.handleProducts(products);
     }
 
-    private void processPurchaseRequest(PurchaseRequest purchaseRequest, ReceiptBuilder receiptBuilder, LocalDate localDate) {
+    private void processPurchaseRequest(PurchaseRequest purchaseRequest, Receipt receipt, LocalDate localDate) {
         DecisionType decisionType = decisionService.getDecisionType(purchaseRequest, dateProvider.getDate());
         PurchaseType purchaseType = decisionService.decidePurchaseType(purchaseRequest, decisionType,
                 localDate,
@@ -65,18 +61,17 @@ public class DefaultController implements Controller {
                 inputHandler::handleBringDefaultProductBackDecision
         );
         PurchaseResult purchaseResult = purchaseService.purchaseProduct(purchaseRequest, purchaseType, localDate);
-        receiptBuilder.addPurchase(purchaseResult);
+        receipt.addPurchase(purchaseResult);
     }
 
-    private void processMembership(ReceiptBuilder receiptBuilder) {
+    private void processMembership(Receipt receipt) {
         Membership membership = decisionService.decideMembership(inputHandler::handleMembershipDecision);
-        receiptBuilder.addMembership(membership);
+        receipt.addMembership(membership);
     }
 
-    private void processReceipt(ReceiptBuilder receiptBuilder) {
-        Receipt receipt = receiptBuilder.build();
-        outputHandler.handlePurchasedProcuts(PurchasedProductResponse.from(receipt));
-        outputHandler.handlePromotionedProducts(PromotionedProductResponse.from(receipt));
-        outputHandler.handlePurchaseCost(PurchaseCostResponse.from(receipt));
+    private void processReceipt(Receipt receipt) {
+        outputHandler.handlePurchasedProcuts(receipt.buildPurchasedProductResponses());
+        outputHandler.handlePromotionedProducts(receipt.buildPromotionedProductResponses());
+        outputHandler.handlePurchaseCost(receipt.buildPurchaseCostResponse());
     }
 }

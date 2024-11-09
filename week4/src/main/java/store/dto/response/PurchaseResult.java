@@ -19,4 +19,8 @@ public record PurchaseResult(
                 purchaseStatus.promotionGetAmount()
         );
     }
+
+    public int getDefaultPurchasePrice() {
+        return (purchaseAmount - promotionedProductAmount) * price;
+    }
 }

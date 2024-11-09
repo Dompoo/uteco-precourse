@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import store.domain.Product;
-import store.domain.Product.ProductBuilder;
+import store.domain.ProductBuilder;
 import store.domain.Promotion;
 import store.infra.entity.ProductEntity;
 

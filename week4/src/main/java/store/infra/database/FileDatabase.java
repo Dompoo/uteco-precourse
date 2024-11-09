@@ -37,7 +37,7 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
         List<T> objects = new ArrayList<>();
         reader.readLine();
         String line;
-        while ((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null && !line.isBlank()) {
             objects.add(convertLineToObject(mapData(line)));
         }
         return objects;

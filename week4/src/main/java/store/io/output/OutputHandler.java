@@ -23,7 +23,7 @@ public class OutputHandler {
 
     public void handleProducts(List<ProductResponse> productResponses) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("현재 보유하고 있는 상품입니다.\n");
+        stringBuilder.append("현재 보유하고 있는 상품입니다.\n\n");
         stringBuilder.append(outputParser.parseProductResponses(productResponses));
         writer.writeLine(stringBuilder.toString());
     }

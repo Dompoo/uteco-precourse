@@ -53,23 +53,4 @@ final public class Promotion {
     public int getPromotionUnit() {
         return buy + get;
     }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    @Override
-    public String toString() {
-        return String.join(",",
-                name,
-                String.valueOf(buy),
-                String.valueOf(get),
-                String.valueOf(startDate),
-                String.valueOf(endDate)
-        );
-    }
 }

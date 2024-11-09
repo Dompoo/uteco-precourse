@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import store.domain.vo.PurchaseInfo;
 import store.domain.vo.PurchaseStatus;
 
 class PurchasedProductTypeTest {
@@ -25,7 +24,7 @@ class PurchasedProductTypeTest {
         //given
         int get = 1;
 
-        PurchaseInfo purchaseInfo = new PurchaseInfo(
+        Purchase purchase = new Purchase(
                 purchaseAmount,
                 promotionStock,
                 promotionBuy,
@@ -33,7 +32,7 @@ class PurchasedProductTypeTest {
         );
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_DEFAULT.purchase(purchaseInfo);
+        PurchaseStatus result = PurchaseType.FULL_DEFAULT.purchase(purchase);
 
         //then
         assertThat(result).extracting(
@@ -64,7 +63,7 @@ class PurchasedProductTypeTest {
         //given
         int get = 1;
 
-        PurchaseInfo purchaseInfo = new PurchaseInfo(
+        Purchase purchase = new Purchase(
                 purchaseAmount,
                 promotionStock,
                 promotionBuy,
@@ -72,7 +71,7 @@ class PurchasedProductTypeTest {
                 );
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_PROMOTION.purchase(purchaseInfo);
+        PurchaseStatus result = PurchaseType.FULL_PROMOTION.purchase(purchase);
 
         //then
         assertThat(result).extracting(
@@ -103,7 +102,7 @@ class PurchasedProductTypeTest {
         //given
         int get = 1;
 
-        PurchaseInfo purchaseInfo = new PurchaseInfo(
+        Purchase purchase = new Purchase(
                 purchaseAmount,
                 promotionStock,
                 promotionBuy,
@@ -111,7 +110,7 @@ class PurchasedProductTypeTest {
         );
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_PROMOTION_BRING_FREE.purchase(purchaseInfo);
+        PurchaseStatus result = PurchaseType.FULL_PROMOTION_BRING_FREE.purchase(purchase);
 
         //then
         assertThat(result).extracting(
@@ -142,7 +141,7 @@ class PurchasedProductTypeTest {
         //given
         int get = 1;
 
-        PurchaseInfo purchaseInfo = new PurchaseInfo(
+        Purchase purchase = new Purchase(
                 purchaseAmount,
                 promotionStock,
                 promotionBuy,
@@ -150,7 +149,7 @@ class PurchasedProductTypeTest {
         );
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_PROMOTION_NOT_BRING_FREE.purchase(purchaseInfo);
+        PurchaseStatus result = PurchaseType.FULL_PROMOTION_NOT_BRING_FREE.purchase(purchase);
 
         //then
         assertThat(result).extracting(
@@ -189,7 +188,7 @@ class PurchasedProductTypeTest {
         //given
         int get = 1;
 
-        PurchaseInfo purchaseInfo = new PurchaseInfo(
+        Purchase purchase = new Purchase(
                 purchaseAmount,
                 promotionStock,
                 promotionBuy,
@@ -197,7 +196,7 @@ class PurchasedProductTypeTest {
         );
 
         //when
-        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_BRING_BACK.purchase(purchaseInfo);
+        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_BRING_BACK.purchase(purchase);
 
         //then
         assertThat(result).extracting(
@@ -236,7 +235,7 @@ class PurchasedProductTypeTest {
         //given
         int get = 1;
 
-        PurchaseInfo purchaseInfo = new PurchaseInfo(
+        Purchase purchase = new Purchase(
                 purchaseAmount,
                 promotionStock,
                 promotionBuy,
@@ -244,7 +243,7 @@ class PurchasedProductTypeTest {
         );
 
         //when
-        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK.purchase(purchaseInfo);
+        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK.purchase(purchase);
 
         //then
         assertThat(result).extracting(

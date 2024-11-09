@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Supplier;
 import store.domain.Product;
+import store.domain.Purchase;
 import store.domain.PurchaseType;
-import store.domain.vo.PurchaseInfo;
 import store.domain.vo.PurchaseStatus;
 import store.dto.request.PurchaseRequest;
 import store.dto.response.PurchaseResult;
@@ -42,27 +42,21 @@ public class DefaultPurchaseService implements PurchaseService {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
-        PurchaseStatus purchaseStatus = purchaseType.purchase(createPurchaseInfo(purchaseRequest, product, localDate));
+        PurchaseStatus purchaseStatus = purchaseType.purchase(createPurchase(purchaseRequest, product, localDate));
 
         product.reduceStock(purchaseStatus.finalPurchaseAmount(), purchaseStatus.decreasePromotionStock());
         productRepository.update(product);
 
-        return new PurchaseResult(
-                product.getName(),
-                purchaseStatus.finalPurchaseAmount(),
-                purchaseStatus.promotionedProductAmount(),
-                product.getPrice(),
-                purchaseStatus.promotionGetAmount()
-        );
+        return PurchaseResult.of(product, purchaseStatus);
     }
 
-    private static PurchaseInfo createPurchaseInfo(PurchaseRequest purchaseRequest, Product product, LocalDate localDate) {
+    private static Purchase createPurchase(PurchaseRequest purchaseRequest, Product product, LocalDate localDate) {
         int buy = 1;
         int get = 1;
         if (product.hasPromotion(localDate)) {
             buy = product.getPromotion().getBuy();
             get = product.getPromotion().getGet();
         }
-        return new PurchaseInfo(purchaseRequest.count(), product.getPromotionStock(), buy, get);
+        return new Purchase(purchaseRequest.count(), product.getPromotionStock(), buy, get);
     }
 }

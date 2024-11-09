@@ -1,99 +1,68 @@
 package store.domain;
 
-import store.domain.vo.PurchaseInfo;
 import store.domain.vo.PurchaseStatus;
 
 public enum PurchaseType {
 
     FULL_DEFAULT(
-            PurchaseInfo::purchaseAmount,
-            (info) -> 0,
-            (info) -> 0
+            Purchase::getPurchaseAmount,
+            (purchase) -> 0,
+            (purchase) -> 0
     ),
     FULL_PROMOTION(
-            PurchaseInfo::purchaseAmount,
-            (info) -> (info.purchaseAmount() / (info.promotionUnit())) * info.promotionGet(),
-            PurchaseInfo::purchaseAmount
+            Purchase::getPurchaseAmount,
+            Purchase::getPromotionGetWithFullPromotion,
+            Purchase::getPurchaseAmount
     ),
     FULL_PROMOTION_BRING_FREE(
-            (info) -> ((info.purchaseAmount() / info.promotionUnit()) + 1) * info.promotionUnit(),
-            (info) -> ((info.purchaseAmount() / info.promotionUnit()) + 1) * info.promotionGet(),
-            (info) -> ((info.purchaseAmount() / info.promotionUnit()) + 1) * info.promotionUnit()
+            Purchase::getPurchaseAmountWithGetFree,
+            Purchase::getPromotionGetWithGetFree,
+            Purchase::getPurchaseAmountWithGetFree
     ),
     FULL_PROMOTION_NOT_BRING_FREE(
-            PurchaseInfo::purchaseAmount,
-            (info) -> (info.purchaseAmount() / info.promotionUnit()) * info.promotionGet(),
-            PurchaseInfo::purchaseAmount
+            Purchase::getPurchaseAmount,
+            Purchase::getPromotionGetWithFullPromotion,
+            Purchase::getPurchaseAmount
     ),
     PORTION_PROMOTION_BRING_BACK(
-            (info) -> {
-                if (info.purchaseAmount() > info.promotionStock()) {
-                    return (info.promotionStock() / info.promotionUnit()) * info.promotionUnit();
-                }
-                return (info.purchaseAmount() / info.promotionUnit()) * info.promotionUnit();
-            },
-            (info) -> {
-                if (info.purchaseAmount() > info.promotionStock()) {
-                    return (info.promotionStock() / info.promotionUnit()) * info.promotionGet();
-                }
-                return (info.purchaseAmount() / (info.promotionUnit())) * info.promotionGet();
-            },
-            (info) -> {
-                if (info.purchaseAmount() > info.promotionStock()) {
-                    return (info.promotionStock() / info.promotionUnit()) * info.promotionUnit();
-                }
-                return (info.purchaseAmount() / info.promotionUnit()) * info.promotionUnit();
-            }
+            Purchase::getPurchaseAmountWithBringBackNotPromotion,
+            Purchase::getPromotionGetWithPortionPromotion,
+            Purchase::getPurchaseAmountWithBringBackNotPromotion
     ),
     PORTION_PROMOTION_NOT_BRING_BACK(
-            PurchaseInfo::purchaseAmount,
-            (info) -> {
-                if (info.purchaseAmount() > info.promotionStock()) {
-                    return (info.promotionStock() / info.promotionUnit()) * info.promotionGet();
-                }
-                return (info.purchaseAmount() / info.promotionUnit()) * info.promotionGet();
-            },
-            (info) -> {
-                if (info.purchaseAmount() > info.promotionStock()) {
-                    return info.promotionStock();
-                }
-                return info.purchaseAmount();
-            }
+            Purchase::getPurchaseAmount,
+            Purchase::getPromotionGetWithPortionPromotion,
+            Purchase::calculateStockLimitedPurchaseAmount
     ),
     ;
 
-    private final StoreCalculator<Integer> finalPurchaseAmount;
-    private final StoreCalculator<Integer> promotionGetAmount;
-    private final StoreCalculator<Integer> decreasePromotionStock;
+    private final StoreCalculator<Integer> finalPurchaseProductCountCalculator;
+    private final StoreCalculator<Integer> promotionGetProductCountCalculator;
+    private final StoreCalculator<Integer> promotionStockToDecreaseCalculator;
 
     PurchaseType(
-            StoreCalculator<Integer> finalPurchaseAmount,
-            StoreCalculator<Integer> promotionGetAmount,
-            StoreCalculator<Integer> decreasePromotionStock
+            StoreCalculator<Integer> finalPurchaseProductCountCalculator,
+            StoreCalculator<Integer> promotionGetProductCountCalculator,
+            StoreCalculator<Integer> promotionStockToDecreaseCalculator
     ) {
-        this.finalPurchaseAmount = finalPurchaseAmount;
-        this.promotionGetAmount = promotionGetAmount;
-        this.decreasePromotionStock = decreasePromotionStock;
+        this.finalPurchaseProductCountCalculator = finalPurchaseProductCountCalculator;
+        this.promotionGetProductCountCalculator = promotionGetProductCountCalculator;
+        this.promotionStockToDecreaseCalculator = promotionStockToDecreaseCalculator;
     }
 
-    public PurchaseStatus purchase(PurchaseInfo purchaseInfo) {
-        Integer purchaseAmount = this.finalPurchaseAmount.calculate(purchaseInfo);
-        Integer promotionGetAmount = this.promotionGetAmount.calculate(purchaseInfo);
-        Integer decreasePromotionStock = this.decreasePromotionStock.calculate(purchaseInfo);
-        int promotionedProductAmount = promotionGetAmount / purchaseInfo.promotionGet() * purchaseInfo.promotionUnit();
+    public PurchaseStatus purchase(Purchase purchase) {
+        Integer promotionGetProductCount = this.promotionGetProductCountCalculator.calculate(purchase);
         return new PurchaseStatus(
-                purchaseAmount
-,                promotionGetAmount,
-                decreasePromotionStock,
-                promotionedProductAmount
+                this.finalPurchaseProductCountCalculator.calculate(purchase),
+                promotionGetProductCount,
+                this.promotionStockToDecreaseCalculator.calculate(purchase),
+                purchase.calculatePromotionedProductAmount(promotionGetProductCount)
         );
     }
 
     @FunctionalInterface
     public interface StoreCalculator<T> {
-        T calculate(
-                PurchaseInfo purchaseInfo
-        );
+        T calculate(Purchase purchase);
     }
 }
 

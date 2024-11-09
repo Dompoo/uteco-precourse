@@ -28,34 +28,21 @@ final public class Casher {
                                                 DecisionSupplier<Boolean> bringFreeProductPredicate) {
         if (bringFreeProductPredicate.get(
                 product.getName(),
-                calculatePromotionGetCount(product, purchaseRequest.count()))
+                product.calculatePromotionGets(purchaseRequest.count()))
         ) {
             return PurchaseType.FULL_PROMOTION_BRING_FREE;
         }
         return PurchaseType.FULL_PROMOTION_NOT_BRING_FREE;
     }
 
-    private static int calculatePromotionGetCount(Product product, int purchaseAmount) {
-        int promotionUnit = product.getPromotion().getPromotionUnit();
-        return (((purchaseAmount / promotionUnit) + 1) * promotionUnit) - purchaseAmount;
-    }
-
     private static PurchaseType decideBringDefaultProductBack(Product product, PurchaseRequest purchaseRequest,
                                                 DecisionSupplier<Boolean> bringDefaultProductBackPredicate) {
         if (bringDefaultProductBackPredicate.get(
                 product.getName(),
-                calculateDefaultProductBackCount(product, purchaseRequest.count())
+                product.calculateNoPromotions(purchaseRequest.count())
         )) {
             return PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK;
         }
         return PurchaseType.PORTION_PROMOTION_BRING_BACK;
-    }
-
-    private static int calculateDefaultProductBackCount(Product product, int purchaseAmount) {
-        int promotionUnit = product.getPromotion().getPromotionUnit();
-        if (purchaseAmount < product.getPromotionStock()) {
-            return purchaseAmount % promotionUnit;
-        }
-        return purchaseAmount - (product.getPromotionStock() / promotionUnit) * promotionUnit;
     }
 }

@@ -49,6 +49,19 @@ final public class Product {
         return count <= defaultStock + promotionStock;
     }
 
+    public int calculatePromotionGets(int purchaseAmount) {
+        int promotionUnit = this.getPromotion().getPromotionUnit();
+        return (((purchaseAmount / promotionUnit) + 1) * promotionUnit) - purchaseAmount;
+    }
+
+    public int calculateNoPromotions(int purchaseAmount) {
+        int promotionUnit = this.getPromotion().getPromotionUnit();
+        if (purchaseAmount < this.getPromotionStock()) {
+            return purchaseAmount % promotionUnit;
+        }
+        return purchaseAmount - (this.getPromotionStock() / promotionUnit) * promotionUnit;
+    }
+
     public String getName() {
         return name;
     }

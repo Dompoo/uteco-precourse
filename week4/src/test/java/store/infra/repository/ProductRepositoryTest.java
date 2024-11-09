@@ -104,7 +104,7 @@ class ProductRepositoryTest {
             sut.update(product);
 
             //then
-            assertThat(sut.findByName("콜라").isPresent());
+            assertThat(sut.findByName("콜라")).isPresent();
             assertThat(sut.findByName("콜라").get()).extracting(
                     "name", "price", "stock"
             ).containsExactly(

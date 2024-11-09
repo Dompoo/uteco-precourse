@@ -9,7 +9,7 @@ public class ProductServiceConfig {
     private final ProductService productService;
 
     public ProductServiceConfig(ProductRepositoryConfig productRepositoryConfig) {
-        this. productService = new DefaultProductService(
+        this.productService = new DefaultProductService(
                 productRepositoryConfig.getProductRepository()
         );
     }

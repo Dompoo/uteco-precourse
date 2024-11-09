@@ -24,8 +24,13 @@ public class PurchaseServiceRetryProxy implements PurchaseService {
     }
 
     @Override
-    public PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType, LocalDate localDate) {
-        return retryHandler.tryUntilSuccess(() -> purchaseServiceTarget.purchaseProduct(purchaseRequest, purchaseType
-                , localDate));
+    public PurchaseResult purchaseProduct(
+            PurchaseRequest purchaseRequest,
+            PurchaseType purchaseType,
+            LocalDate localDate
+    ) {
+        return retryHandler.tryUntilSuccess(
+                () -> purchaseServiceTarget.purchaseProduct(purchaseRequest, purchaseType, localDate)
+        );
     }
 }

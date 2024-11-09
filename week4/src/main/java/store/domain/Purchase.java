@@ -20,7 +20,8 @@ final public class Purchase {
 
     public static Purchase of(Product product, int purchaseAmount, LocalDate localDate) {
         if (product.hasPromotion(localDate)) {
-            return new Purchase(purchaseAmount, product.getPromotionStock(localDate), product.getPromotion().getBuy(), product.getPromotion().getGet());
+            return new Purchase(purchaseAmount, product.getPromotionStock(localDate), product.getPromotion().getBuy(),
+                    product.getPromotion().getGet());
         }
         return new Purchase(purchaseAmount, product.getPromotionStock(localDate), 0, 0);
     }

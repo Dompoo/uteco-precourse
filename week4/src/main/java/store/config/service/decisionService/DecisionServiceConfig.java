@@ -10,11 +10,14 @@ public class DecisionServiceConfig {
 
     private final DecisionService decisionService;
 
-    public DecisionServiceConfig(ProductRepositoryConfig productRepositoryConfig, RetryHandlerConfig retryHandlerConfig) {
+    public DecisionServiceConfig(
+            ProductRepositoryConfig productRepositoryConfig,
+            RetryHandlerConfig retryHandlerConfig
+    ) {
         DefaultDecisionService defaultDecisionService = new DefaultDecisionService(
                 productRepositoryConfig.getProductRepository()
         );
-        this. decisionService = new DecisionServiceRetryProxy(
+        this.decisionService = new DecisionServiceRetryProxy(
                 defaultDecisionService,
                 retryHandlerConfig.getRetryHandler()
         );

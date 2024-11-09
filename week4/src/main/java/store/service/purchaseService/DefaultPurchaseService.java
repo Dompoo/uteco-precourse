@@ -38,16 +38,17 @@ public class DefaultPurchaseService implements PurchaseService {
     }
 
     @Override
-    public PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType, LocalDate localDate) {
+    public PurchaseResult purchaseProduct(
+            PurchaseRequest purchaseRequest,
+            PurchaseType purchaseType,
+            LocalDate localDate
+    ) {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
-
         Purchase purchase = Purchase.of(product, purchaseRequest.purchaseAmount(), localDate);
         PurchaseStatus purchaseStatus = purchaseType.proceed(purchase);
-
         product.reduceStock(purchaseStatus.finalPurchaseAmount(), purchaseStatus.decreasePromotionStock());
         productRepository.update(product);
-
         return PurchaseResult.of(product, purchaseStatus);
     }
 }

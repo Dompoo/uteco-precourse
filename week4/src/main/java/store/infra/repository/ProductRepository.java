@@ -14,8 +14,6 @@ import store.infra.repository.convertor.PromotionConverter;
 
 public class ProductRepository implements Repository<Product> {
 
-    private final Database<ProductEntity> productDatabase;
-    private final Database<PromotionEntity> promotionDatabase;
     private final List<Product> products = new ArrayList<>();
 
     public ProductRepository(
@@ -24,8 +22,6 @@ public class ProductRepository implements Repository<Product> {
             ProductConverter productConverter,
             PromotionConverter promotionConverter
     ) {
-        this.productDatabase = productDatabase;
-        this.promotionDatabase = promotionDatabase;
         List<Promotion> promotions = promotionConverter.convert(promotionDatabase.readAll());
         this.products.addAll(productConverter.convert(productDatabase.readAll(), promotions));
     }

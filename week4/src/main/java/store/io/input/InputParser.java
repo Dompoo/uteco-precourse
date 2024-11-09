@@ -19,8 +19,10 @@ public class InputParser {
     }
 
     private static PurchaseRequest parseToParchaseRequest(String input) {
-        String[] split = input.substring(1, input.length() - 1).split("-");
-        return new PurchaseRequest(split[0], Integer.parseInt(split[1])
+        String withOuputBlank = input.replaceAll("\\s+", "");
+        String[] inputs = withOuputBlank.substring(1, withOuputBlank.length() - 1)
+                .split("-");
+        return new PurchaseRequest(inputs[0], Integer.parseInt(inputs[1])
         );
     }
 }

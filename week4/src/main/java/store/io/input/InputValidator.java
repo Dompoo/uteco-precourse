@@ -8,7 +8,7 @@ import store.exception.StoreExceptions;
 public class InputValidator {
 
     private static final List<String> VALID_YES_OR_NO = List.of("Y", "N");
-    private static final Pattern PURCHASE_PATTERN = Pattern.compile("\\[(\\D+)-(\\d+)\\]");
+    private static final Pattern PURCHASE_PATTERN = Pattern.compile("\\[\\s*(\\D+)\\s*-\\s*(\\d+)\\s*\\]");
 
     public void validateYOrN(String input) {
         if (!VALID_YES_OR_NO.contains(input)) {

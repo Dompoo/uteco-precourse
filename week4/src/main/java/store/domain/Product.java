@@ -1,5 +1,6 @@
 package store.domain;
 
+import java.time.LocalDate;
 import store.domain.validator.ParamsValidator;
 import store.exception.StoreExceptions;
 
@@ -59,11 +60,10 @@ final public class Product {
         return price;
     }
 
-    public boolean hasPromotionStock() {
-        return stockType == StockType.PROMOTION_ONLY || stockType == StockType.DEFAULT_AND_PROMOTION;
-    }
-
-    public int getDefaultStock() {
+    public int getDefaultStock(LocalDate localDate) {
+        if (!hasPromotion(localDate)) {
+            return defaultStock + promotionStock;
+        }
         return defaultStock;
     }
 
@@ -71,8 +71,8 @@ final public class Product {
         return promotionStock;
     }
 
-    public boolean hasPromotion() {
-        return promotion != null;
+    public boolean hasPromotion(LocalDate localDate) {
+        return promotion != null && promotion.canPromotion(localDate);
     }
 
     public Promotion getPromotion() {

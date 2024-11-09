@@ -27,7 +27,7 @@ public class DefaultDecisionService implements DecisionService {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
-        if (!product.hasPromotion()) {
+        if (!product.hasPromotion(localDate)) {
             return DecisionType.FULL_DEFAULT;
         }
 
@@ -35,7 +35,7 @@ public class DefaultDecisionService implements DecisionService {
 
         return DecisionType.of(
                 purchaseRequest.count(),
-                product.getDefaultStock(),
+                product.getDefaultStock(localDate),
                 product.getPromotionStock(),
                 promotion.getBuy(),
                 promotion.getGet(),

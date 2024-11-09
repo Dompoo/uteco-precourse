@@ -1,5 +1,6 @@
 package store.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import store.domain.DecisionType;
 import store.domain.PurchaseType;
@@ -40,29 +41,29 @@ public class DefaultController implements Controller {
     }
 
     public void run() {
-        processGreetingAndProducts();
+        processGreetingAndProducts(dateProvider.getDate());
         List<PurchaseRequest> purchaseRequests = purchaseService.getPurchases(inputHandler::handlePurchases);
         ReceiptBuilder receiptBuilder = new ReceiptBuilder();
         for (PurchaseRequest purchaseRequest : purchaseRequests) {
-            processPurchaseRequest(purchaseRequest, receiptBuilder);
+            processPurchaseRequest(purchaseRequest, receiptBuilder, dateProvider.getDate());
         }
         processMembership(receiptBuilder);
         processReceipt(receiptBuilder);
     }
 
-    private void processGreetingAndProducts() {
+    private void processGreetingAndProducts(LocalDate localDate) {
         outputHandler.handleGreetings();
-        List<ProductResponse> products = productService.readAllProducts();
+        List<ProductResponse> products = productService.readAllProducts(localDate);
         outputHandler.handleProducts(products);
     }
 
-    private void processPurchaseRequest(PurchaseRequest purchaseRequest, ReceiptBuilder receiptBuilder) {
+    private void processPurchaseRequest(PurchaseRequest purchaseRequest, ReceiptBuilder receiptBuilder, LocalDate localDate) {
         DecisionType decisionType = decisionService.getDecisionType(purchaseRequest, dateProvider.getDate());
         PurchaseType purchaseType = decisionService.decidePurchaseType(purchaseRequest, decisionType,
                 inputHandler::handleFreeProductDecision,
                 inputHandler::handleBringDefaultProductBackDecision
         );
-        PurchaseResult purchaseResult = purchaseService.purchaseProduct(purchaseRequest, purchaseType);
+        PurchaseResult purchaseResult = purchaseService.purchaseProduct(purchaseRequest, purchaseType, localDate);
         receiptBuilder.addPurchase(purchaseResult);
     }
 

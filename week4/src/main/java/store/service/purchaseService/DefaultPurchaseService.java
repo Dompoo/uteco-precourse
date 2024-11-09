@@ -1,5 +1,6 @@
 package store.service.purchaseService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Supplier;
 import store.domain.Product;
@@ -37,11 +38,11 @@ public class DefaultPurchaseService implements PurchaseService {
     }
 
     @Override
-    public PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType) {
+    public PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType, LocalDate localDate) {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
-        PurchaseStatus purchaseStatus = purchaseType.purchase(createPurchaseInfo(purchaseRequest, product));
+        PurchaseStatus purchaseStatus = purchaseType.purchase(createPurchaseInfo(purchaseRequest, product, localDate));
 
         product.reduceStock(purchaseStatus.finalPurchaseAmount(), purchaseStatus.decreasePromotionStock());
         productRepository.update(product);
@@ -55,10 +56,10 @@ public class DefaultPurchaseService implements PurchaseService {
         );
     }
 
-    private static PurchaseInfo createPurchaseInfo(PurchaseRequest purchaseRequest, Product product) {
+    private static PurchaseInfo createPurchaseInfo(PurchaseRequest purchaseRequest, Product product, LocalDate localDate) {
         int buy = 1;
         int get = 1;
-        if (product.hasPromotion()) {
+        if (product.hasPromotion(localDate)) {
             buy = product.getPromotion().getBuy();
             get = product.getPromotion().getGet();
         }

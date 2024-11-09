@@ -37,7 +37,7 @@ class InputHandlerTest {
             List<PurchaseRequest> result = sut.handlePurchases();
 
             //then
-            assertThat(result).extracting("productName", "count").containsExactlyInAnyOrder(
+            assertThat(result).extracting("productName", "purchaseAmount").containsExactlyInAnyOrder(
                     Tuple.tuple("콜라", 1),
                     Tuple.tuple("초코바", 3),
                     Tuple.tuple("햄버거", 100)
@@ -55,7 +55,7 @@ class InputHandlerTest {
             List<PurchaseRequest> result = sut.handlePurchases();
 
             //then
-            assertThat(result).extracting("productName", "count").containsExactlyInAnyOrder(
+            assertThat(result).extracting("productName", "purchaseAmount").containsExactlyInAnyOrder(
                     Tuple.tuple("콜라", 1),
                     Tuple.tuple("초코바", 3)
             );

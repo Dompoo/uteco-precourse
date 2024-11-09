@@ -28,7 +28,7 @@ final public class Casher {
                                                 DecisionSupplier<Boolean> bringFreeProductPredicate) {
         if (bringFreeProductPredicate.get(
                 product.getName(),
-                product.calculatePromotionGets(purchaseRequest.count()))
+                product.calculatePromotionGets(purchaseRequest.purchaseAmount()))
         ) {
             return PurchaseType.FULL_PROMOTION_BRING_FREE;
         }
@@ -39,7 +39,7 @@ final public class Casher {
                                                 DecisionSupplier<Boolean> bringDefaultProductBackPredicate) {
         if (bringDefaultProductBackPredicate.get(
                 product.getName(),
-                product.calculateNoPromotions(purchaseRequest.count())
+                product.calculateNoPromotions(purchaseRequest.purchaseAmount())
         )) {
             return PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK;
         }

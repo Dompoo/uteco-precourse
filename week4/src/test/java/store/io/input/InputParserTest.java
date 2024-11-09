@@ -74,7 +74,7 @@ class InputParserTest {
 
             //then
             assertThat(result).extracting(
-                    "productName", "count"
+                    "productName", "purchaseAmount"
             ).containsExactlyInAnyOrder(
                     Tuple.tuple("콜라", 1),
                     Tuple.tuple("감자", 10)
@@ -94,7 +94,7 @@ class InputParserTest {
 
             //then
             assertThat(result).extracting(
-                    "productName", "count"
+                    "productName", "purchaseAmount"
             ).containsExactlyInAnyOrder(
                     Tuple.tuple("콜라", 1),
                     Tuple.tuple("감자", 10)

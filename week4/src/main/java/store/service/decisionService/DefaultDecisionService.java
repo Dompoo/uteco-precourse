@@ -34,7 +34,7 @@ public class DefaultDecisionService implements DecisionService {
         Promotion promotion = product.getPromotion();
 
         return DecisionType.of(
-                purchaseRequest.count(),
+                purchaseRequest.purchaseAmount(),
                 product.getDefaultStock(localDate),
                 product.getPromotionStock(),
                 promotion.getBuy(),

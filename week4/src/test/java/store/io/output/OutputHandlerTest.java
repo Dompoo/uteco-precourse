@@ -180,7 +180,7 @@ class OutputHandlerTest {
         }
 
         @Test
-        void 구매를_중간에_포기하여_0개_구매한_상품도_출력한다() {
+        void 구매를_중간에_포기하여_0개_구매하면_취소로_출력한다() {
             //given
             List<PurchasedProductResponse> purchasedProducts = List.of(
                     new PurchasedProductResponse("콜라", 0, 1000)
@@ -191,7 +191,7 @@ class OutputHandlerTest {
 
             //then
             assertThat(getOutputWithOneSpace()).contains(
-                    "콜라 0 0"
+                    "콜라 취소"
             );
         }
     }

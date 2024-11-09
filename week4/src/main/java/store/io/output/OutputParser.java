@@ -56,12 +56,22 @@ public class OutputParser {
     private static String mapPurchasedProductResponseToString(PurchasedProductResponse response) {
         return RECEIPT_OUTPUT_FORMAT.formatted(
                 response.productName(),
-                response.purchaseAmount(),
-                PRICE_FORMAT.formatted(getPurchasePrice(response)));
+                getPurchasedProductName(response),
+                getPurchasePrice(response));
     }
 
-    private static int getPurchasePrice(PurchasedProductResponse response) {
-        return response.purchaseAmount() * response.price();
+    private static String getPurchasedProductName(PurchasedProductResponse response) {
+        if (response.purchaseAmount() == 0) {
+            return "";
+        }
+        return String.valueOf(response.purchaseAmount());
+    }
+
+    private static String getPurchasePrice(PurchasedProductResponse response) {
+        if (response.purchaseAmount() == 0) {
+            return "취소";
+        }
+        return PRICE_FORMAT.formatted(response.purchaseAmount() * response.price());
     }
 
     public String parsePromotionedProductsResponses(List<PromotionedProductResponse> promotionedProductResponses) {

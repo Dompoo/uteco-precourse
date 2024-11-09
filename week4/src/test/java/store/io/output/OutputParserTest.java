@@ -159,7 +159,7 @@ class OutputParserTest {
         }
 
         @Test
-        void 구매량이_0이어도_파싱된다() {
+        void 구매량이_0이면_취소로_파싱된다() {
             //given
             List<PurchasedProductResponse> purchasedProducts = List.of(
                     new PurchasedProductResponse("콜라", 0, 1000)
@@ -171,7 +171,7 @@ class OutputParserTest {
             //then
             assertThat(getResultWithOneSpace(result)).contains(
                     "상품명 수량 금액",
-                    "콜라 0 0"
+                    "콜라 취소"
             );
         }
     }

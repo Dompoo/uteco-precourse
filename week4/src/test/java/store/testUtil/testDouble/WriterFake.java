@@ -21,4 +21,8 @@ public class WriterFake implements Writer {
     public List<String> getOutputs() {
         return outputs;
     }
+
+    public String getOutput() {
+        return outputs.getFirst();
+    }
 }

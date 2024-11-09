@@ -1,6 +1,6 @@
 package store.domain;
 
-import store.dto.vo.PurchaseStatus;
+import store.domain.vo.PurchaseStatus;
 
 public enum PurchaseType {
 

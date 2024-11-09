@@ -2,6 +2,7 @@ package store.domain;
 
 import java.time.LocalDate;
 import store.domain.validator.ParamsValidator;
+import store.domain.vo.Stock;
 import store.exception.StoreExceptions;
 
 final public class Product {
@@ -12,8 +13,7 @@ final public class Product {
 
     private final String name;
     private final int price;
-    private int defaultStock;
-    private int promotionStock;
+    private Stock stock;
     private final Promotion promotion;
 
     public Product(
@@ -27,8 +27,7 @@ final public class Product {
         validate(price, defaultStock, promotionStock);
         this.name = name;
         this.price = price;
-        this.defaultStock = defaultStock;
-        this.promotionStock = promotionStock;
+        this.stock = new Stock(defaultStock, promotionStock);
         this.promotion = promotion;
     }
 
@@ -45,12 +44,11 @@ final public class Product {
     }
 
     public void reduceStock(int totalDecreaseStock, int promotionDecreaseStock) {
-        promotionStock -= promotionDecreaseStock;
-        defaultStock -= (totalDecreaseStock - promotionDecreaseStock);
+        this.stock = this.stock.withReducing(totalDecreaseStock, promotionDecreaseStock);
     }
 
     public boolean isStockSufficient(int count) {
-        return count <= defaultStock + promotionStock;
+        return count <= stock.totalStock();
     }
 
     public int calculatePromotionGets(int purchaseAmount) {
@@ -66,6 +64,10 @@ final public class Product {
         return purchaseAmount - (this.getPromotionStock(localDate) / promotionUnit) * promotionUnit;
     }
 
+    public boolean hasPromotion(LocalDate localDate) {
+        return promotion != null && promotion.canPromotion(localDate);
+    }
+
     public String getName() {
         return name;
     }
@@ -76,20 +78,16 @@ final public class Product {
 
     public int getDefaultStock(LocalDate localDate) {
         if (!hasPromotion(localDate)) {
-            return defaultStock + promotionStock;
+            return stock.totalStock();
         }
-        return defaultStock;
+        return stock.defaultStock();
     }
 
     public int getPromotionStock(LocalDate localDate) {
         if (!hasPromotion(localDate)) {
             return 0;
         }
-        return promotionStock;
-    }
-
-    public boolean hasPromotion(LocalDate localDate) {
-        return promotion != null && promotion.canPromotion(localDate);
+        return stock.promotionStock();
     }
 
     public Promotion getPromotion() {

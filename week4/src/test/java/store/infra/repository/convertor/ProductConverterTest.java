@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import store.domain.Product;
 import store.domain.Promotion;
+import store.domain.vo.Stock;
 import store.infra.entity.ProductEntity;
 
 class ProductConverterTest {
@@ -49,12 +50,12 @@ class ProductConverterTest {
 
             //then
             assertThat(result).extracting(
-                    "name", "price", "defaultStock", "promotionStock"
+                    "name", "price", "stock"
             ).containsExactlyInAnyOrder(
-                    Tuple.tuple("콜라", 1000, 5, 5),
-                    Tuple.tuple("감자", 1500, 10, 0),
-                    Tuple.tuple("땅콩", 1000, 3, 3),
-                    Tuple.tuple("땅콩버터", 2000, 0, 5)
+                    Tuple.tuple("콜라", 1000, new Stock(5, 5)),
+                    Tuple.tuple("감자", 1500, new Stock(10, 0)),
+                    Tuple.tuple("땅콩", 1000, new Stock(3, 3)),
+                    Tuple.tuple("땅콩버터", 2000, new Stock(0, 5))
             );
         }
     }

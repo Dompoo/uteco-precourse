@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import store.domain.Product;
+import store.domain.vo.Stock;
 import store.infra.entity.ProductEntity;
 import store.infra.entity.PromotionEntity;
 import store.infra.repository.convertor.ProductConverter;
@@ -48,12 +49,12 @@ class ProductRepositoryTest {
 
             //then
             assertThat(result).extracting(
-                    "name", "price", "defaultStock", "promotionStock"
+                    "name", "price", "stock"
             ).containsExactlyInAnyOrder(
-                    Tuple.tuple("콜라", 1000, 5, 5),
-                    Tuple.tuple("감자", 1500, 10, 0),
-                    Tuple.tuple("땅콩", 1000, 3, 3),
-                    Tuple.tuple("땅콩버터", 2000, 0, 5)
+                    Tuple.tuple("콜라", 1000, new Stock(5, 5)),
+                    Tuple.tuple("감자", 1500, new Stock(10, 0)),
+                    Tuple.tuple("땅콩", 1000, new Stock(3, 3)),
+                    Tuple.tuple("땅콩버터", 2000, new Stock(0, 5))
             );
         }
     }
@@ -72,9 +73,9 @@ class ProductRepositoryTest {
             //then
             assertThat(result).isPresent();
             assertThat(result.get()).extracting(
-                    "name", "price", "defaultStock", "promotionStock"
+                    "name", "price", "stock"
             ).containsExactly(
-                    "콜라", 1000, 5, 5
+                    "콜라", 1000, new Stock(5, 5)
             );
         }
 
@@ -105,9 +106,9 @@ class ProductRepositoryTest {
             //then
             assertThat(sut.findByName("콜라").isPresent());
             assertThat(sut.findByName("콜라").get()).extracting(
-                    "name", "price", "defaultStock", "promotionStock"
+                    "name", "price", "stock"
             ).containsExactly(
-                    "콜라", 1500, 10, 10
+                    "콜라", 1500, new Stock(10, 10)
             );
         }
     }

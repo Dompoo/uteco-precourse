@@ -31,7 +31,7 @@ public class DefaultPurchaseService implements PurchaseService {
         for (PurchaseRequest purchaseRequest : purchaseRequests) {
             Product product = productRepository.findByName(purchaseRequest.productName())
                     .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
-            if (!product.isStockSufficient(purchaseRequest.purchaseAmount())) {
+            if (!product.canPurchase(purchaseRequest.purchaseAmount())) {
                 throw StoreExceptions.PURCHASE_OVER_STOCK.get();
             }
         }

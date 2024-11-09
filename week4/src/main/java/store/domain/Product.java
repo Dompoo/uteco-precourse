@@ -47,10 +47,6 @@ final public class Product {
         this.stock = this.stock.withReducing(totalDecreaseStock, promotionDecreaseStock);
     }
 
-    public boolean isStockSufficient(int count) {
-        return count <= stock.getTotalStock();
-    }
-
     public boolean isJustRightPromotionUnit(int purchaseAmount, LocalDate localDate) {
         if (!hasPromotion(localDate)) {
             return false;

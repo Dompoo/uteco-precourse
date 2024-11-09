@@ -7,7 +7,7 @@ import store.dto.response.PurchaseCostResponse;
 import store.dto.response.PurchaseResult;
 import store.dto.response.PurchasedProductResponse;
 
-public class Receipt {
+final public class Receipt {
 
     private final ProductReceipt productReceipt;
     private final PromotionReceipt promotionReceipt;
@@ -25,8 +25,8 @@ public class Receipt {
         this.costReceipt.addPurchase(purchaseResult);
     }
 
-    public void addMembership(Membership membership) {
-        this.costReceipt.addMembership(membership);
+    public void applyMembership(Membership membership) {
+        this.costReceipt.applyMembership(membership);
     }
 
     public List<PurchasedProductResponse> buildPurchasedProductResponses() {

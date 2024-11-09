@@ -66,7 +66,7 @@ public class DefaultController implements Controller {
 
     private void processMembership(Receipt receipt) {
         Membership membership = decisionService.decideMembership(inputHandler::handleMembershipDecision);
-        receipt.addMembership(membership);
+        receipt.applyMembership(membership);
     }
 
     private void processReceipt(Receipt receipt) {

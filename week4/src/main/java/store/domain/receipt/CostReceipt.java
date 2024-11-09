@@ -16,7 +16,7 @@ final public class CostReceipt {
         this.purchaseResults.add(purchaseResult);
     }
 
-    public void addMembership(Membership membership) {
+    public void applyMembership(Membership membership) {
         this.membership = membership;
     }
 

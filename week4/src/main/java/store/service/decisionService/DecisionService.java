@@ -14,6 +14,7 @@ public interface DecisionService {
     PurchaseType decidePurchaseType(
             PurchaseRequest purchaseRequest,
             DecisionType decisionType,
+            LocalDate localDate,
             DecisionSupplier<Boolean> bringFreeProductDecisionSupplier,
             DecisionSupplier<Boolean> bringDefaultProductBackDecisionSupplier
     );

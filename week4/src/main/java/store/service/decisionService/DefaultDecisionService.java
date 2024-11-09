@@ -36,7 +36,7 @@ public class DefaultDecisionService implements DecisionService {
         return DecisionType.of(
                 purchaseRequest.purchaseAmount(),
                 product.getDefaultStock(localDate),
-                product.getPromotionStock(),
+                product.getPromotionStock(localDate),
                 promotion.getBuy(),
                 promotion.getGet(),
                 promotion.canPromotion(localDate)
@@ -47,6 +47,7 @@ public class DefaultDecisionService implements DecisionService {
     public PurchaseType decidePurchaseType(
             PurchaseRequest purchaseRequest,
             DecisionType decisionType,
+            LocalDate localDate,
             DecisionSupplier<Boolean> bringFreeProductDecisionSupplier,
             DecisionSupplier<Boolean> bringDefaultProductBackDecisionSupplier
     ) {
@@ -57,6 +58,7 @@ public class DefaultDecisionService implements DecisionService {
                 product,
                 purchaseRequest,
                 decisionType,
+                localDate,
                 bringFreeProductDecisionSupplier,
                 bringDefaultProductBackDecisionSupplier
         );

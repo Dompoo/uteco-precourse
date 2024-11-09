@@ -18,7 +18,7 @@ public record ProductResponse(
             int price = product.getPrice();
             productResponses.add(new ProductResponse(productName, price, product.getDefaultStock(localDate), ""));
             if (product.hasPromotion(localDate)) {
-                int promotionStock = product.getPromotionStock();
+                int promotionStock = product.getPromotionStock(localDate);
                 String promotionName = product.getPromotion().getName();
                 productResponses.add(new ProductResponse(productName, price, promotionStock, promotionName));
             }

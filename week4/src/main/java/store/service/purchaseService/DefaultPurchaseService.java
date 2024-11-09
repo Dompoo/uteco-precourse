@@ -57,6 +57,6 @@ public class DefaultPurchaseService implements PurchaseService {
             buy = product.getPromotion().getBuy();
             get = product.getPromotion().getGet();
         }
-        return new Purchase(purchaseRequest.purchaseAmount(), product.getPromotionStock(), buy, get);
+        return new Purchase(purchaseRequest.purchaseAmount(), product.getPromotionStock(localDate), buy, get);
     }
 }

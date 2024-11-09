@@ -60,6 +60,7 @@ public class DefaultController implements Controller {
     private void processPurchaseRequest(PurchaseRequest purchaseRequest, ReceiptBuilder receiptBuilder, LocalDate localDate) {
         DecisionType decisionType = decisionService.getDecisionType(purchaseRequest, dateProvider.getDate());
         PurchaseType purchaseType = decisionService.decidePurchaseType(purchaseRequest, decisionType,
+                localDate,
                 inputHandler::handleFreeProductDecision,
                 inputHandler::handleBringDefaultProductBackDecision
         );

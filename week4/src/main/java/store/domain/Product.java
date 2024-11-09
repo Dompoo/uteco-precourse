@@ -54,12 +54,12 @@ final public class Product {
         return (((purchaseAmount / promotionUnit) + 1) * promotionUnit) - purchaseAmount;
     }
 
-    public int calculateNoPromotions(int purchaseAmount) {
+    public int calculateNoPromotions(int purchaseAmount, LocalDate localDate) {
         int promotionUnit = this.getPromotion().getPromotionUnit();
-        if (purchaseAmount < this.getPromotionStock()) {
+        if (purchaseAmount < this.getPromotionStock(localDate)) {
             return purchaseAmount % promotionUnit;
         }
-        return purchaseAmount - (this.getPromotionStock() / promotionUnit) * promotionUnit;
+        return purchaseAmount - (this.getPromotionStock(localDate) / promotionUnit) * promotionUnit;
     }
 
     public String getName() {
@@ -77,7 +77,10 @@ final public class Product {
         return defaultStock;
     }
 
-    public int getPromotionStock() {
+    public int getPromotionStock(LocalDate localDate) {
+        if (!hasPromotion(localDate)) {
+            return 0;
+        }
         return promotionStock;
     }
 

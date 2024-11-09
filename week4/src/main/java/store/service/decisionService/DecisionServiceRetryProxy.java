@@ -27,12 +27,14 @@ public class DecisionServiceRetryProxy implements DecisionService {
     public PurchaseType decidePurchaseType(
             PurchaseRequest purchaseRequest,
             DecisionType decisionType,
+            LocalDate localDate,
             DecisionSupplier<Boolean> bringFreeProductDecisionSupplier,
             DecisionSupplier<Boolean> bringDefaultProductBackDecisionSupplier
     ) {
         return retryHandler.tryUntilSuccess(() -> decisionServiceTarget.decidePurchaseType(
                 purchaseRequest,
                 decisionType,
+                localDate,
                 bringFreeProductDecisionSupplier,
                 bringDefaultProductBackDecisionSupplier
         ));

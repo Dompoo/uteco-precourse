@@ -1,5 +1,6 @@
 package store.domain;
 
+import java.time.LocalDate;
 import store.exception.StoreExceptions;
 
 final public class Purchase {
@@ -9,25 +10,26 @@ final public class Purchase {
     private final int promotionBuy;
     private final int promotionGet;
 
-    public Purchase(int purchaseAmount, int promotionStock, int promotionBuy, int promotionGet) {
-        validate(purchaseAmount, promotionStock, promotionBuy, promotionGet);
+    private Purchase(int purchaseAmount, int promotionStock, int promotionBuy, int promotionGet) {
+        validate(purchaseAmount, promotionStock);
         this.purchaseAmount = purchaseAmount;
         this.promotionStock = promotionStock;
         this.promotionBuy = promotionBuy;
         this.promotionGet = promotionGet;
     }
 
-    private void validate(int purchaseAmount, int promotionStock, int promotionBuy, int promotionGet) {
+    public static Purchase of(Product product, int purchaseAmount, LocalDate localDate) {
+        if (product.hasPromotion(localDate)) {
+            return new Purchase(purchaseAmount, product.getPromotionStock(localDate), product.getPromotion().getBuy(), product.getPromotion().getGet());
+        }
+        return new Purchase(purchaseAmount, product.getPromotionStock(localDate), 0, 0);
+    }
+
+    private void validate(int purchaseAmount, int promotionStock) {
         if (purchaseAmount < 0) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
         if (promotionStock < 0) {
-            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
-        }
-        if (promotionBuy < 1) {
-            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
-        }
-        if (promotionGet < 1) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
     }
@@ -65,6 +67,9 @@ final public class Purchase {
     }
 
     public int calculatePromotionedProductAmount(int promotionGetProductCount) {
+        if (this.promotionGet == 0) {
+            return 0;
+        }
         return promotionGetProductCount / this.promotionGet * calculatePromotionUnit();
     }
 }

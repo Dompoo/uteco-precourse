@@ -50,7 +50,7 @@ public enum PurchaseType {
         this.promotionStockToDecreaseCalculator = promotionStockToDecreaseCalculator;
     }
 
-    public PurchaseStatus purchase(Purchase purchase) {
+    public PurchaseStatus proceed(Purchase purchase) {
         Integer promotionGetProductCount = this.promotionGetProductCountCalculator.calculate(purchase);
         return new PurchaseStatus(
                 this.finalPurchaseProductCountCalculator.calculate(purchase),

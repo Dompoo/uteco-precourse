@@ -2,11 +2,16 @@ package store.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import store.domain.vo.PurchaseStatus;
 
 class PurchasedProductTypeTest {
+
+    private final LocalDate pastDate = LocalDate.now().minusDays(10);
+    private final LocalDate now = LocalDate.now();
+    private final LocalDate futureDate = LocalDate.now().plusDays(10);
 
     @ParameterizedTest
     @CsvSource({
@@ -22,17 +27,12 @@ class PurchasedProductTypeTest {
     void 전부_기본_재고에서_구매한다(int purchaseAmount, int promotionStock, int promotionBuy,
                          int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        int get = 1;
-
-        Purchase purchase = new Purchase(
-                purchaseAmount,
-                promotionStock,
-                promotionBuy,
-                get
-        );
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
+        Purchase purchase = Purchase.of(product, purchaseAmount, now);
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_DEFAULT.purchase(purchase);
+        PurchaseStatus result = PurchaseType.FULL_DEFAULT.proceed(purchase);
 
         //then
         assertThat(result).extracting(
@@ -61,17 +61,12 @@ class PurchasedProductTypeTest {
     void 전부_프로모션에서_구매한다(int purchaseAmount, int promotionStock, int promotionBuy,
                          int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        int get = 1;
-
-        Purchase purchase = new Purchase(
-                purchaseAmount,
-                promotionStock,
-                promotionBuy,
-                get
-                );
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
+        Purchase purchase = Purchase.of(product, purchaseAmount, now);
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_PROMOTION.purchase(purchase);
+        PurchaseStatus result = PurchaseType.FULL_PROMOTION.proceed(purchase);
 
         //then
         assertThat(result).extracting(
@@ -100,17 +95,12 @@ class PurchasedProductTypeTest {
     void 전부_프로모션에서_구매한다_무료상품을_가져온다(int purchaseAmount, int promotionStock, int promotionBuy,
                         int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        int get = 1;
-
-        Purchase purchase = new Purchase(
-                purchaseAmount,
-                promotionStock,
-                promotionBuy,
-                get
-        );
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
+        Purchase purchase = Purchase.of(product, purchaseAmount, now);
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_PROMOTION_BRING_FREE.purchase(purchase);
+        PurchaseStatus result = PurchaseType.FULL_PROMOTION_BRING_FREE.proceed(purchase);
 
         //then
         assertThat(result).extracting(
@@ -139,17 +129,12 @@ class PurchasedProductTypeTest {
     void 전부_프로모션에서_구매한다_무료상품을_가져오지_않는다(int purchaseAmount, int promotionStock, int promotionBuy,
                                    int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        int get = 1;
-
-        Purchase purchase = new Purchase(
-                purchaseAmount,
-                promotionStock,
-                promotionBuy,
-                get
-        );
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
+        Purchase purchase = Purchase.of(product, purchaseAmount, now);
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_PROMOTION_NOT_BRING_FREE.purchase(purchase);
+        PurchaseStatus result = PurchaseType.FULL_PROMOTION_NOT_BRING_FREE.proceed(purchase);
 
         //then
         assertThat(result).extracting(
@@ -186,17 +171,12 @@ class PurchasedProductTypeTest {
     void 일부만_프로모션에서_구매한다_프로모션_아닌_것은_가져다_놓는다(int purchaseAmount, int promotionStock, int promotionBuy,
                                        int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        int get = 1;
-
-        Purchase purchase = new Purchase(
-                purchaseAmount,
-                promotionStock,
-                promotionBuy,
-                get
-        );
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
+        Purchase purchase = Purchase.of(product, purchaseAmount, now);
 
         //when
-        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_BRING_BACK.purchase(purchase);
+        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_BRING_BACK.proceed(purchase);
 
         //then
         assertThat(result).extracting(
@@ -233,17 +213,12 @@ class PurchasedProductTypeTest {
     void 일부만_프로모션에서_구매한다_프로모션_아닌_것도_그대로_구매한다(int purchaseAmount, int promotionStock, int promotionBuy,
                                             int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        int get = 1;
-
-        Purchase purchase = new Purchase(
-                purchaseAmount,
-                promotionStock,
-                promotionBuy,
-                get
-        );
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
+        Purchase purchase = Purchase.of(product, purchaseAmount, now);
 
         //when
-        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK.purchase(purchase);
+        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK.proceed(purchase);
 
         //then
         assertThat(result).extracting(

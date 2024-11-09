@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import store.domain.Casher;
 import store.domain.DecisionType;
 import store.domain.Product;
-import store.domain.Promotion;
 import store.domain.PurchaseType;
 import store.domain.membership.Membership;
 import store.domain.membership.NoMembership;
@@ -30,17 +29,7 @@ public class DefaultDecisionService implements DecisionService {
         if (!product.hasPromotion(localDate)) {
             return DecisionType.FULL_DEFAULT;
         }
-
-        Promotion promotion = product.getPromotion();
-
-        return DecisionType.of(
-                purchaseRequest.purchaseAmount(),
-                product.getDefaultStock(localDate),
-                product.getPromotionStock(localDate),
-                promotion.getBuy(),
-                promotion.getGet(),
-                promotion.canPromotion(localDate)
-        );
+        return DecisionType.of(product, purchaseRequest.purchaseAmount(), localDate);
     }
 
     @Override

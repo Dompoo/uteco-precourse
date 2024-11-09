@@ -2,10 +2,15 @@ package store.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 class DecisionTypeTest {
+
+    private final LocalDate pastDate = LocalDate.now().minusDays(10);
+    private final LocalDate now = LocalDate.now();
+    private final LocalDate futureDate = LocalDate.now().plusDays(10);
 
     @ParameterizedTest
     @CsvSource({
@@ -20,18 +25,11 @@ class DecisionTypeTest {
     })
     void 프로모션_재고가_없으면_그냥_구매한다(int purchaseAmount, int promotionStock, int promotionBuy) {
         //given
-        int defaultStock = 100;
-        int promotionGet = 1;
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
 
         //when
-        DecisionType result = DecisionType.of(
-                purchaseAmount,
-                defaultStock,
-                promotionStock,
-                promotionBuy,
-                promotionGet,
-                true
-        );
+        DecisionType result = DecisionType.of(product, purchaseAmount, now);
 
         //then
         assertThat(result).isEqualTo(DecisionType.FULL_DEFAULT);
@@ -50,18 +48,11 @@ class DecisionTypeTest {
     })
     void 프로모션_기간이_아니면_그냥_구매한다(int purchaseAmount, int promotionStock, int promotionBuy) {
         //given
-        int defaultStock = 100;
-        int promotionGet = 1;
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
 
         //when
-        DecisionType result = DecisionType.of(
-                purchaseAmount,
-                defaultStock,
-                promotionStock,
-                promotionBuy,
-                promotionGet,
-                false
-        );
+        DecisionType result = DecisionType.of(product, purchaseAmount, now);
 
         //then
         assertThat(result).isEqualTo(DecisionType.FULL_DEFAULT);
@@ -85,18 +76,11 @@ class DecisionTypeTest {
     })
     void 프로모션_단위에_딱_맞게_구매한다(int purchaseAmount, int promotionStock, int promotionBuy) {
         //given
-        int defaultStock = 100;
-        int promotionGet = 1;
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
 
         //when
-        DecisionType result = DecisionType.of(
-                purchaseAmount,
-                defaultStock,
-                promotionStock,
-                promotionBuy,
-                promotionGet,
-                true
-        );
+        DecisionType result = DecisionType.of(product, purchaseAmount, now);
 
         //then
         assertThat(result).isEqualTo(DecisionType.FULL_PROMOTION);
@@ -120,18 +104,11 @@ class DecisionTypeTest {
     })
     void 무료로_프로모션_가져갈_수_있게_구매한다(int purchaseAmount, int promotionStock, int promotionBuy) {
         //given
-        int defaultStock = 100;
-        int promotionGet = 1;
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
 
         //when
-        DecisionType result = DecisionType.of(
-                purchaseAmount,
-                defaultStock,
-                promotionStock,
-                promotionBuy,
-                promotionGet,
-                true
-        );
+        DecisionType result = DecisionType.of(product, purchaseAmount, now);
 
         //then
         assertThat(result).isEqualTo(DecisionType.CAN_GET_FREE_PRODUCT);
@@ -163,18 +140,11 @@ class DecisionTypeTest {
     })
     void 일부는_정가로_구매해야_하도록_구매한다(int purchaseAmount, int promotionStock, int promotionBuy) {
         //given
-        int defaultStock = 100;
-        int promotionGet = 1;
+        Promotion promotion = new Promotion("땅콩1+1", promotionBuy, 1, pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
 
         //when
-        DecisionType result = DecisionType.of(
-                purchaseAmount,
-                defaultStock,
-                promotionStock,
-                promotionBuy,
-                promotionGet,
-                true
-        );
+        DecisionType result = DecisionType.of(product, purchaseAmount, now);
 
         //then
         assertThat(result).isEqualTo(DecisionType.PROMOTION_STOCK_LACK);

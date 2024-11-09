@@ -1,5 +1,6 @@
 package store.domain;
 
+import java.time.LocalDate;
 import store.exception.StoreExceptions;
 
 public enum DecisionType {
@@ -10,50 +11,22 @@ public enum DecisionType {
     PROMOTION_STOCK_LACK,
     ;
 
-    public static DecisionType of(
-            int purchaseAmount,
-            int defaultStock,
-            int promotionStock,
-            int promotionBuy,
-            int promotionGet,
-            boolean canPromotion
-    ) {
-        validateStockSufficient(purchaseAmount, defaultStock, promotionStock);
-        if (!canPromotion || promotionStock == 0) {
+    public static DecisionType of(Product product, int purchaseAmount, LocalDate localDate) {
+        validateStockSufficient(product, purchaseAmount);
+        if (!product.hasPromotion(localDate) || product.getPromotionStock(localDate) == 0) {
             return FULL_DEFAULT;
         }
-        if (isJustRightPromotionUnit(purchaseAmount, promotionStock, promotionBuy, promotionGet)) {
+        if (product.isJustRightPromotionUnit(purchaseAmount, localDate)) {
             return FULL_PROMOTION;
         }
-        if (canGetFreePromotion(purchaseAmount, promotionStock, promotionBuy, promotionGet)) {
+        if (product.canGetFreePromotionProduct(purchaseAmount, localDate)) {
             return CAN_GET_FREE_PRODUCT;
         }
         return PROMOTION_STOCK_LACK;
     }
 
-    private static boolean isJustRightPromotionUnit(
-            int purchaseAmount,
-            int promotionStock,
-            int promotionBuy,
-            int promotionGet
-    ) {
-        return purchaseAmount % (promotionBuy + promotionGet) == 0 && purchaseAmount <= promotionStock;
-    }
-
-    private static boolean canGetFreePromotion(
-            int purchaseAmount,
-            int promotionStock,
-            int promotionBuy,
-            int promotionGet
-    ) {
-        int promotionUnit = promotionBuy + promotionGet;
-        return purchaseAmount % (promotionUnit) >= promotionBuy
-                && (purchaseAmount / (promotionUnit) + 1) * (promotionUnit)
-                <= promotionStock;
-    }
-
-    private static void validateStockSufficient(int purchaseAmount, int defaultStock, int promotionStock) {
-        if (purchaseAmount > defaultStock + promotionStock) {
+    private static void validateStockSufficient(Product product, int purchaseAmount) {
+        if (!product.canPurchase(purchaseAmount)) {
             throw StoreExceptions.PURCHASE_OVER_STOCK.get();
         }
     }

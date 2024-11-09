@@ -51,6 +51,22 @@ final public class Product {
         return count <= stock.getTotalStock();
     }
 
+    public boolean isJustRightPromotionUnit(int purchaseAmount, LocalDate localDate) {
+        if (!hasPromotion(localDate)) {
+            return false;
+        }
+        return purchaseAmount % promotion.getPromotionUnit() == 0 && purchaseAmount <= getPromotionStock(localDate);
+    }
+
+    public boolean canGetFreePromotionProduct(int purchaseAmount, LocalDate localDate) {
+        if (!hasPromotion(localDate)) {
+            return false;
+        }
+        int promotionUnit = this.promotion.getPromotionUnit();
+        return purchaseAmount % promotionUnit >= this.promotion.getBuy()
+                && (purchaseAmount / (promotionUnit) + 1) * (promotionUnit) <= getPromotionStock(localDate);
+    }
+
     public int calculatePromotionGets(int purchaseAmount) {
         int promotionUnit = this.getPromotion().getPromotionUnit();
         return (((purchaseAmount / promotionUnit) + 1) * promotionUnit) - purchaseAmount;
@@ -66,6 +82,10 @@ final public class Product {
 
     public boolean hasPromotion(LocalDate localDate) {
         return promotion != null && promotion.canPromotion(localDate);
+    }
+
+    public boolean canPurchase(int purchaseAmount) {
+        return this.stock.getTotalStock() >= purchaseAmount;
     }
 
     public String getName() {

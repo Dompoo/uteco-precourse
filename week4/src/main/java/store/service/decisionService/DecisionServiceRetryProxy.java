@@ -1,6 +1,5 @@
 package store.service.decisionService;
 
-import java.time.LocalDate;
 import java.util.function.Supplier;
 import store.aop.RetryHandler;
 import store.domain.DecisionType;
@@ -19,22 +18,20 @@ public class DecisionServiceRetryProxy implements DecisionService {
     }
 
     @Override
-    public DecisionType getDecisionType(PurchaseRequest purchaseRequest, LocalDate localDate) {
-        return retryHandler.tryUntilSuccess(() -> decisionServiceTarget.getDecisionType(purchaseRequest, localDate));
+    public DecisionType getDecisionType(PurchaseRequest purchaseRequest) {
+        return retryHandler.tryUntilSuccess(() -> decisionServiceTarget.getDecisionType(purchaseRequest));
     }
 
     @Override
     public PurchaseType decidePurchaseType(
             PurchaseRequest purchaseRequest,
             DecisionType decisionType,
-            LocalDate localDate,
             DecisionSupplier<Boolean> bringFreeProductDecisionSupplier,
             DecisionSupplier<Boolean> bringDefaultProductBackDecisionSupplier
     ) {
         return retryHandler.tryUntilSuccess(() -> decisionServiceTarget.decidePurchaseType(
                 purchaseRequest,
                 decisionType,
-                localDate,
                 bringFreeProductDecisionSupplier,
                 bringDefaultProductBackDecisionSupplier
         ));

@@ -1,6 +1,5 @@
 package store.domain;
 
-import java.time.LocalDate;
 import store.exception.StoreExceptions;
 
 final public class Purchase {
@@ -18,12 +17,13 @@ final public class Purchase {
         this.promotionGet = promotionGet;
     }
 
-    public static Purchase of(Product product, int purchaseAmount, LocalDate localDate) {
-        if (product.hasPromotion(localDate)) {
-            return new Purchase(purchaseAmount, product.getPromotionStock(localDate), product.getPromotion().getBuy(),
-                    product.getPromotion().getGet());
-        }
-        return new Purchase(purchaseAmount, product.getPromotionStock(localDate), 0, 0);
+    public static Purchase of(Product product, int purchaseAmount) {
+        return new Purchase(
+                purchaseAmount,
+                product.getPromotionStock(),
+                product.getPromotionType().getBuy(),
+                product.getPromotionType().getGet()
+        );
     }
 
     private void validate(int purchaseAmount, int promotionStock) {

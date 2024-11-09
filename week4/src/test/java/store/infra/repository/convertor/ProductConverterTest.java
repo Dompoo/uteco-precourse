@@ -9,9 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import store.domain.Product;
-import store.domain.Promotion;
 import store.domain.vo.Stock;
 import store.infra.entity.ProductEntity;
+import store.infra.entity.PromotionEntity;
 
 class ProductConverterTest {
 
@@ -39,10 +39,10 @@ class ProductConverterTest {
                     new ProductEntity("땅콩버터", 2000, 5, "과거프로모션")
             );
 
-            List<Promotion> promotions = List.of(
-                    new Promotion("콜라1+1", 1, 1, pastDate, futureDate),
-                    new Promotion("초코바2+1", 2, 1, pastDate, futureDate),
-                    new Promotion("과거프로모션", 1, 1, pastDate, pastDate)
+            List<PromotionEntity> promotions = List.of(
+                    new PromotionEntity("콜라1+1", 1, 1, pastDate, futureDate),
+                    new PromotionEntity("초코바2+1", 2, 1, pastDate, futureDate),
+                    new PromotionEntity("과거프로모션", 1, 1, pastDate, pastDate)
             );
 
             //when

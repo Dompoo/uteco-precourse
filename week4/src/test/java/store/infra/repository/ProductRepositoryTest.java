@@ -10,16 +10,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import store.domain.Product;
+import store.domain.PromotionType;
 import store.domain.vo.Stock;
 import store.infra.entity.ProductEntity;
 import store.infra.entity.PromotionEntity;
 import store.infra.repository.convertor.ProductConverter;
-import store.infra.repository.convertor.PromotionConverter;
+import store.testUtil.testDouble.DateProviderStub;
 import store.testUtil.testDouble.ProductFileDatabaseFake;
 import store.testUtil.testDouble.PromotionFileDatabaseFake;
 
 class ProductRepositoryTest {
 
+    private final LocalDate pastDate = LocalDate.now().minusDays(10);
+    private final LocalDate now = LocalDate.now();
+    private final LocalDate futureDate = LocalDate.now().plusDays(10);
     private ProductRepository sut;
 
     @BeforeEach
@@ -28,13 +32,33 @@ class ProductRepositoryTest {
         PromotionFileDatabaseFake promotionFileDatabaseFake = new PromotionFileDatabaseFake();
         setUpProductFileDatebaseFake(productFileDatabaseFake);
         setUpPromotionFileDatabaseFake(promotionFileDatabaseFake);
-
+        DateProviderStub dateProviderStub = new DateProviderStub();
+        dateProviderStub.setDate(now);
         sut = new ProductRepository(
                 productFileDatabaseFake,
                 promotionFileDatabaseFake,
                 new ProductConverter(),
-                new PromotionConverter()
+                dateProviderStub
         );
+    }
+
+    private static void setUpProductFileDatebaseFake(ProductFileDatabaseFake productFileDatabaseFake) {
+        productFileDatabaseFake.setUpProductEntities(List.of(
+                new ProductEntity("콜라", 1000, 5, ""),
+                new ProductEntity("콜라", 1000, 5, "콜라1+1"),
+                new ProductEntity("감자", 1500, 10, ""),
+                new ProductEntity("땅콩", 1000, 3, ""),
+                new ProductEntity("땅콩", 1000, 3, "과거프로모션"),
+                new ProductEntity("땅콩버터", 2000, 5, "과거프로모션")
+        ));
+    }
+
+    private void setUpPromotionFileDatabaseFake(PromotionFileDatabaseFake promotionFileDatabaseFake) {
+        promotionFileDatabaseFake.setPromotionEntities(List.of(
+                new PromotionEntity("콜라1+1", 1, 1, pastDate, futureDate),
+                new PromotionEntity("초코바2+1", 2, 1, pastDate, futureDate),
+                new PromotionEntity("과거프로모션", 1, 1, pastDate, pastDate)
+        ));
     }
 
     @Nested
@@ -53,14 +77,14 @@ class ProductRepositoryTest {
             ).containsExactlyInAnyOrder(
                     Tuple.tuple("콜라", 1000, new Stock(5, 5)),
                     Tuple.tuple("감자", 1500, new Stock(10, 0)),
-                    Tuple.tuple("땅콩", 1000, new Stock(3, 3)),
-                    Tuple.tuple("땅콩버터", 2000, new Stock(0, 5))
+                    Tuple.tuple("땅콩", 1000, new Stock(3, 0))
             );
         }
     }
 
     @Nested
     class 이름으로_상품_읽기_테스트 {
+
 
         @Test
         void 상품_이름으로_읽는다() {
@@ -78,7 +102,6 @@ class ProductRepositoryTest {
                     "콜라", 1000, new Stock(5, 5)
             );
         }
-
         @Test
         void 존재하지_않는_상품_이름으로_읽는다() {
             //given
@@ -98,7 +121,7 @@ class ProductRepositoryTest {
         @Test
         void 새로운_상품을_업데이트한다() {
             //given
-            Product product = new Product("콜라", 1500, 10, 10, null);
+            Product product = new Product("콜라", 1500, 10, 10, "", PromotionType.NO_PROMOTION);
 
             //when
             sut.update(product);
@@ -106,31 +129,10 @@ class ProductRepositoryTest {
             //then
             assertThat(sut.findByName("콜라")).isPresent();
             assertThat(sut.findByName("콜라").get()).extracting(
-                    "name", "price", "stock"
+                    "name", "price", "stock", "promotionName", "promotionType"
             ).containsExactly(
-                    "콜라", 1500, new Stock(10, 10)
+                    "콜라", 1500, new Stock(10, 10), "", PromotionType.NO_PROMOTION
             );
         }
-    }
-
-    private static void setUpProductFileDatebaseFake(ProductFileDatabaseFake productFileDatabaseFake) {
-        productFileDatabaseFake.setUpProductEntities(List.of(
-                new ProductEntity("콜라", 1000, 5, ""),
-                new ProductEntity("콜라", 1000, 5, "콜라1+1"),
-                new ProductEntity("감자", 1500, 10, ""),
-                new ProductEntity("땅콩", 1000, 3, ""),
-                new ProductEntity("땅콩", 1000, 3, "과거프로모션"),
-                new ProductEntity("땅콩버터", 2000, 5, "과거프로모션")
-        ));
-    }
-
-    private static void setUpPromotionFileDatabaseFake(PromotionFileDatabaseFake promotionFileDatabaseFake) {
-        LocalDate pastDate = LocalDate.now().minusDays(10);
-        LocalDate futureDate = LocalDate.now().plusDays(10);
-        promotionFileDatabaseFake.setPromotionEntities(List.of(
-                new PromotionEntity("콜라1+1", 1, 1, pastDate, futureDate),
-                new PromotionEntity("초코바2+1", 2, 1, pastDate, futureDate),
-                new PromotionEntity("과거프로모션", 1, 1, pastDate, pastDate)
-        ));
     }
 }

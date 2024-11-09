@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import store.domain.Product;
-import store.domain.Promotion;
 import store.exception.StoreExceptions;
 import store.infra.database.Database;
 import store.infra.entity.ProductEntity;
 import store.infra.entity.PromotionEntity;
 import store.infra.repository.convertor.ProductConverter;
-import store.infra.repository.convertor.PromotionConverter;
+import store.service.dateProvider.DateProvider;
 
 public class ProductRepository implements Repository<Product> {
 
@@ -20,10 +19,12 @@ public class ProductRepository implements Repository<Product> {
             Database<ProductEntity> productDatabase,
             Database<PromotionEntity> promotionDatabase,
             ProductConverter productConverter,
-            PromotionConverter promotionConverter
+            DateProvider dateProvider
     ) {
-        List<Promotion> promotions = promotionConverter.convert(promotionDatabase.readAll());
-        this.products.addAll(productConverter.convert(productDatabase.readAll(), promotions));
+        List<PromotionEntity> promotionEntities = promotionDatabase.readAll().stream()
+                .filter(promotionEntity -> promotionEntity.isAvailable(dateProvider.getDate()))
+                .toList();
+        this.products.addAll(productConverter.convert(productDatabase.readAll(), promotionEntities));
     }
 
     @Override

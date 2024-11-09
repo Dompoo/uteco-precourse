@@ -23,6 +23,10 @@ public record PromotionEntity(
         return new PromotionEntity(name, buy, get, startDate, endDate);
     }
 
+    public boolean isAvailable(LocalDate localDate) {
+        return startDate.isBefore(localDate) && localDate.isBefore(endDate);
+    }
+
     @Override
     public String toLine(String[] columns) {
         StringJoiner stringJoiner = new StringJoiner(",");

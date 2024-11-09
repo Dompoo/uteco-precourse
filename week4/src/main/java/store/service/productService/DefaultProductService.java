@@ -1,6 +1,5 @@
 package store.service.productService;
 
-import java.time.LocalDate;
 import java.util.List;
 import store.domain.Product;
 import store.dto.response.ProductResponse;
@@ -15,8 +14,8 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> readAllProducts(LocalDate localDate) {
+    public List<ProductResponse> readAllProducts() {
         List<Product> products = productRepository.findAll();
-        return ProductResponse.fromList(products, localDate);
+        return ProductResponse.fromList(products);
     }
 }

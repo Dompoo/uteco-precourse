@@ -1,6 +1,5 @@
 package store.domain;
 
-import java.time.LocalDate;
 import store.domain.validator.ParamsValidator;
 import store.domain.vo.Stock;
 import store.exception.StoreExceptions;
@@ -14,21 +13,24 @@ final public class Product {
     private final String name;
     private final int price;
     private Stock stock;
-    private final Promotion promotion;
+    private final String promotionName;
+    private final PromotionType promotionType;
 
     public Product(
             String name,
             int price,
             int defaultStock,
             int promotionStock,
-            Promotion promotion
+            String promotionName,
+            PromotionType promotionType
     ) {
-        ParamsValidator.validateParamsNotNull(Product.class, name);
+        ParamsValidator.validateParamsNotNull(Product.class, name, promotionName, promotionType);
         validate(price, defaultStock, promotionStock);
         this.name = name;
         this.price = price;
         this.stock = new Stock(defaultStock, promotionStock);
-        this.promotion = promotion;
+        this.promotionName = promotionName;
+        this.promotionType = promotionType;
     }
 
     private static void validate(int price, int defaultStock, int promotionStock) {
@@ -47,37 +49,37 @@ final public class Product {
         this.stock = this.stock.withReducing(totalDecreaseStock, promotionDecreaseStock);
     }
 
-    public boolean isJustRightPromotionUnit(int purchaseAmount, LocalDate localDate) {
-        if (!hasPromotion(localDate)) {
+    public boolean isJustRightPromotionUnit(int purchaseAmount) {
+        if (!hasPromotion()) {
             return false;
         }
-        return purchaseAmount % promotion.getPromotionUnit() == 0 && purchaseAmount <= getPromotionStock(localDate);
+        return purchaseAmount % promotionType.getPromotionUnit() == 0 && purchaseAmount <= getPromotionStock();
     }
 
-    public boolean canGetFreePromotionProduct(int purchaseAmount, LocalDate localDate) {
-        if (!hasPromotion(localDate)) {
+    public boolean canGetFreePromotionProduct(int purchaseAmount) {
+        if (!hasPromotion()) {
             return false;
         }
-        int promotionUnit = this.promotion.getPromotionUnit();
-        return purchaseAmount % promotionUnit >= this.promotion.getBuy()
-                && (purchaseAmount / (promotionUnit) + 1) * (promotionUnit) <= getPromotionStock(localDate);
+        int promotionUnit = this.promotionType.getPromotionUnit();
+        return purchaseAmount % promotionUnit >= this.promotionType.getBuy()
+                && (purchaseAmount / (promotionUnit) + 1) * (promotionUnit) <= getPromotionStock();
     }
 
     public int calculatePromotionGets(int purchaseAmount) {
-        int promotionUnit = this.getPromotion().getPromotionUnit();
+        int promotionUnit = this.promotionType.getPromotionUnit();
         return (((purchaseAmount / promotionUnit) + 1) * promotionUnit) - purchaseAmount;
     }
 
-    public int calculateNoPromotions(int purchaseAmount, LocalDate localDate) {
-        int promotionUnit = this.getPromotion().getPromotionUnit();
-        if (purchaseAmount < this.getPromotionStock(localDate)) {
+    public int calculateNoPromotions(int purchaseAmount) {
+        int promotionUnit = this.promotionType.getPromotionUnit();
+        if (purchaseAmount < this.getPromotionStock()) {
             return purchaseAmount % promotionUnit;
         }
-        return purchaseAmount - (this.getPromotionStock(localDate) / promotionUnit) * promotionUnit;
+        return purchaseAmount - (this.getPromotionStock() / promotionUnit) * promotionUnit;
     }
 
-    public boolean hasPromotion(LocalDate localDate) {
-        return promotion != null && promotion.canPromotion(localDate);
+    public boolean hasPromotion() {
+        return this.promotionType != PromotionType.NO_PROMOTION;
     }
 
     public boolean canPurchase(int purchaseAmount) {
@@ -92,15 +94,19 @@ final public class Product {
         return price;
     }
 
-    public int getDefaultStock(LocalDate localDate) {
-        return stock.getDefaultStock(hasPromotion(localDate));
+    public int getDefaultStock() {
+        return stock.getDefaultStock();
     }
 
-    public int getPromotionStock(LocalDate localDate) {
-        return stock.getPromotionStock(hasPromotion(localDate));
+    public int getPromotionStock() {
+        return stock.getPromotionStock();
     }
 
-    public Promotion getPromotion() {
-        return promotion;
+    public String getPromotionName() {
+        return promotionName;
+    }
+
+    public PromotionType getPromotionType() {
+        return promotionType;
     }
 }

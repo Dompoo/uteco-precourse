@@ -45,7 +45,7 @@ public class DefaultPurchaseService implements PurchaseService {
     ) {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
-        Purchase purchase = Purchase.of(product, purchaseRequest.purchaseAmount(), localDate);
+        Purchase purchase = Purchase.of(product, purchaseRequest.purchaseAmount());
         PurchaseStatus purchaseStatus = purchaseType.proceed(purchase);
         product.reduceStock(purchaseStatus.finalPurchaseAmount(), purchaseStatus.decreasePromotionStock());
         productRepository.update(product);

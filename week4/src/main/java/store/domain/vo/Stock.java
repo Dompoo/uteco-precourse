@@ -12,18 +12,12 @@ public class Stock {
         this.promotionStock = promotionStock;
     }
 
-    public int getDefaultStock(boolean promotionAvailable) {
-        if (promotionAvailable) {
-            return defaultStock;
-        }
-        return defaultStock + promotionStock;
+    public int getDefaultStock() {
+        return defaultStock;
     }
 
-    public int getPromotionStock(boolean promotionAvailable) {
-        if (promotionAvailable) {
-            return promotionStock;
-        }
-        return 0;
+    public int getPromotionStock() {
+        return promotionStock;
     }
 
     public int getTotalStock() {
@@ -35,6 +29,11 @@ public class Stock {
                 defaultStock - (totalDecreaseStock - promotionDecreaseStock),
                 promotionStock - promotionDecreaseStock
         );
+    }
+
+    @Override
+    public String toString() {
+        return "Stock{" + defaultStock + ", " + promotionStock + "}";
     }
 
     @Override

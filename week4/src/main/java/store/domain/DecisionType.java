@@ -1,6 +1,5 @@
 package store.domain;
 
-import java.time.LocalDate;
 import store.exception.StoreExceptions;
 
 public enum DecisionType {
@@ -11,15 +10,15 @@ public enum DecisionType {
     PROMOTION_STOCK_LACK,
     ;
 
-    public static DecisionType of(Product product, int purchaseAmount, LocalDate localDate) {
+    public static DecisionType of(Product product, int purchaseAmount) {
         validateStockSufficient(product, purchaseAmount);
-        if (!product.hasPromotion(localDate) || product.getPromotionStock(localDate) == 0) {
+        if (!product.hasPromotion() || product.getPromotionStock() == 0) {
             return FULL_DEFAULT;
         }
-        if (product.isJustRightPromotionUnit(purchaseAmount, localDate)) {
+        if (product.isJustRightPromotionUnit(purchaseAmount)) {
             return FULL_PROMOTION;
         }
-        if (product.canGetFreePromotionProduct(purchaseAmount, localDate)) {
+        if (product.canGetFreePromotionProduct(purchaseAmount)) {
             return CAN_GET_FREE_PRODUCT;
         }
         return PROMOTION_STOCK_LACK;

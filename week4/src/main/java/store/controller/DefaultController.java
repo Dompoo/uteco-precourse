@@ -37,7 +37,7 @@ public class DefaultController implements Controller {
     }
 
     public void run() {
-        processGreetingAndProducts(dateProvider.getDate());
+        processGreetingAndProducts();
         List<PurchaseRequest> purchaseRequests = purchaseService.getPurchases(inputHandler::handlePurchases);
         Receipt receipt = new Receipt();
         for (PurchaseRequest purchaseRequest : purchaseRequests) {
@@ -47,16 +47,15 @@ public class DefaultController implements Controller {
         processReceipt(receipt);
     }
 
-    private void processGreetingAndProducts(LocalDate localDate) {
+    private void processGreetingAndProducts() {
         outputHandler.handleGreetings();
-        List<ProductResponse> products = productService.readAllProducts(localDate);
+        List<ProductResponse> products = productService.readAllProducts();
         outputHandler.handleProducts(products);
     }
 
     private void processPurchaseRequest(PurchaseRequest purchaseRequest, Receipt receipt, LocalDate localDate) {
-        DecisionType decisionType = decisionService.getDecisionType(purchaseRequest, dateProvider.getDate());
+        DecisionType decisionType = decisionService.getDecisionType(purchaseRequest);
         PurchaseType purchaseType = decisionService.decidePurchaseType(purchaseRequest, decisionType,
-                localDate,
                 inputHandler::handleFreeProductDecision,
                 inputHandler::handleBringDefaultProductBackDecision
         );

@@ -6,7 +6,8 @@ public class ProductBuilder {
     private int price;
     private int defaultStock;
     private int promotionStock;
-    private Promotion promotion;
+    private String promotionName;
+    private PromotionType promotionType;
 
     public ProductBuilder setName(String name) {
         this.name = name;
@@ -28,12 +29,17 @@ public class ProductBuilder {
         return this;
     }
 
-    public ProductBuilder setPromotion(Promotion promotion) {
-        this.promotion = promotion;
+    public ProductBuilder setPromotionName(String promotionName) {
+        this.promotionName = promotionName;
+        return this;
+    }
+
+    public ProductBuilder setPromotionType(PromotionType promotionType) {
+        this.promotionType = promotionType;
         return this;
     }
 
     public Product build() {
-        return new Product(name, price, defaultStock, promotionStock, promotion);
+        return new Product(name, price, defaultStock, promotionStock, promotionName, promotionType);
     }
 }

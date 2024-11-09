@@ -1,6 +1,5 @@
 package store.service.decisionService;
 
-import java.time.LocalDate;
 import java.util.function.Supplier;
 import store.domain.Casher;
 import store.domain.DecisionType;
@@ -22,18 +21,17 @@ public class DefaultDecisionService implements DecisionService {
     }
 
     @Override
-    public DecisionType getDecisionType(PurchaseRequest purchaseRequest, LocalDate localDate) {
+    public DecisionType getDecisionType(PurchaseRequest purchaseRequest) {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
-        return DecisionType.of(product, purchaseRequest.purchaseAmount(), localDate);
+        return DecisionType.of(product, purchaseRequest.purchaseAmount());
     }
 
     @Override
     public PurchaseType decidePurchaseType(
             PurchaseRequest purchaseRequest,
             DecisionType decisionType,
-            LocalDate localDate,
             DecisionSupplier<Boolean> bringFreeProductDecisionSupplier,
             DecisionSupplier<Boolean> bringDefaultProductBackDecisionSupplier
     ) {
@@ -44,7 +42,6 @@ public class DefaultDecisionService implements DecisionService {
                 product,
                 purchaseRequest.purchaseAmount(),
                 decisionType,
-                localDate,
                 bringFreeProductDecisionSupplier,
                 bringDefaultProductBackDecisionSupplier
         );

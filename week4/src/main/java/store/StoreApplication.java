@@ -13,6 +13,7 @@ import store.config.io.outputHandler.OutputHandlerConfig;
 import store.config.io.reader.MissionUtilsReaderConfig;
 import store.config.io.writer.SystemWriterConfig;
 import store.config.io.writer.WriterConfig;
+import store.config.service.dateProvider.DateProviderConfig;
 import store.config.service.dateProvider.MissionUtilsDateProviderConfig;
 import store.config.service.decisionService.DecisionServiceConfig;
 import store.config.service.productService.ProductServiceConfig;
@@ -25,12 +26,13 @@ public class StoreApplication {
 
     public StoreApplication() {
         WriterConfig writerConfig = new SystemWriterConfig();
-        ProductRepositoryConfig productRepositoryConfig = configProductRepository();
+        DateProviderConfig dateProviderConfig = new MissionUtilsDateProviderConfig();
+        ProductRepositoryConfig productRepositoryConfig = configProductRepository(dateProviderConfig);
         RetryHandlerConfig retryHandlerConfig = new RetryHandlerConfig(writerConfig);
         this.controller = new ControllerConfig(
                 new InputHandlerConfig(new MissionUtilsReaderConfig(), writerConfig),
                 new OutputHandlerConfig(writerConfig),
-                new MissionUtilsDateProviderConfig(),
+                dateProviderConfig,
                 new PurchaseServiceConfig(productRepositoryConfig, retryHandlerConfig),
                 new DecisionServiceConfig(productRepositoryConfig, retryHandlerConfig),
                 new ProductServiceConfig(productRepositoryConfig),
@@ -38,10 +40,10 @@ public class StoreApplication {
         ).getController();
     }
 
-    private ProductRepositoryConfig configProductRepository() {
+    private ProductRepositoryConfig configProductRepository(DateProviderConfig dateProviderConfig) {
         ProductDatabaseConfig productDatabaseConfig = new ProductFileDatabaseConfig();
         PromotionDatabaseConfig promotionDatabaseConfig = new PromotionFileDatabaseConfig();
-        return new DefaultProductRepositoryConfig(productDatabaseConfig, promotionDatabaseConfig);
+        return new DefaultProductRepositoryConfig(productDatabaseConfig, promotionDatabaseConfig, dateProviderConfig);
     }
 
     public void run() {

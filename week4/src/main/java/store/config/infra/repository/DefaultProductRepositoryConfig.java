@@ -2,11 +2,11 @@ package store.config.infra.repository;
 
 import store.config.infra.database.ProductDatabaseConfig;
 import store.config.infra.database.PromotionDatabaseConfig;
+import store.config.service.dateProvider.DateProviderConfig;
 import store.domain.Product;
 import store.infra.repository.ProductRepository;
 import store.infra.repository.Repository;
 import store.infra.repository.convertor.ProductConverter;
-import store.infra.repository.convertor.PromotionConverter;
 
 public class DefaultProductRepositoryConfig implements ProductRepositoryConfig {
 
@@ -14,14 +14,15 @@ public class DefaultProductRepositoryConfig implements ProductRepositoryConfig {
 
     public DefaultProductRepositoryConfig(
             ProductDatabaseConfig productDatabaseConfig,
-            PromotionDatabaseConfig promotionDatabaseConfig
+            PromotionDatabaseConfig promotionDatabaseConfig,
+            DateProviderConfig dateProviderConfig
     ) {
         this.productRepository = new ProductRepository(
                 productDatabaseConfig.getProductDatabase(),
                 promotionDatabaseConfig.getPromotionDatabase(),
                 new ProductConverter(),
-                new PromotionConverter()
-        );
+                dateProviderConfig.getDateProvider()
+                );
     }
 
     @Override

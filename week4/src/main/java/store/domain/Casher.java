@@ -1,6 +1,5 @@
 package store.domain;
 
-import java.time.LocalDate;
 import store.service.decisionService.DecisionSupplier;
 
 final public class Casher {
@@ -9,7 +8,6 @@ final public class Casher {
             Product product,
             int purchaseAmount,
             DecisionType decisionType,
-            LocalDate localDate,
             DecisionSupplier<Boolean> bringFreeProductSupplier,
             DecisionSupplier<Boolean> bringDefaultProductBackSupplier
     ) {
@@ -22,7 +20,7 @@ final public class Casher {
         if (decisionType == DecisionType.CAN_GET_FREE_PRODUCT) {
             return decideBringFreeProduct(product, purchaseAmount, bringFreeProductSupplier);
         }
-        return decideBringDefaultProductBack(product, purchaseAmount, bringDefaultProductBackSupplier, localDate);
+        return decideBringDefaultProductBack(product, purchaseAmount, bringDefaultProductBackSupplier);
     }
 
     private static PurchaseType decideBringFreeProduct(
@@ -38,12 +36,11 @@ final public class Casher {
     private static PurchaseType decideBringDefaultProductBack(
             Product product,
             int purchaseAmount,
-            DecisionSupplier<Boolean> bringDefaultProductBackPredicate,
-            LocalDate localDate
+            DecisionSupplier<Boolean> bringDefaultProductBackPredicate
     ) {
         if (bringDefaultProductBackPredicate.get(
                 product.getName(),
-                product.calculateNoPromotions(purchaseAmount, localDate))
+                product.calculateNoPromotions(purchaseAmount))
         ) {
             return PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK;
         }

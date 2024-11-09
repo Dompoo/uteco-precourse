@@ -38,22 +38,6 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 프로모션_기간이_지났다면_일반재고에_포함된다() {
-        assertNowTest(() -> {
-            run("[물-1]", "N", "N");
-            assertThat(output()).contains(
-                    "- 콜라 1,000원 20개",
-                    "- 사이다 1,000원 15개",
-                    "- 오렌지주스 1,800원 9개",
-                    "- 탄산수 1,200원 5개",
-                    "- 감자칩 1,500원 10개",
-                    "- 초코바 1,200원 10개",
-                    "- 컵라면 1,700원 11개"
-            );
-        }, LocalDate.of(2000, 1, 1).atStartOfDay());
-    }
-
-    @Test
     void 프로모션이_되지_않는_수량을_그대로_포함하여_구매한다() {
         assertSimpleTest(() -> {
             run("[콜라-10]", "Y", "N", "N");

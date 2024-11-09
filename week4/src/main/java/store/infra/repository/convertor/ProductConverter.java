@@ -6,13 +6,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import store.domain.Product;
 import store.domain.ProductBuilder;
-import store.domain.Promotion;
+import store.domain.PromotionType;
 import store.infra.entity.ProductEntity;
+import store.infra.entity.PromotionEntity;
 
 public class ProductConverter {
 
-    public List<Product> convert(List<ProductEntity> productEntities, List<Promotion> promotions) {
-        Map<String, Promotion> promotionMap = convertPromotionsToMap(promotions);
+    public List<Product> convert(List<ProductEntity> productEntities, List<PromotionEntity> promotionEntities) {
+        Map<String, PromotionEntity> promotionMap = convertPromotionEntitiesToMap(promotionEntities);
+        productEntities = update(productEntities, promotionMap);
         Map<String, ProductBuilder> productMap = new HashMap<>();
         for (ProductEntity productEntity : productEntities) {
             ProductBuilder productBuilder = getProductBuilder(productEntity, productMap);
@@ -22,11 +24,18 @@ public class ProductConverter {
         return convertToProducts(productMap);
     }
 
-    private static Map<String, Promotion> convertPromotionsToMap(List<Promotion> promotions) {
-        return promotions.stream()
+    private static List<ProductEntity> update(List<ProductEntity> productEntities,
+                                               Map<String, PromotionEntity> promotionMap) {
+        return productEntities.stream()
+                .filter(productEntity -> !productEntity.isPromotionStockEntity()
+                        || promotionMap.containsKey(productEntity.promotionName())).toList();
+    }
+
+    private static Map<String, PromotionEntity> convertPromotionEntitiesToMap(List<PromotionEntity> promotionEntities) {
+        return promotionEntities.stream()
                 .collect(Collectors.toMap(
-                        Promotion::getName,
-                        promotion -> promotion)
+                        PromotionEntity::name,
+                        promotionEntity -> promotionEntity)
                 );
     }
 
@@ -40,16 +49,21 @@ public class ProductConverter {
         }
         return new ProductBuilder()
                 .setName(productEntity.name())
-                .setPrice(productEntity.price());
+                .setPrice(productEntity.price())
+                .setPromotionName("")
+                .setPromotionType(PromotionType.NO_PROMOTION);
     }
 
     private static void updateProductBuilder(
             ProductEntity productEntity,
             ProductBuilder productBuilder,
-            Map<String, Promotion> promotionMap
+            Map<String, PromotionEntity> promotionMap
     ) {
         if (productEntity.isPromotionStockEntity()) {
-            productBuilder.setPromotion(promotionMap.get(productEntity.promotionName()))
+            PromotionEntity promotionEntity = promotionMap.get(productEntity.promotionName());
+            productBuilder
+                    .setPromotionName(productEntity.promotionName())
+                    .setPromotionType(PromotionType.of(promotionEntity.buy(), promotionEntity.get()))
                     .setPromotionStock(productEntity.quantity());
             return;
         }

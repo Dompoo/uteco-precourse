@@ -6,6 +6,9 @@ import store.exception.StoreExceptions;
 
 final public class Promotion {
 
+    private static final int MIN_BUY = 1;
+    private static final int MIN_GET = 1;
+
     private final String name;
     private final int buy;
     private final int get;
@@ -26,10 +29,10 @@ final public class Promotion {
         if (name.isBlank()) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
-        if (buy <= 0) {
+        if (buy <= MIN_BUY) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
-        if (get <= 0) {
+        if (get <= MIN_GET) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
     }

@@ -6,6 +6,10 @@ import store.exception.StoreExceptions;
 
 final public class Product {
 
+    private static final int MIN_PRICE = 0;
+    private static final int MIN_DEFAULT_STOCK = 0;
+    private static final int MIN_PROMOTION_STOCK = 0;
+
     private final String name;
     private final int price;
     private int defaultStock;
@@ -29,13 +33,13 @@ final public class Product {
     }
 
     private static void validate(int price, int defaultStock, int promotionStock) {
-        if (price < 0) {
+        if (price < MIN_PRICE) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
-        if (defaultStock < 0) {
+        if (defaultStock < MIN_DEFAULT_STOCK) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
-        if (promotionStock < 0) {
+        if (promotionStock < MIN_PROMOTION_STOCK) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
     }

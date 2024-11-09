@@ -46,8 +46,10 @@ public enum DecisionType {
             int promotionBuy,
             int promotionGet
     ) {
-        return purchaseAmount % (promotionBuy + promotionGet) >= promotionBuy
-                && purchaseAmount + promotionGet <= promotionStock;
+        int promotionUnit = promotionBuy + promotionGet;
+        return purchaseAmount % (promotionUnit) >= promotionBuy
+                && (purchaseAmount / (promotionUnit) + 1) * (promotionUnit)
+                <= promotionStock;
     }
 
     private static void validateStockSufficient(int purchaseAmount, int defaultStock, int promotionStock) {

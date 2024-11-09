@@ -95,11 +95,11 @@ final public class Product {
     }
 
     public int getDefaultStock() {
-        return stock.getDefaultStock();
+        return stock.defaultStock();
     }
 
     public int getPromotionStock() {
-        return stock.getPromotionStock();
+        return stock.promotionStock();
     }
 
     public String getPromotionName() {

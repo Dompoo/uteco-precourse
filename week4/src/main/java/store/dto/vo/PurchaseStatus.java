@@ -1,4 +1,4 @@
-package store.domain.vo;
+package store.dto.vo;
 
 public record PurchaseStatus(
         int finalPurchaseAmount,

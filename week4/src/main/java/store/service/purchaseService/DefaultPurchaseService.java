@@ -6,9 +6,9 @@ import java.util.function.Supplier;
 import store.domain.Product;
 import store.domain.Purchase;
 import store.domain.PurchaseType;
-import store.domain.vo.PurchaseStatus;
 import store.dto.request.PurchaseRequest;
 import store.dto.response.PurchaseResult;
+import store.dto.vo.PurchaseStatus;
 import store.exception.StoreExceptions;
 import store.infra.repository.Repository;
 

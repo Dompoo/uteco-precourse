@@ -1,7 +1,7 @@
 package store.dto.response;
 
 import store.domain.Product;
-import store.domain.vo.PurchaseStatus;
+import store.dto.vo.PurchaseStatus;
 
 public record PurchaseResult(
         String productName,

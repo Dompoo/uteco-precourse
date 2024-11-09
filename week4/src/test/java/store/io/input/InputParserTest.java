@@ -27,7 +27,7 @@ class InputParserTest {
             String input = "Y";
 
             //when
-            boolean result = sut.parseYesOrNo(input);
+            boolean result = sut.parseDecision(input);
 
             //then
             assertThat(result).isTrue();
@@ -39,7 +39,7 @@ class InputParserTest {
             String input = "N";
 
             //when
-            boolean result = sut.parseYesOrNo(input);
+            boolean result = sut.parseDecision(input);
 
             //then
             assertThat(result).isFalse();
@@ -51,7 +51,7 @@ class InputParserTest {
             String input = "   N  ";
 
             //when
-            boolean result = sut.parseYesOrNo(input);
+            boolean result = sut.parseDecision(input);
 
             //then
             assertThat(result).isFalse();

@@ -26,7 +26,7 @@ class InputValidatorTest {
             String input = "Y";
 
             //expected
-            assertThatCode(() -> sut.validateYOrN(input))
+            assertThatCode(() -> sut.validateDecision(input))
                     .doesNotThrowAnyException();
         }
 
@@ -36,7 +36,7 @@ class InputValidatorTest {
             String input = "Y";
 
             //expected
-            assertThatCode(() -> sut.validateYOrN(input))
+            assertThatCode(() -> sut.validateDecision(input))
                     .doesNotThrowAnyException();
         }
 
@@ -46,7 +46,7 @@ class InputValidatorTest {
             String input = "  Y  ";
 
             //expected
-            assertThatCode(() -> sut.validateYOrN(input))
+            assertThatCode(() -> sut.validateDecision(input))
                     .doesNotThrowAnyException();
         }
 
@@ -56,7 +56,7 @@ class InputValidatorTest {
             String input = "a";
 
             //expected
-            assertThatThrownBy(() -> sut.validateYOrN(input))
+            assertThatThrownBy(() -> sut.validateDecision(input))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("잘못된 입력입니다. 다시 입력해 주세요.");
         }

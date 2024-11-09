@@ -9,12 +9,6 @@ import store.io.writer.Writer;
 
 public class OutputHandler {
 
-    private static final String GREETING_MESSAGE = "\n안녕하세요. W편의점입니다.";
-    private static final String PRODUCTS_MESSAGE = "현재 보유하고 있는 상품입니다.\n";
-    private static final String PRODUCT_START_MESSAGE = "\n==============W 편의점================\n";
-    private static final String PROMOTION_START_MESSAGE = "=============증\t\t정===============\n";
-    private static final String COST_START_MESSAGE = "====================================\n";
-
     private final Writer writer;
     private final OutputParser outputParser;
 
@@ -24,33 +18,33 @@ public class OutputHandler {
     }
 
     public void handleGreetings() {
-        writer.writeLine(GREETING_MESSAGE);
+        writer.writeLine("안녕하세요. W편의점입니다.");
     }
 
     public void handleProducts(List<ProductResponse> productResponses) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(PRODUCTS_MESSAGE);
+        stringBuilder.append("현재 보유하고 있는 상품입니다.\n");
         stringBuilder.append(outputParser.parseProductResponses(productResponses));
         writer.writeLine(stringBuilder.toString());
     }
 
     public void handlePurchasedProcuts(List<PurchasedProductResponse> purchasedProductResponses) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(PRODUCT_START_MESSAGE);
+        stringBuilder.append("\n==============W 편의점================\n");
         stringBuilder.append(outputParser.parsePurchasedProductsResponses(purchasedProductResponses));
         writer.writeLine(stringBuilder.toString());
     }
 
     public void handlePromotionedProducts(List<PromotionedProductResponse> promotionedProductResponses) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(PROMOTION_START_MESSAGE);
+        stringBuilder.append("=============증\t\t정===============\n");
         stringBuilder.append(outputParser.parsePromotionedProductsResponses(promotionedProductResponses));
         writer.writeLine(stringBuilder.toString());
     }
 
     public void handlePurchaseCost(PurchaseCostResponse purchaseCostResponse) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(COST_START_MESSAGE);
+        stringBuilder.append("====================================\n");
         stringBuilder.append(outputParser.parsePurchaseCostResponse(purchaseCostResponse));
         writer.writeLine(stringBuilder.toString());
     }

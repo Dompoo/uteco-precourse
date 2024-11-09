@@ -7,7 +7,7 @@ import store.dto.request.PurchaseRequest;
 public class InputParser {
 
     public boolean parseYesOrNo(String input) {
-        return input.equals("Y");
+        return input.replaceAll("\\s+", "").equals("Y");
     }
 
     public List<PurchaseRequest> parsePurchases(List<String> inputs) {
@@ -20,7 +20,8 @@ public class InputParser {
 
     private static PurchaseRequest parseToParchaseRequest(String input) {
         String withOuputBlank = input.replaceAll("\\s+", "");
-        String[] inputs = withOuputBlank.substring(1, withOuputBlank.length() - 1)
+        String[] inputs = withOuputBlank
+                .substring(1, withOuputBlank.length() - 1)
                 .split("-");
         return new PurchaseRequest(inputs[0], Integer.parseInt(inputs[1])
         );

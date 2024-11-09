@@ -48,7 +48,7 @@ final public class Product {
     }
 
     public boolean isStockSufficient(int count) {
-        return count <= stock.totalStock();
+        return count <= stock.getTotalStock();
     }
 
     public int calculatePromotionGets(int purchaseAmount) {
@@ -77,17 +77,11 @@ final public class Product {
     }
 
     public int getDefaultStock(LocalDate localDate) {
-        if (!hasPromotion(localDate)) {
-            return stock.totalStock();
-        }
-        return stock.defaultStock();
+        return stock.getDefaultStock(hasPromotion(localDate));
     }
 
     public int getPromotionStock(LocalDate localDate) {
-        if (!hasPromotion(localDate)) {
-            return 0;
-        }
-        return stock.promotionStock();
+        return stock.getPromotionStock(hasPromotion(localDate));
     }
 
     public Promotion getPromotion() {

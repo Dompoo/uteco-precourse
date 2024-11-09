@@ -1,14 +1,13 @@
 package store.domain;
 
 import java.time.LocalDate;
-import store.dto.request.PurchaseRequest;
 import store.service.decisionService.DecisionSupplier;
 
 final public class Casher {
 
     public static PurchaseType decidePurchaseType(
             Product product,
-            PurchaseRequest purchaseRequest,
+            int purchaseAmount,
             DecisionType decisionType,
             LocalDate localDate,
             DecisionSupplier<Boolean> bringFreeProductSupplier,
@@ -21,17 +20,16 @@ final public class Casher {
             return PurchaseType.FULL_PROMOTION;
         }
         if (decisionType == DecisionType.CAN_GET_FREE_PRODUCT) {
-            return decideBringFreeProduct(product, purchaseRequest, bringFreeProductSupplier);
+            return decideBringFreeProduct(product, purchaseAmount, bringFreeProductSupplier);
         }
-        return decideBringDefaultProductBack(product, purchaseRequest, bringDefaultProductBackSupplier, localDate);
+        return decideBringDefaultProductBack(product, purchaseAmount, bringDefaultProductBackSupplier, localDate);
     }
 
-    private static PurchaseType decideBringFreeProduct(Product product, PurchaseRequest purchaseRequest,
-                                                DecisionSupplier<Boolean> bringFreeProductPredicate) {
-        if (bringFreeProductPredicate.get(
-                product.getName(),
-                product.calculatePromotionGets(purchaseRequest.purchaseAmount()))
-        ) {
+    private static PurchaseType decideBringFreeProduct(
+            Product product, int purchaseAmount,
+            DecisionSupplier<Boolean> bringFreeProductPredicate
+    ) {
+        if (bringFreeProductPredicate.get(product.getName(), product.calculatePromotionGets(purchaseAmount))) {
             return PurchaseType.FULL_PROMOTION_BRING_FREE;
         }
         return PurchaseType.FULL_PROMOTION_NOT_BRING_FREE;
@@ -39,14 +37,14 @@ final public class Casher {
 
     private static PurchaseType decideBringDefaultProductBack(
             Product product,
-            PurchaseRequest purchaseRequest,
+            int purchaseAmount,
             DecisionSupplier<Boolean> bringDefaultProductBackPredicate,
             LocalDate localDate
     ) {
         if (bringDefaultProductBackPredicate.get(
                 product.getName(),
-                product.calculateNoPromotions(purchaseRequest.purchaseAmount(), localDate)
-        )) {
+                product.calculateNoPromotions(purchaseAmount, localDate))
+        ) {
             return PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK;
         }
         return PurchaseType.PORTION_PROMOTION_BRING_BACK;

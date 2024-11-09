@@ -56,7 +56,7 @@ public class DefaultDecisionService implements DecisionService {
 
         return Casher.decidePurchaseType(
                 product,
-                purchaseRequest,
+                purchaseRequest.purchaseAmount(),
                 decisionType,
                 localDate,
                 bringFreeProductDecisionSupplier,

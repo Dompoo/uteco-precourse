@@ -8,7 +8,6 @@ final public class Product {
 
     private final String name;
     private final int price;
-    private final StockType stockType;
     private int defaultStock;
     private int promotionStock;
     private final Promotion promotion;
@@ -16,16 +15,14 @@ final public class Product {
     public Product(
             String name,
             int price,
-            StockType stockType,
             int defaultStock,
             int promotionStock,
             Promotion promotion
     ) {
-        ParamsValidator.validateParamsNotNull(Product.class, name, stockType);
+        ParamsValidator.validateParamsNotNull(Product.class, name);
         validate(price, defaultStock, promotionStock);
         this.name = name;
         this.price = price;
-        this.stockType = stockType;
         this.defaultStock = defaultStock;
         this.promotionStock = promotionStock;
         this.promotion = promotion;
@@ -83,7 +80,6 @@ final public class Product {
 
         private String name;
         private int price;
-        private StockType stockType;
         private int defaultStock;
         private int promotionStock;
         private Promotion promotion;
@@ -95,15 +91,6 @@ final public class Product {
 
         public ProductBuilder setPrice(int price) {
             this.price = price;
-            return this;
-        }
-
-        public StockType getStockType() {
-            return stockType;
-        }
-
-        public ProductBuilder setStockType(StockType stockType) {
-            this.stockType = stockType;
             return this;
         }
 
@@ -123,7 +110,7 @@ final public class Product {
         }
 
         public Product build() {
-            return new Product(name, price, stockType, defaultStock, promotionStock, promotion);
+            return new Product(name, price, defaultStock, promotionStock, promotion);
         }
     }
 }

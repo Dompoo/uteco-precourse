@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import store.domain.Product;
 import store.domain.Product.ProductBuilder;
 import store.domain.Promotion;
-import store.domain.StockType;
 import store.infra.entity.ProductEntity;
 
 public class ProductConverter {
@@ -39,14 +38,9 @@ public class ProductConverter {
         if (products.containsKey(name)) {
             return products.get(name);
         }
-
-        ProductBuilder productBuilder = new ProductBuilder()
+        return new ProductBuilder()
                 .setName(productEntity.name())
                 .setPrice(productEntity.price());
-        if (productEntity.isPromotionStockEntity()) {
-            return productBuilder.setStockType(StockType.PROMOTION_ONLY);
-        }
-        return productBuilder.setStockType(StockType.DEFAULT_ONLY);
     }
 
     private static void updateProductBuilder(
@@ -57,13 +51,7 @@ public class ProductConverter {
         if (productEntity.isPromotionStockEntity()) {
             productBuilder.setPromotion(promotionMap.get(productEntity.promotionName()))
                     .setPromotionStock(productEntity.quantity());
-            if (productBuilder.getStockType() == StockType.DEFAULT_ONLY) {
-                productBuilder.setStockType(StockType.DEFAULT_AND_PROMOTION);
-            }
             return;
-        }
-        if (productBuilder.getStockType() == StockType.PROMOTION_ONLY) {
-            productBuilder.setStockType(StockType.DEFAULT_AND_PROMOTION);
         }
         productBuilder.setDefaultStock(productEntity.quantity());
     }

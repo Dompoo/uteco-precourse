@@ -2,6 +2,7 @@ package store.dto.response;
 
 import store.domain.Receipt;
 import store.domain.vo.PurchaseCost;
+import store.domain.vo.PurchasedProduct;
 
 public record PurchaseCostResponse(
         int originalPurchaseCost,
@@ -14,10 +15,16 @@ public record PurchaseCostResponse(
         PurchaseCost purchaseCost = receipt.getPurchaseCost();
         return new PurchaseCostResponse(
                 purchaseCost.originalPurchaseCost(),
-                receipt.getPurchasedProducts().size(),
+                calculateTotalPuchaseAmount(receipt),
                 purchaseCost.promotionSaleCost(),
                 purchaseCost.membershipSaleCost(),
                 purchaseCost.finalPrice()
         );
+    }
+
+    private static int calculateTotalPuchaseAmount(Receipt receipt) {
+        return receipt.getPurchasedProducts().stream()
+                .mapToInt(PurchasedProduct::purchaseAmount)
+                .sum();
     }
 }

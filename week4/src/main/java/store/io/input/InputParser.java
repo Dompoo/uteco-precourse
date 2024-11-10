@@ -1,28 +1,25 @@
 package store.io.input;
 
-import java.util.ArrayList;
 import java.util.List;
 import store.dto.request.PurchaseRequest;
 
 public class InputParser {
 
-    public boolean parseDecision(String input) {
-        return input.replaceAll("\\s+", "").equals("Y");
+    public boolean parseDecision(String decisionInput) {
+        return decisionInput.replaceAll("\\s+", "").equals("Y");
     }
 
-    public List<PurchaseRequest> parsePurchases(List<String> inputs) {
-        List<PurchaseRequest> purchaseRequests = new ArrayList<>();
-        for (String input : inputs) {
-            purchaseRequests.add(parseToParchaseRequest(input));
-        }
-        return purchaseRequests;
+    public List<PurchaseRequest> parsePurchases(List<String> purchaseInputs, String purchaseAmountSeparator) {
+        return purchaseInputs.stream()
+                .map(input -> parseToParchaseRequest(input, purchaseAmountSeparator))
+                .toList();
     }
 
-    private static PurchaseRequest parseToParchaseRequest(String input) {
-        String withOuputBlank = input.replaceAll("\\s+", "");
-        String[] inputs = withOuputBlank
-                .substring(1, withOuputBlank.length() - 1)
-                .split("-");
+    private static PurchaseRequest parseToParchaseRequest(String purchaseInputs, String purchaseAmountSeparator) {
+        String[] inputs = purchaseInputs
+                .replaceAll("\\s+", "")
+                .replaceAll("[\\[\\]]", "")
+                .split(purchaseAmountSeparator);
         return new PurchaseRequest(inputs[0], Integer.parseInt(inputs[1]));
     }
 }

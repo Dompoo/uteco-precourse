@@ -38,10 +38,7 @@ final public class Casher {
             int purchaseAmount,
             DecisionSupplier<Boolean> bringDefaultProductBackPredicate
     ) {
-        if (bringDefaultProductBackPredicate.get(
-                product.getName(),
-                product.calculateNoPromotions(purchaseAmount))
-        ) {
+        if (bringDefaultProductBackPredicate.get(product.getName(), product.calculateNoPromotions(purchaseAmount))) {
             return PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK;
         }
         return PurchaseType.PORTION_PROMOTION_BRING_BACK;

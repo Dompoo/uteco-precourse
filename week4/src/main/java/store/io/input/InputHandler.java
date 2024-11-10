@@ -8,6 +8,7 @@ import store.io.writer.Writer;
 public class InputHandler {
 
     private static final String PURCHASE_SEPARATOR = ",";
+    private static final String PURCHASE_AMOUNT_SEPARATOR = "-";
 
     private final Reader reader;
     private final Writer writer;
@@ -25,7 +26,7 @@ public class InputHandler {
         writer.writeLine("\n구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])");
         List<String> purchases = reader.readLineAsStrings(PURCHASE_SEPARATOR);
         inputValidator.validatePurchases(purchases);
-        return inputParser.parsePurchases(purchases);
+        return inputParser.parsePurchases(purchases, PURCHASE_AMOUNT_SEPARATOR);
     }
 
     public boolean handleFreeProductDecision(String productName, int freeCount) {

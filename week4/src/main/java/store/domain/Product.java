@@ -66,6 +66,9 @@ final public class Product {
     }
 
     public int calculatePromotionGets(int purchaseAmount) {
+        if (!hasPromotion()) {
+            return 0;
+        }
         int promotionUnit = this.promotionType.getPromotionUnit();
         return (((purchaseAmount / promotionUnit) + 1) * promotionUnit) - purchaseAmount;
     }

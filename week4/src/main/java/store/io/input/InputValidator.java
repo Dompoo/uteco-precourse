@@ -7,22 +7,23 @@ import store.exception.StoreExceptions;
 
 public class InputValidator {
 
-    private static final Pattern YES_OR_NO_PATTERN = Pattern.compile("^\\s*[YN]\\s*$");
+    private static final Pattern DECISION_PATTERN = Pattern.compile("^\\s*[YN]\\s*$");
     private static final Pattern PURCHASE_PATTERN = Pattern.compile("^\\s*\\[\\s*(\\D+)\\s*-\\s*(\\d+)\\s*\\]\\s*$");
 
-    public void validateDecision(String input) {
-        Matcher matcher = YES_OR_NO_PATTERN.matcher(input);
+    public void validateDecision(String decisionInput) {
+        Matcher matcher = DECISION_PATTERN.matcher(decisionInput);
         if (!matcher.matches()) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
     }
 
-    public void validatePurchases(List<String> purchases) {
-        for (String purchase : purchases) {
-            Matcher matcher = PURCHASE_PATTERN.matcher(purchase);
-            if (!matcher.matches()) {
-                throw StoreExceptions.INVALID_PURCHASE_FORMAT.get();
-            }
-        }
+    public void validatePurchases(List<String> purchaseInputs) {
+        purchaseInputs.stream()
+                .map(PURCHASE_PATTERN::matcher)
+                .forEach(matcher -> {
+                    if (!matcher.matches()) {
+                        throw StoreExceptions.INVALID_PURCHASE_FORMAT.get();
+                    }
+                });
     }
 }

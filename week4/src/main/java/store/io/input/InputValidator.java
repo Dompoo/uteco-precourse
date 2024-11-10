@@ -7,25 +7,14 @@ import store.domain.validator.ParamsValidator;
 
 public class InputValidator {
 
+    private static final Pattern DECISION_PATTERN = Pattern.compile("^\\s*[YN]\\s*$");
     private static final Pattern PURCHASE_PATTERN = Pattern.compile(
             "^\\s*\\[\\s*[a-zA-Z가-힣]+\\s*-\\s*[1-9]\\d*\\s*\\]\\s*$"
     );
 
     public void validateDecision(final String decisionInput) {
         ParamsValidator.validateParamsNotNull(decisionInput);
-        validateLength(decisionInput);
-        validateCharacter(decisionInput);
-    }
-
-    private static void validateLength(final String decisionInput) {
-        if (decisionInput.length() != 1) {
-            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
-        }
-    }
-
-    private static void validateCharacter(final String decisionInput) {
-        char decision = decisionInput.charAt(0);
-        if (decision != 'Y' && decision != 'N') {
+        if (!DECISION_PATTERN.matcher(decisionInput).matches()) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
     }

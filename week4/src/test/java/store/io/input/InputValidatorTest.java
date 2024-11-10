@@ -82,8 +82,8 @@ class InputValidatorTest {
         void 공백이_있어도_올바르게_검증된다() {
             //given
             List<String> inputs = List.of(
-                    "  [ 콜  라 - 1] ",
-                    "  [ 감 자- 5  ] "
+                    "  [ 콜라 - 1] ",
+                    "  [ 감자- 5  ] "
             );
 
             //expected
@@ -118,10 +118,49 @@ class InputValidatorTest {
         }
 
         @Test
-        void 빼기가_없는_요청을_검증한다() {
+        void 대시가_없는_요청을_검증한다() {
             //given
             List<String> inputs = List.of(
                     "[콜라1]"
+            );
+
+            //expected
+            assertThatThrownBy(() -> sut.validatePurchases(inputs))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요.");
+        }
+
+        @Test
+        void 여는_괄호가_여러개인_요청을_검증한다() {
+            //given
+            List<String> inputs = List.of(
+                    "[[콜라-1]"
+            );
+
+            //expected
+            assertThatThrownBy(() -> sut.validatePurchases(inputs))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요.");
+        }
+
+        @Test
+        void 닫는_괄호가_여러개인_요청을_검증한다() {
+            //given
+            List<String> inputs = List.of(
+                    "[콜라-1]]"
+            );
+
+            //expected
+            assertThatThrownBy(() -> sut.validatePurchases(inputs))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요.");
+        }
+
+        @Test
+        void 대시가_여러개인_요청을_검증한다() {
+            //given
+            List<String> inputs = List.of(
+                    "[콜라--1]"
             );
 
             //expected

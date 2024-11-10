@@ -47,9 +47,24 @@ class InputHandlerTest {
         }
 
         @Test
+        void 같은_상품을_여러개_입력하면_합쳐서_구매된다() {
+            //given
+            readerFake.setInputStrings("[콜라-1]", "[초코바-3]", "[콜라-5]");
+
+            //when
+            List<PurchaseRequest> result = sut.handlePurchases();
+
+            //then
+            assertThat(result).extracting("productName", "purchaseAmount").containsExactlyInAnyOrder(
+                    Tuple.tuple("콜라", 6),
+                    Tuple.tuple("초코바", 3)
+            );
+        }
+
+        @Test
         void 중간에_공백이_있어도_입력받는다() {
             //given
-            readerFake.setInputStrings("[콜 라  - 1 ]", "  [ 초코  바- 3 ]  ");
+            readerFake.setInputStrings("[콜라  - 1 ]", "  [ 초코바- 3 ]  ");
 
             //when
             List<PurchaseRequest> result = sut.handlePurchases();

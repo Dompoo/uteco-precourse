@@ -2,7 +2,7 @@ package store.domain;
 
 import store.service.decisionService.DecisionSupplier;
 
-final public class Casher {
+final public class Cashier {
 
     public static PurchaseType decidePurchaseType(
             Product product,

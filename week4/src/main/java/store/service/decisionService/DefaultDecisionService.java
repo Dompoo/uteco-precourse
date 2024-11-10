@@ -3,7 +3,7 @@ package store.service.decisionService;
 import java.util.function.Supplier;
 import store.common.dto.request.PurchaseRequest;
 import store.common.exception.StoreExceptions;
-import store.domain.Casher;
+import store.domain.Cashier;
 import store.domain.DecisionType;
 import store.domain.Product;
 import store.domain.PurchaseType;
@@ -38,7 +38,7 @@ public class DefaultDecisionService implements DecisionService {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
 
-        return Casher.decidePurchaseType(
+        return Cashier.decidePurchaseType(
                 product,
                 purchaseRequest.purchaseAmount(),
                 decisionType,

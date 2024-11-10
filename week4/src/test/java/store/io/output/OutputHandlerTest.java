@@ -119,9 +119,9 @@ class OutputHandlerTest {
         void 구매한_상품들을_출력한다() {
             //given
             List<PurchasedProductResponse> purchasedProducts = List.of(
-                    new PurchasedProductResponse("콜라", 10, 1000),
-                    new PurchasedProductResponse("초코바", 3, 1500),
-                    new PurchasedProductResponse("감자", 4, 500)
+                    new PurchasedProductResponse("콜라", 10, 10000),
+                    new PurchasedProductResponse("초코바", 3, 4500),
+                    new PurchasedProductResponse("감자", 4, 2000)
             );
 
             //when

@@ -16,10 +16,11 @@ final public class ProductReceipt {
     public List<PurchasedProductResponse> buildPurchasedProductResponses() {
         List<PurchasedProductResponse> purchasedProducts = new ArrayList<>();
         for (PurchaseResult purchaseResult : this.purchaseResults) {
-            String productName = purchaseResult.productName();
-            int price = purchaseResult.price();
-            int purchaseAmount = purchaseResult.purchaseAmount();
-            purchasedProducts.add(new PurchasedProductResponse(productName, purchaseAmount, price));
+            purchasedProducts.add(new PurchasedProductResponse(
+                    purchaseResult.productName(),
+                    purchaseResult.purchaseAmount(),
+                    purchaseResult.price() * purchaseResult.purchaseAmount()
+            ));
         }
         return purchasedProducts;
     }

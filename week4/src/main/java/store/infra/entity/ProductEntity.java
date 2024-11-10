@@ -48,7 +48,7 @@ public record ProductEntity(
             if (column.equals("name")) {
                 stringJoiner.add(name);
             }
-            if (column.equals("price")) {
+            if (column.equals("originalPrice")) {
                 stringJoiner.add(String.valueOf(price));
             }
             if (column.equals("quantity")) {

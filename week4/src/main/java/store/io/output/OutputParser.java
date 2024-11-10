@@ -71,7 +71,7 @@ public class OutputParser {
         if (response.purchaseAmount() == 0) {
             return "취소";
         }
-        return PRICE_FORMAT.formatted(response.purchaseAmount() * response.price());
+        return PRICE_FORMAT.formatted(response.originalPrice());
     }
 
     public String parsePromotionedProductsResponses(List<PromotionedProductResponse> promotionedProductResponses) {

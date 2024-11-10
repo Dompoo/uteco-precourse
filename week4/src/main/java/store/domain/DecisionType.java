@@ -18,7 +18,7 @@ public enum DecisionType {
         if (product.isJustRightPromotionUnit(purchaseAmount)) {
             return FULL_PROMOTION;
         }
-        if (product.canGetFreePromotionProduct(purchaseAmount)) {
+        if (product.canGetBringFreeProduct(purchaseAmount)) {
             return CAN_GET_FREE_PRODUCT;
         }
         return PROMOTION_STOCK_LACK;

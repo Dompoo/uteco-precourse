@@ -1,6 +1,8 @@
 package store.io.input;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import store.common.dto.request.PurchaseRequest;
 import store.common.exception.StoreExceptions;
 
@@ -18,9 +20,21 @@ public class InputParser {
             final List<String> purchaseInputs,
             final String purchaseAmountSeparator
     ) {
-        return purchaseInputs.stream()
+        List<PurchaseRequest> purchaseRequests = purchaseInputs.stream()
                 .map(input -> parseToParchaseRequest(input, purchaseAmountSeparator))
                 .toList();
+
+        return mergeSameProducts(purchaseRequests);
+    }
+
+    private List<PurchaseRequest> mergeSameProducts(final List<PurchaseRequest> purchaseRequests) {
+        return new ArrayList<>(purchaseRequests.stream()
+                .collect(Collectors.groupingBy(
+                        PurchaseRequest::productName,
+                        Collectors.reducing(new PurchaseRequest("", 0), PurchaseRequest::add))
+                )
+                .values()
+        );
     }
 
     private static PurchaseRequest parseToParchaseRequest(

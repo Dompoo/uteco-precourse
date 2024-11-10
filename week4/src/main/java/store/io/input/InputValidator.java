@@ -32,7 +32,14 @@ public class InputValidator {
 
     public void validatePurchases(final List<String> purchaseInputs) {
         ParamsValidator.validateParamsNotNull(purchaseInputs);
+        validatePurchaseIsEmpty(purchaseInputs);
         purchaseInputs.forEach(this::validatePurchase);
+    }
+
+    private void validatePurchaseIsEmpty(final List<String> purchaseInputs) {
+        if (purchaseInputs.isEmpty()) {
+            throw StoreExceptions.INVALID_PURCHASE_FORMAT.get();
+        }
     }
 
     private void validatePurchase(final String purchaseInput) {

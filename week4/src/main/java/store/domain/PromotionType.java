@@ -6,7 +6,7 @@ public enum PromotionType {
 
     NO_PROMOTION(0, 0),
     BUY_ONE_GET_ONE(1, 1),
-    BUY_TWO_GET_ONE(2, 1)
+    BUY_TWO_GET_ONE(2, 1),
     ;
 
     private final int buy;

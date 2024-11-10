@@ -1,6 +1,5 @@
 package store.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 import store.common.dto.request.PurchaseRequest;
 import store.common.dto.response.ProductResponse;
@@ -11,7 +10,6 @@ import store.domain.membership.Membership;
 import store.domain.receipt.Receipt;
 import store.io.input.InputHandler;
 import store.io.output.OutputHandler;
-import store.service.dateProvider.DateProvider;
 import store.service.decisionService.DecisionService;
 import store.service.productService.ProductService;
 import store.service.purchaseService.PurchaseService;
@@ -20,17 +18,15 @@ public class DefaultController implements Controller {
 
     private final InputHandler inputHandler;
     private final OutputHandler outputHandler;
-    private final DateProvider dateProvider;
     private final PurchaseService purchaseService;
     private final DecisionService decisionService;
     private final ProductService productService;
 
-    public DefaultController(InputHandler inputHandler, OutputHandler outputHandler, DateProvider dateProvider,
+    public DefaultController(InputHandler inputHandler, OutputHandler outputHandler,
                              PurchaseService purchaseService, DecisionService decisionService,
                              ProductService productService) {
         this.inputHandler = inputHandler;
         this.outputHandler = outputHandler;
-        this.dateProvider = dateProvider;
         this.purchaseService = purchaseService;
         this.decisionService = decisionService;
         this.productService = productService;
@@ -41,7 +37,7 @@ public class DefaultController implements Controller {
         List<PurchaseRequest> purchaseRequests = purchaseService.getPurchases(inputHandler::handlePurchases);
         Receipt receipt = new Receipt();
         for (PurchaseRequest purchaseRequest : purchaseRequests) {
-            processPurchaseRequest(purchaseRequest, receipt, dateProvider.getDate());
+            processPurchaseRequest(purchaseRequest, receipt);
         }
         processMembership(receipt);
         processReceipt(receipt);
@@ -53,13 +49,13 @@ public class DefaultController implements Controller {
         outputHandler.handleProducts(products);
     }
 
-    private void processPurchaseRequest(PurchaseRequest purchaseRequest, Receipt receipt, LocalDate localDate) {
+    private void processPurchaseRequest(PurchaseRequest purchaseRequest, Receipt receipt) {
         DecisionType decisionType = decisionService.getDecisionType(purchaseRequest);
         PurchaseType purchaseType = decisionService.decidePurchaseType(purchaseRequest, decisionType,
                 inputHandler::handleFreeProductDecision,
                 inputHandler::handleBringDefaultProductBackDecision
         );
-        PurchaseResult purchaseResult = purchaseService.purchaseProduct(purchaseRequest, purchaseType, localDate);
+        PurchaseResult purchaseResult = purchaseService.purchaseProduct(purchaseRequest, purchaseType);
         receipt.addPurchase(purchaseResult);
     }
 

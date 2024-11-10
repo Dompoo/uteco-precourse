@@ -1,6 +1,5 @@
 package store.service.purchaseService;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Supplier;
 import store.aop.RetryHandler;
@@ -24,13 +23,8 @@ public class PurchaseServiceRetryProxy implements PurchaseService {
     }
 
     @Override
-    public PurchaseResult purchaseProduct(
-            PurchaseRequest purchaseRequest,
-            PurchaseType purchaseType,
-            LocalDate localDate
-    ) {
-        return retryHandler.tryUntilSuccess(
-                () -> purchaseServiceTarget.purchaseProduct(purchaseRequest, purchaseType, localDate)
+    public PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType) {
+        return retryHandler.tryUntilSuccess(() -> purchaseServiceTarget.purchaseProduct(purchaseRequest, purchaseType)
         );
     }
 }

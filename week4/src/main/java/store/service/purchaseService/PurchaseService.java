@@ -1,6 +1,5 @@
 package store.service.purchaseService;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Supplier;
 import store.common.dto.request.PurchaseRequest;
@@ -11,5 +10,5 @@ public interface PurchaseService {
 
     List<PurchaseRequest> getPurchases(Supplier<List<PurchaseRequest>> purchaseRequestsSupplier);
 
-    PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType, LocalDate localDate);
+    PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType);
 }

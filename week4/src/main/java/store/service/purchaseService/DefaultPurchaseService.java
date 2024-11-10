@@ -1,6 +1,5 @@
 package store.service.purchaseService;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Supplier;
 import store.common.dto.request.PurchaseRequest;
@@ -40,8 +39,7 @@ public class DefaultPurchaseService implements PurchaseService {
     @Override
     public PurchaseResult purchaseProduct(
             PurchaseRequest purchaseRequest,
-            PurchaseType purchaseType,
-            LocalDate localDate
+            PurchaseType purchaseType
     ) {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);

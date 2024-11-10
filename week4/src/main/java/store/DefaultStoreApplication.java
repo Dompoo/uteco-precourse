@@ -59,7 +59,6 @@ public class DefaultStoreApplication implements StoreApplication {
         return new DefaultControllerConfig(
                 context.inputHandler(),
                 new OutputHandlerConfig(context.writer()),
-                context.dateProvider(),
                 new PurchaseServiceConfig(context.productRepository(), context.retryHandler()),
                 new DecisionServiceConfig(context.productRepository(), context.retryHandler()),
                 new ProductServiceConfig(context.productRepository())

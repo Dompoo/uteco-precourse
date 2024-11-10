@@ -2,7 +2,6 @@ package store.config.controller;
 
 import store.config.io.inputHandler.InputHandlerConfig;
 import store.config.io.outputHandler.OutputHandlerConfig;
-import store.config.service.dateProvider.DateProviderConfig;
 import store.config.service.decisionService.DecisionServiceConfig;
 import store.config.service.productService.ProductServiceConfig;
 import store.config.service.purchaseService.PurchaseServiceConfig;
@@ -16,7 +15,6 @@ public class DefaultControllerConfig implements ControllerConfig {
     public DefaultControllerConfig(
             InputHandlerConfig inputHandlerConfig,
             OutputHandlerConfig outputHandlerConfig,
-            DateProviderConfig dateProviderConfig,
             PurchaseServiceConfig purchaseServiceConfig,
             DecisionServiceConfig decisionServiceConfig,
             ProductServiceConfig productServiceConfig
@@ -24,7 +22,6 @@ public class DefaultControllerConfig implements ControllerConfig {
         this.controller = new DefaultController(
                 inputHandlerConfig.getInputHandler(),
                 outputHandlerConfig.getOutputHandler(),
-                dateProviderConfig.getDateProvider(),
                 purchaseServiceConfig.getPurchaseService(),
                 decisionServiceConfig.getDecisionService(),
                 productServiceConfig.getProductService()

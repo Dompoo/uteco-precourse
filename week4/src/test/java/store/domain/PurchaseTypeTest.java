@@ -7,7 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import store.domain.vo.PurchaseStatus;
 
-class PurchasedProductTypeTest {
+class PurchaseTypeTest {
 
     private static final LocalDate pastDate = LocalDate.now().minusDays(10);
     private static final LocalDate futureDate = LocalDate.now().plusDays(10);

@@ -90,7 +90,6 @@ class ProductRepositoryTest {
     @Nested
     class 이름으로_상품_읽기_테스트 {
 
-
         @Test
         void 상품_이름으로_읽는다() {
             //given
@@ -107,6 +106,7 @@ class ProductRepositoryTest {
                     "콜라", 1000, new Stock(5, 5)
             );
         }
+
         @Test
         void 존재하지_않는_상품_이름으로_읽는다() {
             //given

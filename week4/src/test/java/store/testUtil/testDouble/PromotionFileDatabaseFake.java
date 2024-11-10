@@ -19,5 +19,6 @@ public class PromotionFileDatabaseFake implements Database<PromotionEntity> {
     }
 
     @Override
-    public void updateAll(List<PromotionEntity> objects) {}
+    public void updateAll(List<PromotionEntity> objects) {
+    }
 }

@@ -66,7 +66,9 @@ public class OutputParser {
         return PRICE_FORMAT.formatted(response.originalPrice());
     }
 
-    public String parsePromotionedProductsResponses(final List<PromotionedProductResponse> promotionedProductResponses) {
+    public String parsePromotionedProductsResponses(
+            final List<PromotionedProductResponse> promotionedProductResponses
+    ) {
         return promotionedProductResponses.stream()
                 .map(OutputParser::mapPromotionedProductResponseToString)
                 .collect(Collectors.joining(NEW_LINE));

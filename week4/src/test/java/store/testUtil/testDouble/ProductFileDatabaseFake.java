@@ -19,5 +19,6 @@ public class ProductFileDatabaseFake implements Database<ProductEntity> {
     }
 
     @Override
-    public void updateAll(List<ProductEntity> objects) {}
+    public void updateAll(List<ProductEntity> objects) {
+    }
 }

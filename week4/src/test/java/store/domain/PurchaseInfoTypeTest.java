@@ -56,7 +56,7 @@ class PurchaseInfoTypeTest {
             "12, 13, BUY_ONE_GET_ONE, 12, 6, 12",
     })
     void 전부_프로모션에서_구매한다(int purchaseAmount, int promotionStock, String promotionName,
-                         int totalPurchase, int promotionGet, int decreasePromotionStock) {
+                        int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
@@ -87,7 +87,7 @@ class PurchaseInfoTypeTest {
             "11, 13, BUY_ONE_GET_ONE, 12, 6, 12",
     })
     void 전부_프로모션에서_구매한다_무료상품을_가져온다(int purchaseAmount, int promotionStock, String promotionName,
-                        int totalPurchase, int promotionGet, int decreasePromotionStock) {
+                                   int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
@@ -118,7 +118,7 @@ class PurchaseInfoTypeTest {
             "11, 13, BUY_ONE_GET_ONE, 11, 5, 11",
     })
     void 전부_프로모션에서_구매한다_무료상품을_가져오지_않는다(int purchaseAmount, int promotionStock, String promotionName,
-                                   int totalPurchase, int promotionGet, int decreasePromotionStock) {
+                                       int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
@@ -151,7 +151,7 @@ class PurchaseInfoTypeTest {
             "16, 13, BUY_ONE_GET_ONE, 12, 6, 12",
     })
     void 일부만_프로모션에서_구매한다_프로모션_아닌_것은_가져다_놓는다(int purchaseAmount, int promotionStock, String promotionName,
-                                       int totalPurchase, int promotionGet, int decreasePromotionStock) {
+                                            int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
@@ -184,7 +184,7 @@ class PurchaseInfoTypeTest {
             "16, 13, BUY_ONE_GET_ONE, 16, 6, 13",
     })
     void 일부만_프로모션에서_구매한다_프로모션_아닌_것도_그대로_구매한다(int purchaseAmount, int promotionStock, String promotionName,
-                                            int totalPurchase, int promotionGet, int decreasePromotionStock) {
+                                             int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);

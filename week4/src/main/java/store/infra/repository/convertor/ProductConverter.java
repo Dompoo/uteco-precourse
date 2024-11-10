@@ -21,7 +21,9 @@ public class ProductConverter {
         List<ProductEntity> validProductEntities = withOnlyValidPromotionEntities(productEntities, promotionMap);
         Map<String, ProductBuilder> productMap = new HashMap<>();
         for (ProductEntity productEntity : validProductEntities) {
-            productMap.put(productEntity.name(), getUpdatedProductBuilder(now, productEntity, productMap, promotionMap));
+            productMap.put(productEntity.name(),
+                    getUpdatedProductBuilder(now, productEntity, productMap, promotionMap)
+            );
         }
         return convertToProducts(productMap);
     }

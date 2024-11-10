@@ -47,11 +47,21 @@ public record PromotionEntity(
     public String toLine(final String[] columns) {
         StringJoiner stringJoiner = new StringJoiner(",");
         for (String column : columns) {
-            if (column.equals("name")) stringJoiner.add(name);
-            if (column.equals("buy")) stringJoiner.add(String.valueOf(buy));
-            if (column.equals("get")) stringJoiner.add(String.valueOf(get));
-            if (column.equals("start_date")) stringJoiner.add(String.valueOf(startDate));
-            if (column.equals("end_date")) stringJoiner.add(String.valueOf(endDate));
+            if (column.equals("name")) {
+                stringJoiner.add(name);
+            }
+            if (column.equals("buy")) {
+                stringJoiner.add(String.valueOf(buy));
+            }
+            if (column.equals("get")) {
+                stringJoiner.add(String.valueOf(get));
+            }
+            if (column.equals("start_date")) {
+                stringJoiner.add(String.valueOf(startDate));
+            }
+            if (column.equals("end_date")) {
+                stringJoiner.add(String.valueOf(endDate));
+            }
         }
         return stringJoiner.toString();
     }

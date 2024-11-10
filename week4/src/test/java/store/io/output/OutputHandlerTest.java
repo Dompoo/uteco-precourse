@@ -42,8 +42,8 @@ class OutputHandlerTest {
 
             //then
             assertThat(writerFake.getOutput()).contains(
-                            "안녕하세요. W편의점입니다."
-                    );
+                    "안녕하세요. W편의점입니다."
+            );
         }
     }
 

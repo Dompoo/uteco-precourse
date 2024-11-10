@@ -46,7 +46,7 @@ public record ProductEntity(
         StringJoiner stringJoiner = new StringJoiner(",");
         for (String column : columns) {
             if (column.equals("name")) stringJoiner.add(name);
-            if (column.equals("originalPrice")) stringJoiner.add(String.valueOf(price));
+            if (column.equals("price")) stringJoiner.add(String.valueOf(price));
             if (column.equals("quantity")) stringJoiner.add(String.valueOf(quantity));
             if (column.equals("promotion")) stringJoiner.add(promotionName);
         }

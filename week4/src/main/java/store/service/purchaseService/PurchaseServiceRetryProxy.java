@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.function.Supplier;
 import store.aop.RetryHandler;
 import store.common.dto.request.PurchaseRequest;
-import store.common.dto.response.PurchaseResult;
 import store.domain.PurchaseType;
+import store.domain.vo.PurchaseResult;
 
 public class PurchaseServiceRetryProxy implements PurchaseService {
 

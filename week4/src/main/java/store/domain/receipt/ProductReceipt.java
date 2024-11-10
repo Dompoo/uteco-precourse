@@ -2,8 +2,8 @@ package store.domain.receipt;
 
 import java.util.ArrayList;
 import java.util.List;
-import store.common.dto.response.PurchaseResult;
 import store.common.dto.response.PurchasedProductResponse;
+import store.domain.vo.PurchaseResult;
 
 final public class ProductReceipt {
 

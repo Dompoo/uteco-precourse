@@ -1,29 +1,22 @@
-package store.domain;
+package store.domain.vo;
 
+import java.util.Objects;
 import store.common.exception.StoreExceptions;
+import store.domain.Product;
 
-final public class Purchase {
+final public class PurchaseInfo {
 
     private final int purchaseAmount;
     private final int promotionStock;
     private final int promotionBuy;
     private final int promotionGet;
 
-    private Purchase(int purchaseAmount, int promotionStock, int promotionBuy, int promotionGet) {
+    private PurchaseInfo(int purchaseAmount, int promotionStock, int promotionBuy, int promotionGet) {
         validate(purchaseAmount, promotionStock);
         this.purchaseAmount = purchaseAmount;
         this.promotionStock = promotionStock;
         this.promotionBuy = promotionBuy;
         this.promotionGet = promotionGet;
-    }
-
-    public static Purchase of(Product product, int purchaseAmount) {
-        return new Purchase(
-                purchaseAmount,
-                product.getPromotionStock(),
-                product.getPromotion().getPromotionBuy(),
-                product.getPromotion().getPromotionGet()
-        );
     }
 
     private void validate(int purchaseAmount, int promotionStock) {
@@ -33,6 +26,15 @@ final public class Purchase {
         if (promotionStock < 0) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
+    }
+
+    public static PurchaseInfo of(Product product, int purchaseAmount) {
+        return new PurchaseInfo(
+                purchaseAmount,
+                product.getPromotionStock(),
+                product.getPromotion().getPromotionBuy(),
+                product.getPromotion().getPromotionGet()
+        );
     }
 
     public int getPurchaseAmount() {
@@ -72,5 +74,22 @@ final public class Purchase {
             return 0;
         }
         return promotionGetProductCount / this.promotionGet * calculatePromotionUnit();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PurchaseInfo purchaseInfo)) {
+            return false;
+        }
+        return purchaseAmount == purchaseInfo.purchaseAmount && promotionStock == purchaseInfo.promotionStock
+                && promotionBuy == purchaseInfo.promotionBuy && promotionGet == purchaseInfo.promotionGet;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(purchaseAmount, promotionStock, promotionBuy, promotionGet);
     }
 }

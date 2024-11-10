@@ -4,7 +4,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import store.common.dto.response.PurchaseResult;
+import store.domain.vo.PurchaseResult;
 
 class RatioMembershipTest {
 

@@ -12,14 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import store.common.dto.request.PurchaseRequest;
-import store.common.dto.response.PurchaseResult;
 import store.domain.Product;
 import store.domain.Promotion;
 import store.domain.PromotionType;
 import store.domain.PurchaseType;
+import store.domain.vo.PurchaseResult;
 import store.testUtil.testDouble.ProductRepositoryFake;
 
-class DefaultPurchaseServiceTest {
+class DefaultPurchaseInfoServiceTest {
 
     private final LocalDate pastDate = LocalDate.now().minusDays(10);
     private final LocalDate futureDate = LocalDate.now().plusDays(10);

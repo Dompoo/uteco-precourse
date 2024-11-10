@@ -177,7 +177,7 @@ class ProductTest {
             Product sut = new Product("우도땅콩", 1000, 10, 10, promotion);
 
             //when
-            boolean result = sut.canGetBringFreeProduct(purchaseAmount);
+            boolean result = sut.canGetFreeProduct(purchaseAmount);
 
             //then
             assertThat(result).isTrue();
@@ -193,7 +193,7 @@ class ProductTest {
             Product sut = new Product("우도땅콩", 1000, 10, 10, promotion);
 
             //when
-            boolean result = sut.canGetBringFreeProduct(purchaseAmount);
+            boolean result = sut.canGetFreeProduct(purchaseAmount);
 
             //then
             assertThat(result).isFalse();
@@ -209,7 +209,7 @@ class ProductTest {
             Product sut = new Product("우도땅콩", 1000, 10, 10, promotion);
 
             //when
-            boolean result = sut.canGetBringFreeProduct(purchaseAmount);
+            boolean result = sut.canGetFreeProduct(purchaseAmount);
 
             //then
             assertThat(result).isFalse();

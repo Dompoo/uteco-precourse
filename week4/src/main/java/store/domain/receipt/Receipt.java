@@ -3,9 +3,9 @@ package store.domain.receipt;
 import java.util.List;
 import store.common.dto.response.PromotionedProductResponse;
 import store.common.dto.response.PurchaseCostResponse;
-import store.common.dto.response.PurchaseResult;
 import store.common.dto.response.PurchasedProductResponse;
 import store.domain.membership.Membership;
+import store.domain.vo.PurchaseResult;
 
 final public class Receipt {
 

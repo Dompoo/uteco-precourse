@@ -3,7 +3,7 @@ package store.domain.receipt;
 import java.util.ArrayList;
 import java.util.List;
 import store.common.dto.response.PromotionedProductResponse;
-import store.common.dto.response.PurchaseResult;
+import store.domain.vo.PurchaseResult;
 
 final public class PromotionReceipt {
 

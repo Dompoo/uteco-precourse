@@ -1,38 +1,39 @@
 package store.domain;
 
+import store.domain.vo.PurchaseInfo;
 import store.domain.vo.PurchaseStatus;
 
 public enum PurchaseType {
 
     FULL_DEFAULT(
-            Purchase::getPurchaseAmount,
-            (purchase) -> 0,
-            (purchase) -> 0
+            PurchaseInfo::getPurchaseAmount,
+            (purchaseInfo) -> 0,
+            (purchaseInfo) -> 0
     ),
     FULL_PROMOTION(
-            Purchase::getPurchaseAmount,
-            Purchase::getPromotionGetWithFullPromotion,
-            Purchase::getPurchaseAmount
+            PurchaseInfo::getPurchaseAmount,
+            PurchaseInfo::getPromotionGetWithFullPromotion,
+            PurchaseInfo::getPurchaseAmount
     ),
     FULL_PROMOTION_BRING_FREE(
-            Purchase::getPurchaseAmountWithGetFree,
-            Purchase::getPromotionGetWithGetFree,
-            Purchase::getPurchaseAmountWithGetFree
+            PurchaseInfo::getPurchaseAmountWithGetFree,
+            PurchaseInfo::getPromotionGetWithGetFree,
+            PurchaseInfo::getPurchaseAmountWithGetFree
     ),
     FULL_PROMOTION_NOT_BRING_FREE(
-            Purchase::getPurchaseAmount,
-            Purchase::getPromotionGetWithFullPromotion,
-            Purchase::getPurchaseAmount
+            PurchaseInfo::getPurchaseAmount,
+            PurchaseInfo::getPromotionGetWithFullPromotion,
+            PurchaseInfo::getPurchaseAmount
     ),
     PORTION_PROMOTION_BRING_BACK(
-            Purchase::getPurchaseAmountWithBringBackNotPromotion,
-            Purchase::getPromotionGetWithPortionPromotion,
-            Purchase::getPurchaseAmountWithBringBackNotPromotion
+            PurchaseInfo::getPurchaseAmountWithBringBackNotPromotion,
+            PurchaseInfo::getPromotionGetWithPortionPromotion,
+            PurchaseInfo::getPurchaseAmountWithBringBackNotPromotion
     ),
     PORTION_PROMOTION_NOT_BRING_BACK(
-            Purchase::getPurchaseAmount,
-            Purchase::getPromotionGetWithPortionPromotion,
-            Purchase::calculateStockLimitedPurchaseAmount
+            PurchaseInfo::getPurchaseAmount,
+            PurchaseInfo::getPromotionGetWithPortionPromotion,
+            PurchaseInfo::calculateStockLimitedPurchaseAmount
     ),
     ;
 
@@ -50,19 +51,19 @@ public enum PurchaseType {
         this.promotionStockToDecreaseCalculator = promotionStockToDecreaseCalculator;
     }
 
-    public PurchaseStatus proceed(Purchase purchase) {
-        Integer promotionGetProductCount = this.promotionGetProductCountCalculator.calculate(purchase);
+    public PurchaseStatus proceed(PurchaseInfo purchaseInfo) {
+        Integer promotionGetProductCount = this.promotionGetProductCountCalculator.calculate(purchaseInfo);
         return new PurchaseStatus(
-                this.finalPurchaseProductCountCalculator.calculate(purchase),
+                this.finalPurchaseProductCountCalculator.calculate(purchaseInfo),
                 promotionGetProductCount,
-                this.promotionStockToDecreaseCalculator.calculate(purchase),
-                purchase.calculatePromotionedProductAmount(promotionGetProductCount)
+                this.promotionStockToDecreaseCalculator.calculate(purchaseInfo),
+                purchaseInfo.calculatePromotionedProductAmount(promotionGetProductCount)
         );
     }
 
     @FunctionalInterface
     public interface StoreCalculator<T> {
-        T calculate(Purchase purchase);
+        T calculate(PurchaseInfo purchaseInfo);
     }
 }
 

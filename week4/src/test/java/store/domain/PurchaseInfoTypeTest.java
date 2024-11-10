@@ -5,9 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import store.domain.vo.PurchaseInfo;
 import store.domain.vo.PurchaseStatus;
 
-class PurchaseTypeTest {
+class PurchaseInfoTypeTest {
 
     private static final LocalDate pastDate = LocalDate.now().minusDays(10);
     private static final LocalDate futureDate = LocalDate.now().plusDays(10);
@@ -28,10 +29,10 @@ class PurchaseTypeTest {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
-        Purchase purchase = Purchase.of(product, purchaseAmount);
+        PurchaseInfo purchaseInfo = PurchaseInfo.of(product, purchaseAmount);
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_DEFAULT.proceed(purchase);
+        PurchaseStatus result = PurchaseType.FULL_DEFAULT.proceed(purchaseInfo);
 
         //then
         assertThat(result).extracting(
@@ -59,10 +60,10 @@ class PurchaseTypeTest {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
-        Purchase purchase = Purchase.of(product, purchaseAmount);
+        PurchaseInfo purchaseInfo = PurchaseInfo.of(product, purchaseAmount);
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_PROMOTION.proceed(purchase);
+        PurchaseStatus result = PurchaseType.FULL_PROMOTION.proceed(purchaseInfo);
 
         //then
         assertThat(result).extracting(
@@ -90,10 +91,10 @@ class PurchaseTypeTest {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
-        Purchase purchase = Purchase.of(product, purchaseAmount);
+        PurchaseInfo purchaseInfo = PurchaseInfo.of(product, purchaseAmount);
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_PROMOTION_BRING_FREE.proceed(purchase);
+        PurchaseStatus result = PurchaseType.FULL_PROMOTION_BRING_FREE.proceed(purchaseInfo);
 
         //then
         assertThat(result).extracting(
@@ -121,10 +122,10 @@ class PurchaseTypeTest {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
-        Purchase purchase = Purchase.of(product, purchaseAmount);
+        PurchaseInfo purchaseInfo = PurchaseInfo.of(product, purchaseAmount);
 
         //when
-        PurchaseStatus result = PurchaseType.FULL_PROMOTION_NOT_BRING_FREE.proceed(purchase);
+        PurchaseStatus result = PurchaseType.FULL_PROMOTION_NOT_BRING_FREE.proceed(purchaseInfo);
 
         //then
         assertThat(result).extracting(
@@ -154,10 +155,10 @@ class PurchaseTypeTest {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
-        Purchase purchase = Purchase.of(product, purchaseAmount);
+        PurchaseInfo purchaseInfo = PurchaseInfo.of(product, purchaseAmount);
 
         //when
-        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_BRING_BACK.proceed(purchase);
+        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_BRING_BACK.proceed(purchaseInfo);
 
         //then
         assertThat(result).extracting(
@@ -187,10 +188,10 @@ class PurchaseTypeTest {
         //given
         Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
         Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
-        Purchase purchase = Purchase.of(product, purchaseAmount);
+        PurchaseInfo purchaseInfo = PurchaseInfo.of(product, purchaseAmount);
 
         //when
-        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK.proceed(purchase);
+        PurchaseStatus result = PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK.proceed(purchaseInfo);
 
         //then
         assertThat(result).extracting(

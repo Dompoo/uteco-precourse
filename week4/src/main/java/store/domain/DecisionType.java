@@ -1,32 +1,38 @@
 package store.domain;
 
+import java.util.Arrays;
 import store.common.exception.StoreExceptions;
 
 public enum DecisionType {
 
-    FULL_DEFAULT,
-    FULL_PROMOTION,
-    CAN_GET_FREE_PRODUCT,
-    PROMOTION_STOCK_LACK,
+    FULL_DEFAULT((product, purchaseAmount) -> !product.canPurchaseWithPromotion()),
+    FULL_PROMOTION(Product::isJustRightPromotionUnit),
+    CAN_GET_FREE_PRODUCT(Product::canGetFreeProduct),
+    PROMOTION_STOCK_LACK(Product::isPromotionStockLack),
     ;
+
+    private final DecisionInfo decisionInfo;
+
+    DecisionType(DecisionInfo decisionInfo) {
+        this.decisionInfo = decisionInfo;
+    }
 
     public static DecisionType of(Product product, int purchaseAmount) {
         validateStockSufficient(product, purchaseAmount);
-        if (!product.hasPromotion() || product.getPromotionStock() == 0) {
-            return FULL_DEFAULT;
-        }
-        if (product.isJustRightPromotionUnit(purchaseAmount)) {
-            return FULL_PROMOTION;
-        }
-        if (product.canGetBringFreeProduct(purchaseAmount)) {
-            return CAN_GET_FREE_PRODUCT;
-        }
-        return PROMOTION_STOCK_LACK;
+        return Arrays.stream(DecisionType.values())
+                .filter(decisionType -> decisionType.decisionInfo.decide(product, purchaseAmount))
+                .findFirst()
+                .orElse(PROMOTION_STOCK_LACK);
     }
 
     private static void validateStockSufficient(Product product, int purchaseAmount) {
         if (!product.canPurchase(purchaseAmount)) {
             throw StoreExceptions.PURCHASE_OVER_STOCK.get();
         }
+    }
+
+    @FunctionalInterface
+    public interface DecisionInfo {
+        boolean decide(Product product, int purchaseAmount);
     }
 }

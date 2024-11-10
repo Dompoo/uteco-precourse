@@ -2,7 +2,6 @@ package store.domain;
 
 import store.common.exception.StoreExceptions;
 import store.domain.validator.ParamsValidator;
-import store.domain.vo.Stock;
 
 final public class Product {
 
@@ -35,6 +34,13 @@ final public class Product {
         this.stock = this.stock.withReducing(totalDecreaseStock, promotionDecreaseStock);
     }
 
+    public boolean canPurchaseWithPromotion() {
+        if (!hasPromotion()) {
+            return false;
+        }
+        return getPromotionStock() != 0;
+    }
+
     public boolean isJustRightPromotionUnit(int purchaseAmount) {
         if (!hasPromotion()) {
             return false;
@@ -42,7 +48,7 @@ final public class Product {
         return purchaseAmount % promotion.getPromotionUnit() == 0 && purchaseAmount <= getPromotionStock();
     }
 
-    public boolean canGetBringFreeProduct(int purchaseAmount) {
+    public boolean canGetFreeProduct(int purchaseAmount) {
         if (!hasPromotion()) {
             return false;
         }
@@ -51,8 +57,17 @@ final public class Product {
                 && (purchaseAmount / (promotionUnit) + 1) * (promotionUnit) <= getPromotionStock();
     }
 
+    public boolean isPromotionStockLack(int purchaseAmount) {
+        if (!hasPromotion()) {
+            return false;
+        }
+        int promotionUnit = promotion.getPromotionUnit();
+        return purchaseAmount % promotionUnit < promotion.getPromotionBuy()
+                || purchaseAmount > (getPromotionStock() / promotionUnit) * getPromotionStock();
+    }
+
     public int calculateBringFreeProductCount(int purchaseAmount) {
-        if (!hasPromotion() || !canGetBringFreeProduct(purchaseAmount)) {
+        if (!hasPromotion() || !canGetFreeProduct(purchaseAmount)) {
             return 0;
         }
         int promotionUnit = promotion.getPromotionUnit();

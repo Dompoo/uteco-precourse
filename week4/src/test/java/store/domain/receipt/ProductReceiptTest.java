@@ -6,7 +6,7 @@ import java.util.List;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import store.common.dto.response.PromotionedProductResponse;
-import store.common.dto.response.PurchaseResult;
+import store.domain.vo.PurchaseResult;
 
 class ProductReceiptTest {
 

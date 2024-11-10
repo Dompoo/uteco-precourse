@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
-import store.common.dto.response.PurchaseResult;
 import store.common.dto.response.PurchasedProductResponse;
+import store.domain.vo.PurchaseResult;
 
 class PromotionReceiptTest {
 

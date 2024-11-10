@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import store.domain.Product;
 import store.domain.Promotion;
 import store.domain.PromotionType;
-import store.domain.vo.Stock;
+import store.domain.Stock;
 import store.infra.entity.ProductEntity;
 import store.infra.entity.PromotionEntity;
 import store.infra.repository.convertor.ProductConverter;

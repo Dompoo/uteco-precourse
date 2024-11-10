@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import store.domain.Product;
-import store.domain.vo.Stock;
+import store.domain.Stock;
 import store.infra.entity.ProductEntity;
 import store.infra.entity.PromotionEntity;
 

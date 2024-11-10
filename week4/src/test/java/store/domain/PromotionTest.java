@@ -84,7 +84,7 @@ class PromotionTest {
             PromotionType promotionType = PromotionType.BUY_ONE_GET_ONE;
 
             //expected
-            assertThatThrownBy(() -> new Promotion(name, promotionType, pastDate, futureDate))
+            assertThatThrownBy(() -> new Promotion(name, promotionType, futureDate, pastDate))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("잘못된 입력입니다. 다시 입력해 주세요.");
         }

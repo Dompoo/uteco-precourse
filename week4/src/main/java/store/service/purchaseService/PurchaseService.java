@@ -3,8 +3,8 @@ package store.service.purchaseService;
 import java.util.List;
 import java.util.function.Supplier;
 import store.common.dto.request.PurchaseRequest;
-import store.common.dto.response.PurchaseResult;
 import store.domain.PurchaseType;
+import store.domain.vo.PurchaseResult;
 
 public interface PurchaseService {
 

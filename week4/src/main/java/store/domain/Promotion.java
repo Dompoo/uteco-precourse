@@ -1,6 +1,7 @@
 package store.domain;
 
 import java.time.LocalDate;
+import store.common.exception.StoreExceptions;
 import store.domain.validator.ParamsValidator;
 
 final public class Promotion {
@@ -12,10 +13,17 @@ final public class Promotion {
 
     public Promotion(String name, PromotionType promotionType, LocalDate startDate, LocalDate endDate) {
         ParamsValidator.validateParamsNotNull(name, promotionType, startDate, endDate);
+        validate(startDate, endDate);
         this.name = name;
         this.promotionType = promotionType;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    private static void validate(LocalDate startDate, LocalDate endDate) {
+        if (endDate.isBefore(startDate)) {
+            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
+        }
     }
 
     public boolean hasPromotion() {
@@ -24,10 +32,6 @@ final public class Promotion {
 
     public String getName() {
         return name;
-    }
-
-    public PromotionType getPromotionType() {
-        return promotionType;
     }
 
     public int getPromotionUnit() {

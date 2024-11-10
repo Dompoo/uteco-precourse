@@ -3,7 +3,7 @@ package store.domain.vo;
 import java.util.Objects;
 import store.common.exception.StoreExceptions;
 
-public class Stock {
+final public class Stock {
 
     private static final int MIN_DEFAULT_STOCK = 0;
     private static final int MIN_PROMOTION_STOCK = 0;

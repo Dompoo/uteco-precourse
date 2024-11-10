@@ -3,9 +3,9 @@ package store.service.purchaseService;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Supplier;
+import store.common.dto.request.PurchaseRequest;
+import store.common.dto.response.PurchaseResult;
 import store.domain.PurchaseType;
-import store.dto.request.PurchaseRequest;
-import store.dto.response.PurchaseResult;
 
 public interface PurchaseService {
 

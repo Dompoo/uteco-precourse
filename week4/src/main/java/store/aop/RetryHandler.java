@@ -1,8 +1,8 @@
 package store.aop;
 
 
-import store.exception.ExceptionHandler;
-import store.exception.StoreExceptions;
+import store.common.exception.ExceptionHandler;
+import store.common.exception.StoreExceptions;
 
 public class RetryHandler {
 

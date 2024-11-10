@@ -2,10 +2,10 @@ package store.service.decisionService;
 
 import java.util.function.Supplier;
 import store.aop.RetryHandler;
+import store.common.dto.request.PurchaseRequest;
 import store.domain.DecisionType;
 import store.domain.PurchaseType;
 import store.domain.membership.Membership;
-import store.dto.request.PurchaseRequest;
 
 public class DecisionServiceRetryProxy implements DecisionService {
 

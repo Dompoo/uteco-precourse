@@ -1,7 +1,7 @@
 package store.service.productService;
 
 import java.util.List;
-import store.dto.response.ProductResponse;
+import store.common.dto.response.ProductResponse;
 
 public interface ProductService {
 

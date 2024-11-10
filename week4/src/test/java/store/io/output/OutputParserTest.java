@@ -7,12 +7,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import store.common.dto.response.ProductResponse;
+import store.common.dto.response.PromotionedProductResponse;
+import store.common.dto.response.PurchaseCostResponse;
+import store.common.dto.response.PurchasedProductResponse;
 import store.domain.Product;
 import store.domain.PromotionType;
-import store.dto.response.ProductResponse;
-import store.dto.response.PromotionedProductResponse;
-import store.dto.response.PurchaseCostResponse;
-import store.dto.response.PurchasedProductResponse;
 
 class OutputParserTest {
 

@@ -7,7 +7,7 @@ import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import store.dto.request.PurchaseRequest;
+import store.common.dto.request.PurchaseRequest;
 
 class InputParserTest {
 
@@ -70,7 +70,7 @@ class InputParserTest {
             );
 
             //when
-            List<PurchaseRequest> result = sut.parsePurchases(inputs);
+            List<PurchaseRequest> result = sut.parsePurchases(inputs, "-");
 
             //then
             assertThat(result).extracting(
@@ -90,7 +90,7 @@ class InputParserTest {
             );
 
             //when
-            List<PurchaseRequest> result = sut.parsePurchases(inputs);
+            List<PurchaseRequest> result = sut.parsePurchases(inputs, "-");
 
             //then
             assertThat(result).extracting(

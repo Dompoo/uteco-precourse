@@ -2,13 +2,13 @@ package store.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import store.common.dto.request.PurchaseRequest;
+import store.common.dto.response.ProductResponse;
+import store.common.dto.response.PurchaseResult;
 import store.domain.DecisionType;
 import store.domain.PurchaseType;
 import store.domain.membership.Membership;
 import store.domain.receipt.Receipt;
-import store.dto.request.PurchaseRequest;
-import store.dto.response.ProductResponse;
-import store.dto.response.PurchaseResult;
 import store.io.input.InputHandler;
 import store.io.output.OutputHandler;
 import store.service.dateProvider.DateProvider;

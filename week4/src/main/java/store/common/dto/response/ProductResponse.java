@@ -1,4 +1,4 @@
-package store.dto.response;
+package store.common.dto.response;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package store.exception;
+package store.common.exception;
 
 public enum StoreExceptions {
 

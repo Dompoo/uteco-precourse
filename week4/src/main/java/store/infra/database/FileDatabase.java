@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import store.exception.StoreExceptions;
+import store.common.exception.StoreExceptions;
 import store.infra.entity.DatabaseEntity;
 
 public abstract class FileDatabase<T extends DatabaseEntity> implements Database<T> {

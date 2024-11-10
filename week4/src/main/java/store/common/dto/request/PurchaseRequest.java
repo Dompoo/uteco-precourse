@@ -1,4 +1,4 @@
-package store.dto.request;
+package store.common.dto.request;
 
 public record PurchaseRequest(
         String productName,

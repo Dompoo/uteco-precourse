@@ -1,8 +1,8 @@
 package store.service.productService;
 
 import java.util.List;
+import store.common.dto.response.ProductResponse;
 import store.domain.Product;
-import store.dto.response.ProductResponse;
 import store.infra.repository.Repository;
 
 public class DefaultProductService implements ProductService {

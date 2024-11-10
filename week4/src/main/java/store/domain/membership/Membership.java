@@ -1,7 +1,7 @@
 package store.domain.membership;
 
 import java.util.List;
-import store.dto.response.PurchaseResult;
+import store.common.dto.response.PurchaseResult;
 
 public interface Membership {
 

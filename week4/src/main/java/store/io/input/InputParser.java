@@ -1,7 +1,7 @@
 package store.io.input;
 
 import java.util.List;
-import store.dto.request.PurchaseRequest;
+import store.common.dto.request.PurchaseRequest;
 
 public class InputParser {
 

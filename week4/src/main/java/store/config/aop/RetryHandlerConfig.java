@@ -1,8 +1,8 @@
 package store.config.aop;
 
 import store.aop.RetryHandler;
+import store.common.exception.ExceptionHandler;
 import store.config.io.writer.WriterConfig;
-import store.exception.ExceptionHandler;
 
 public class RetryHandlerConfig {
 

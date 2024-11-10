@@ -3,7 +3,7 @@ package store.io.reader;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
-import store.exception.StoreExceptions;
+import store.common.exception.StoreExceptions;
 
 public class MissionUtilsReader implements Reader {
 

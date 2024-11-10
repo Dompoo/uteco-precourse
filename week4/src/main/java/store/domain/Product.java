@@ -1,8 +1,8 @@
 package store.domain;
 
+import store.common.exception.StoreExceptions;
 import store.domain.validator.ParamsValidator;
 import store.domain.vo.Stock;
-import store.exception.StoreExceptions;
 
 final public class Product {
 

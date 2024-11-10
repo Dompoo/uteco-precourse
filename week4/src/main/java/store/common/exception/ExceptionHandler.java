@@ -1,4 +1,4 @@
-package store.exception;
+package store.common.exception;
 
 import store.io.writer.Writer;
 

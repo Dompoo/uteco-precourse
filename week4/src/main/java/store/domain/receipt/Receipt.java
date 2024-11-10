@@ -1,11 +1,11 @@
 package store.domain.receipt;
 
 import java.util.List;
+import store.common.dto.response.PromotionedProductResponse;
+import store.common.dto.response.PurchaseCostResponse;
+import store.common.dto.response.PurchaseResult;
+import store.common.dto.response.PurchasedProductResponse;
 import store.domain.membership.Membership;
-import store.dto.response.PromotionedProductResponse;
-import store.dto.response.PurchaseCostResponse;
-import store.dto.response.PurchaseResult;
-import store.dto.response.PurchasedProductResponse;
 
 final public class Receipt {
 

@@ -3,7 +3,7 @@ package store.io.input;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import store.exception.StoreExceptions;
+import store.common.exception.StoreExceptions;
 
 public class InputValidator {
 

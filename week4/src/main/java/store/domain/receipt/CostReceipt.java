@@ -2,10 +2,10 @@ package store.domain.receipt;
 
 import java.util.ArrayList;
 import java.util.List;
+import store.common.dto.response.PurchaseCostResponse;
+import store.common.dto.response.PurchaseResult;
 import store.domain.membership.Membership;
 import store.domain.membership.NoMembership;
-import store.dto.response.PurchaseCostResponse;
-import store.dto.response.PurchaseResult;
 
 final public class CostReceipt {
 

@@ -1,6 +1,6 @@
 package store.domain;
 
-import store.exception.StoreExceptions;
+import store.common.exception.StoreExceptions;
 
 final public class Purchase {
 

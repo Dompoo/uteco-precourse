@@ -1,4 +1,4 @@
-package store.dto.response;
+package store.common.dto.response;
 
 public record PromotionedProductResponse(
         String productName,

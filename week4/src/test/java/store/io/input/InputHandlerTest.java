@@ -8,7 +8,7 @@ import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import store.dto.request.PurchaseRequest;
+import store.common.dto.request.PurchaseRequest;
 import store.testUtil.testDouble.ReaderFake;
 import store.testUtil.testDouble.WriterFake;
 

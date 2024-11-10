@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import store.dto.response.ProductResponse;
-import store.dto.response.PromotionedProductResponse;
-import store.dto.response.PurchaseCostResponse;
-import store.dto.response.PurchasedProductResponse;
+import store.common.dto.response.ProductResponse;
+import store.common.dto.response.PromotionedProductResponse;
+import store.common.dto.response.PurchaseCostResponse;
+import store.common.dto.response.PurchasedProductResponse;
 
 public class OutputParser {
 

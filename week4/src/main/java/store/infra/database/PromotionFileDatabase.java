@@ -1,11 +1,10 @@
 package store.infra.database;
 
 import java.util.Map;
+import store.config.infra.filePathLoader.FilePathLoaderConfig;
 import store.infra.entity.PromotionEntity;
 
 public class PromotionFileDatabase extends FileDatabase<PromotionEntity> {
-
-    private static final String PROMOTION_FILE_PATH = "src/main/resources/promotions.md";
 
     @Override
     protected PromotionEntity convertLineToObject(Map<String, String> dataMap) {
@@ -14,6 +13,6 @@ public class PromotionFileDatabase extends FileDatabase<PromotionEntity> {
 
     @Override
     protected String getFilePath() {
-        return PROMOTION_FILE_PATH;
+        return FilePathLoaderConfig.getFilePathLoader().getPromotionFilePath();
     }
 }

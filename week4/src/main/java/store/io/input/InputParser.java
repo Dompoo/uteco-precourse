@@ -2,11 +2,16 @@ package store.io.input;
 
 import java.util.List;
 import store.common.dto.request.PurchaseRequest;
+import store.common.exception.StoreExceptions;
 
 public class InputParser {
 
     public boolean parseDecision(final String decisionInput) {
-        return decisionInput.replaceAll("\\s+", "").equals("Y");
+        try {
+            return decisionInput.replaceAll("\\s+", "").equals("Y");
+        } catch (IllegalArgumentException e) {
+            throw StoreExceptions.ILLEGAL_ARGUMENT.get();
+        }
     }
 
     public List<PurchaseRequest> parsePurchases(
@@ -22,10 +27,14 @@ public class InputParser {
             final String purchaseInputs,
             final String purchaseAmountSeparator
     ) {
-        String[] inputs = purchaseInputs
-                .replaceAll("\\s+", "")
-                .replaceAll("[\\[\\]]", "")
-                .split(purchaseAmountSeparator);
-        return new PurchaseRequest(inputs[0], Integer.parseInt(inputs[1]));
+        try {
+            String[] inputs = purchaseInputs
+                    .replaceAll("\\s+", "")
+                    .replaceAll("[\\[\\]]", "")
+                    .split(purchaseAmountSeparator);
+            return new PurchaseRequest(inputs[0], Integer.parseInt(inputs[1]));
+        } catch (IllegalArgumentException e) {
+            throw StoreExceptions.INVALID_PURCHASE_FORMAT.get();
+        }
     }
 }

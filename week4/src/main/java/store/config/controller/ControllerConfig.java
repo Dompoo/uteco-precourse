@@ -1,6 +1,7 @@
 package store.config.controller;
 
 import store.config.aop.RetryHandlerConfig;
+import store.config.infra.repository.RepositoriesConfig;
 import store.config.io.inputHandler.InputHandlerConfig;
 import store.config.io.outputHandler.OutputHandlerConfig;
 import store.config.service.dateProvider.DateProviderConfig;
@@ -8,8 +9,9 @@ import store.config.service.decisionService.DecisionServiceConfig;
 import store.config.service.productService.ProductServiceConfig;
 import store.config.service.purchaseService.PurchaseServiceConfig;
 import store.controller.Controller;
+import store.controller.ControllerRePurchaseProxy;
+import store.controller.ControllerTransactionProxy;
 import store.controller.DefaultController;
-import store.controller.RePurchaseControllerProxy;
 
 public class ControllerConfig {
 
@@ -22,15 +24,18 @@ public class ControllerConfig {
             PurchaseServiceConfig purchaseServiceConfig,
             DecisionServiceConfig decisionServiceConfig,
             ProductServiceConfig productServiceConfig,
-            RetryHandlerConfig retryHandlerConfig
+            RetryHandlerConfig retryHandlerConfig,
+            RepositoriesConfig repositoriesConfig
     ) {
+
         DefaultController defaultController = configDefaultController(inputHandlerConfig, outputHandlerConfig,
                 dateProviderConfig, purchaseServiceConfig, decisionServiceConfig, productServiceConfig);
-        this.controller = configRePurchaseController(
+        ControllerRePurchaseProxy controllerRePurchaseProxy = configRePurchase(
                 inputHandlerConfig,
                 retryHandlerConfig,
                 defaultController
         );
+        this.controller = configureTransaction(repositoriesConfig, controllerRePurchaseProxy);
     }
 
     private static DefaultController configDefaultController(
@@ -51,16 +56,25 @@ public class ControllerConfig {
         );
     }
 
-    private static RePurchaseControllerProxy configRePurchaseController(
+    private static ControllerRePurchaseProxy configRePurchase(
             InputHandlerConfig inputHandlerConfig,
             RetryHandlerConfig retryHandlerConfig,
             Controller controller
     ) {
-        return new RePurchaseControllerProxy(
+        return new ControllerRePurchaseProxy(
                 controller,
                 inputHandlerConfig.getInputHandler(),
                 retryHandlerConfig.getRetryHandler()
         );
+    }
+
+    private static ControllerTransactionProxy configureTransaction(
+            RepositoriesConfig repositoriesConfig,
+            Controller controller
+    ) {
+        return new ControllerTransactionProxy(
+                controller,
+                repositoriesConfig.getRepositories());
     }
 
     public Controller getController() {

@@ -22,6 +22,10 @@ public enum StoreExceptions {
             "파일 읽기 중 오류가 발생했습니다.",
             IllegalStateException.class
     ),
+    FILE_NOT_WRITEABLE(
+            "파일 쓰기 중 오류가 발생했습니다.",
+            IllegalStateException.class
+    ),
     OVER_MAX_RETRY_ATTEPMT(
             "최대 재시도 회수를 초과했습니다.",
             IllegalStateException.class

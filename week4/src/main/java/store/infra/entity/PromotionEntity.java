@@ -3,7 +3,10 @@ package store.infra.entity;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.StringJoiner;
+import store.domain.Product;
+import store.domain.Promotion;
 
 public record PromotionEntity(
         String name,
@@ -21,6 +24,19 @@ public record PromotionEntity(
         LocalDate endDate = LocalDate.parse(dataMap.get("end_date"));
 
         return new PromotionEntity(name, buy, get, startDate, endDate);
+    }
+
+    public static Optional<PromotionEntity> from(Product product) {
+        if (product.hasPromotion()) {
+            Promotion promotion = product.getPromotion();
+            return Optional.of(new PromotionEntity(
+                    promotion.getName(),
+                    promotion.getPromotionBuy(),
+                    promotion.getPromotionGet(),
+                    promotion.getStartDate(), promotion.getEndDate())
+            );
+        }
+        return Optional.empty();
     }
 
     public boolean isAvailable(LocalDate localDate) {
@@ -58,11 +74,12 @@ public record PromotionEntity(
         if (!(o instanceof PromotionEntity that)) {
             return false;
         }
-        return Objects.equals(name, that.name);
+        return buy == that.buy && get == that.get && Objects.equals(name, that.name) && Objects.equals(
+                endDate, that.endDate) && Objects.equals(startDate, that.startDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hash(name, buy, get, startDate, endDate);
     }
 }

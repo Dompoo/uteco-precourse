@@ -1,8 +1,12 @@
 package store.infra.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.stream.Stream;
+import store.domain.Product;
 
 public record ProductEntity(
         String name,
@@ -20,6 +24,17 @@ public record ProductEntity(
             return new ProductEntity(name, price, stock, "");
         }
         return new ProductEntity(name, price, stock, promotionName);
+    }
+
+    public static Stream<ProductEntity> from(Product product) {
+        List<ProductEntity> productEntities = new ArrayList<>();
+        if (product.hasPromotion()) {
+            productEntities.add(new ProductEntity(product.getName(), product.getPrice(),
+                    product.getPromotionStock(), product.getPromotion().getName()));
+        }
+        productEntities.add(new ProductEntity(product.getName(), product.getPrice(),
+                product.getDefaultStock(), "null"));
+        return productEntities.stream();
     }
 
     public boolean isPromotionStockEntity() {

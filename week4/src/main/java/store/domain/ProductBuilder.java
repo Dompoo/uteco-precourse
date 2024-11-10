@@ -1,13 +1,24 @@
 package store.domain;
 
+import java.time.LocalDate;
+import store.infra.entity.PromotionEntity;
+
 public class ProductBuilder {
 
     private String name;
     private int price;
     private int defaultStock;
     private int promotionStock;
-    private String promotionName;
-    private PromotionType promotionType;
+    private Promotion promotion;
+
+    public ProductBuilder(LocalDate now) {
+        this.promotion = new Promotion(
+                "",
+                PromotionType.NO_PROMOTION,
+                now.minusDays(10),
+                now.minusDays(10)
+        );
+    }
 
     public ProductBuilder setName(String name) {
         this.name = name;
@@ -29,17 +40,17 @@ public class ProductBuilder {
         return this;
     }
 
-    public ProductBuilder setPromotionName(String promotionName) {
-        this.promotionName = promotionName;
-        return this;
-    }
-
-    public ProductBuilder setPromotionType(PromotionType promotionType) {
-        this.promotionType = promotionType;
+    public ProductBuilder setPromotion(PromotionEntity promotionEntity) {
+        this.promotion = new Promotion(
+                promotionEntity.name(),
+                PromotionType.of(promotionEntity.buy(), promotionEntity.get()),
+                promotionEntity.startDate(),
+                promotionEntity.endDate()
+        );
         return this;
     }
 
     public Product build() {
-        return new Product(name, price, defaultStock, promotionStock, promotionName, promotionType);
+        return new Product(name, price, defaultStock, promotionStock, promotion);
     }
 }

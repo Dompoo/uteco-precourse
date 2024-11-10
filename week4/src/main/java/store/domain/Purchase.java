@@ -21,8 +21,8 @@ final public class Purchase {
         return new Purchase(
                 purchaseAmount,
                 product.getPromotionStock(),
-                product.getPromotionType().getBuy(),
-                product.getPromotionType().getGet()
+                product.getPromotion().getPromotionBuy(),
+                product.getPromotion().getPromotionGet()
         );
     }
 

@@ -2,11 +2,15 @@ package store.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import store.domain.vo.PurchaseStatus;
 
 class PurchasedProductTypeTest {
+
+    private static final LocalDate pastDate = LocalDate.now().minusDays(10);
+    private static final LocalDate futureDate = LocalDate.now().plusDays(10);
 
     @ParameterizedTest
     @CsvSource({
@@ -22,8 +26,8 @@ class PurchasedProductTypeTest {
     void 전부_기본_재고에서_구매한다(int purchaseAmount, int promotionStock, String promotionName,
                          int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        PromotionType promotionType = PromotionType.valueOf(promotionName);
-        Product product = new Product("땅콩", 1000, 100, promotionStock, "땅콩1+1", promotionType);
+        Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
         Purchase purchase = Purchase.of(product, purchaseAmount);
 
         //when
@@ -53,8 +57,8 @@ class PurchasedProductTypeTest {
     void 전부_프로모션에서_구매한다(int purchaseAmount, int promotionStock, String promotionName,
                          int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        PromotionType promotionType = PromotionType.valueOf(promotionName);
-        Product product = new Product("땅콩", 1000, 100, promotionStock, "땅콩1+1", promotionType);
+        Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
         Purchase purchase = Purchase.of(product, purchaseAmount);
 
         //when
@@ -84,8 +88,8 @@ class PurchasedProductTypeTest {
     void 전부_프로모션에서_구매한다_무료상품을_가져온다(int purchaseAmount, int promotionStock, String promotionName,
                         int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        PromotionType promotionType = PromotionType.valueOf(promotionName);
-        Product product = new Product("땅콩", 1000, 100, promotionStock, "땅콩1+1", promotionType);
+        Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
         Purchase purchase = Purchase.of(product, purchaseAmount);
 
         //when
@@ -115,8 +119,8 @@ class PurchasedProductTypeTest {
     void 전부_프로모션에서_구매한다_무료상품을_가져오지_않는다(int purchaseAmount, int promotionStock, String promotionName,
                                    int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        PromotionType promotionType = PromotionType.valueOf(promotionName);
-        Product product = new Product("땅콩", 1000, 100, promotionStock, "땅콩1+1", promotionType);
+        Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
         Purchase purchase = Purchase.of(product, purchaseAmount);
 
         //when
@@ -148,8 +152,8 @@ class PurchasedProductTypeTest {
     void 일부만_프로모션에서_구매한다_프로모션_아닌_것은_가져다_놓는다(int purchaseAmount, int promotionStock, String promotionName,
                                        int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        PromotionType promotionType = PromotionType.valueOf(promotionName);
-        Product product = new Product("땅콩", 1000, 100, promotionStock, "땅콩1+1", promotionType);
+        Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
         Purchase purchase = Purchase.of(product, purchaseAmount);
 
         //when
@@ -181,8 +185,8 @@ class PurchasedProductTypeTest {
     void 일부만_프로모션에서_구매한다_프로모션_아닌_것도_그대로_구매한다(int purchaseAmount, int promotionStock, String promotionName,
                                             int totalPurchase, int promotionGet, int decreasePromotionStock) {
         //given
-        PromotionType promotionType = PromotionType.valueOf(promotionName);
-        Product product = new Product("땅콩", 1000, 100, promotionStock, "땅콩1+1", promotionType);
+        Promotion promotion = new Promotion("우도땅콩축제", PromotionType.valueOf(promotionName), pastDate, futureDate);
+        Product product = new Product("땅콩", 1000, 100, promotionStock, promotion);
         Purchase purchase = Purchase.of(product, purchaseAmount);
 
         //when

@@ -18,7 +18,7 @@ public record ProductResponse(
             productResponses.add(new ProductResponse(productName, price, product.getDefaultStock(), ""));
             if (product.hasPromotion()) {
                 int promotionStock = product.getPromotionStock();
-                String promotionName = product.getPromotionName();
+                String promotionName = product.getPromotion().getName();
                 productResponses.add(new ProductResponse(productName, price, promotionStock, promotionName));
             }
         }
@@ -27,6 +27,10 @@ public record ProductResponse(
 
     @Override
     public int compareTo(ProductResponse o) {
-        return this.toString().compareTo(o.toString());
+        int nameCompare = this.productName.compareTo(o.productName);
+        if (nameCompare != 0) {
+            return nameCompare;
+        }
+        return Integer.compare(o.promotionName.length(), this.promotionName.length());
     }
 }

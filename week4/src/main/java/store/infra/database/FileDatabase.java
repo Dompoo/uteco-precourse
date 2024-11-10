@@ -1,18 +1,22 @@
 package store.infra.database;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 import store.common.exception.StoreExceptions;
 import store.infra.entity.DatabaseEntity;
 
 public abstract class FileDatabase<T extends DatabaseEntity> implements Database<T> {
 
     private static final String COLUMN_SEPARATOR = ",";
+    private static final String NEW_LINE = "\n";
 
     private final String headerLine;
 
@@ -32,6 +36,27 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
             throw StoreExceptions.FILE_NOT_READABLE.get();
         }
     }
+
+    @Override
+    public void updateAll(List<T> objects) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(getFilePath(), false))) {
+            writer.write(buildUpdateScript(objects));
+        } catch (IOException e) {
+            throw StoreExceptions.FILE_NOT_WRITEABLE.get();
+        }
+    }
+
+    private String buildUpdateScript(List<T> objects) {
+        StringJoiner stringJoiner = new StringJoiner(NEW_LINE);
+        stringJoiner.add(headerLine);
+        for (T object : objects) {
+            String line = object.toLine(headerLine.split(COLUMN_SEPARATOR));
+            stringJoiner.add(line);
+        }
+        stringJoiner.add("");
+        return stringJoiner.toString();
+    }
+
 
     private List<T> buildObjects(BufferedReader reader) throws IOException {
         List<T> objects = new ArrayList<>();

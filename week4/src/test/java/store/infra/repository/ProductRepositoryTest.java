@@ -10,11 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import store.domain.Product;
+import store.domain.Promotion;
 import store.domain.PromotionType;
 import store.domain.vo.Stock;
 import store.infra.entity.ProductEntity;
 import store.infra.entity.PromotionEntity;
 import store.infra.repository.convertor.ProductConverter;
+import store.infra.repository.convertor.ProductEntityConverter;
+import store.infra.repository.convertor.PromotionEntityConverter;
 import store.testUtil.testDouble.DateProviderStub;
 import store.testUtil.testDouble.ProductFileDatabaseFake;
 import store.testUtil.testDouble.PromotionFileDatabaseFake;
@@ -38,6 +41,8 @@ class ProductRepositoryTest {
                 productFileDatabaseFake,
                 promotionFileDatabaseFake,
                 new ProductConverter(),
+                new ProductEntityConverter(),
+                new PromotionEntityConverter(),
                 dateProviderStub
         );
     }
@@ -121,7 +126,8 @@ class ProductRepositoryTest {
         @Test
         void 새로운_상품을_업데이트한다() {
             //given
-            Product product = new Product("콜라", 1500, 10, 10, "", PromotionType.NO_PROMOTION);
+            Promotion promotion = new Promotion("새로운상품프로모션", PromotionType.BUY_ONE_GET_ONE, pastDate, futureDate);
+            Product product = new Product("콜라", 1500, 10, 10, promotion);
 
             //when
             sut.update(product);

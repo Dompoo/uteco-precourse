@@ -1,23 +1,24 @@
 package store.infra.repository.convertor;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import store.domain.Product;
 import store.domain.ProductBuilder;
-import store.domain.PromotionType;
 import store.infra.entity.ProductEntity;
 import store.infra.entity.PromotionEntity;
 
 public class ProductConverter {
 
-    public List<Product> convert(List<ProductEntity> productEntities, List<PromotionEntity> promotionEntities) {
+    public List<Product> convert(List<ProductEntity> productEntities, List<PromotionEntity> promotionEntities,
+                                 LocalDate now) {
         Map<String, PromotionEntity> promotionMap = convertPromotionEntitiesToMap(promotionEntities);
         productEntities = update(productEntities, promotionMap);
         Map<String, ProductBuilder> productMap = new HashMap<>();
         for (ProductEntity productEntity : productEntities) {
-            ProductBuilder productBuilder = getProductBuilder(productEntity, productMap);
+            ProductBuilder productBuilder = getProductBuilder(productEntity, productMap, now);
             updateProductBuilder(productEntity, productBuilder, promotionMap);
             productMap.put(productEntity.name(), productBuilder);
         }
@@ -41,17 +42,16 @@ public class ProductConverter {
 
     private static ProductBuilder getProductBuilder(
             ProductEntity productEntity,
-            Map<String, ProductBuilder> products
+            Map<String, ProductBuilder> products,
+            LocalDate now
     ) {
         String name = productEntity.name();
         if (products.containsKey(name)) {
             return products.get(name);
         }
-        return new ProductBuilder()
+        return new ProductBuilder(now)
                 .setName(productEntity.name())
-                .setPrice(productEntity.price())
-                .setPromotionName("")
-                .setPromotionType(PromotionType.NO_PROMOTION);
+                .setPrice(productEntity.price());
     }
 
     private static void updateProductBuilder(
@@ -60,11 +60,9 @@ public class ProductConverter {
             Map<String, PromotionEntity> promotionMap
     ) {
         if (productEntity.isPromotionStockEntity()) {
-            PromotionEntity promotionEntity = promotionMap.get(productEntity.promotionName());
             productBuilder
-                    .setPromotionName(productEntity.promotionName())
-                    .setPromotionType(PromotionType.of(promotionEntity.buy(), promotionEntity.get()))
-                    .setPromotionStock(productEntity.quantity());
+                    .setPromotionStock(productEntity.quantity())
+                    .setPromotion(promotionMap.get(productEntity.promotionName()));
             return;
         }
         productBuilder.setDefaultStock(productEntity.quantity());

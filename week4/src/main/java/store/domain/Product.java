@@ -13,24 +13,15 @@ final public class Product {
     private final String name;
     private final int price;
     private Stock stock;
-    private final String promotionName;
-    private final PromotionType promotionType;
+    private final Promotion promotion;
 
-    public Product(
-            String name,
-            int price,
-            int defaultStock,
-            int promotionStock,
-            String promotionName,
-            PromotionType promotionType
-    ) {
-        ParamsValidator.validateParamsNotNull(Product.class, name, promotionName, promotionType);
+    public Product(String name, int price, int defaultStock, int promotionStock, Promotion promotion) {
+        ParamsValidator.validateParamsNotNull(Product.class, name, promotion);
         validate(price, defaultStock, promotionStock);
         this.name = name;
         this.price = price;
         this.stock = new Stock(defaultStock, promotionStock);
-        this.promotionName = promotionName;
-        this.promotionType = promotionType;
+        this.promotion = promotion;
     }
 
     private static void validate(int price, int defaultStock, int promotionStock) {
@@ -53,15 +44,15 @@ final public class Product {
         if (!hasPromotion()) {
             return false;
         }
-        return purchaseAmount % promotionType.getPromotionUnit() == 0 && purchaseAmount <= getPromotionStock();
+        return purchaseAmount % promotion.getPromotionUnit() == 0 && purchaseAmount <= getPromotionStock();
     }
 
     public boolean canGetFreePromotionProduct(int purchaseAmount) {
         if (!hasPromotion()) {
             return false;
         }
-        int promotionUnit = this.promotionType.getPromotionUnit();
-        return purchaseAmount % promotionUnit >= this.promotionType.getBuy()
+        int promotionUnit = promotion.getPromotionUnit();
+        return purchaseAmount % promotionUnit >= promotion.getPromotionBuy()
                 && (purchaseAmount / (promotionUnit) + 1) * (promotionUnit) <= getPromotionStock();
     }
 
@@ -69,12 +60,12 @@ final public class Product {
         if (!hasPromotion()) {
             return 0;
         }
-        int promotionUnit = this.promotionType.getPromotionUnit();
+        int promotionUnit = promotion.getPromotionUnit();
         return (((purchaseAmount / promotionUnit) + 1) * promotionUnit) - purchaseAmount;
     }
 
     public int calculateNoPromotions(int purchaseAmount) {
-        int promotionUnit = this.promotionType.getPromotionUnit();
+        int promotionUnit = promotion.getPromotionUnit();
         if (purchaseAmount < this.getPromotionStock()) {
             return purchaseAmount % promotionUnit;
         }
@@ -82,7 +73,7 @@ final public class Product {
     }
 
     public boolean hasPromotion() {
-        return this.promotionType != PromotionType.NO_PROMOTION;
+        return this.promotion.hasPromotion();
     }
 
     public boolean canPurchase(int purchaseAmount) {
@@ -105,11 +96,7 @@ final public class Product {
         return stock.promotionStock();
     }
 
-    public String getPromotionName() {
-        return promotionName;
-    }
-
-    public PromotionType getPromotionType() {
-        return promotionType;
+    public Promotion getPromotion() {
+        return promotion;
     }
 }

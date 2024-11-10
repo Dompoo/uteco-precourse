@@ -41,7 +41,7 @@ public class DefaultStoreApplication implements StoreApplication {
         return new ConfigurationContext(writerConfig, dateProvider, inputHandler, productRepository, retryHandler);
     }
 
-    private ProductRepositoryConfig buildProductRepository(DateProviderConfig dateProvider) {
+    private ProductRepositoryConfig buildProductRepository(final DateProviderConfig dateProvider) {
         return new DefaultProductRepositoryConfig(
                 new ProductFileDatabaseConfig(),
                 new PromotionFileDatabaseConfig(),
@@ -49,13 +49,13 @@ public class DefaultStoreApplication implements StoreApplication {
         );
     }
 
-    private Controller buildController(ConfigurationContext context) {
+    private Controller buildController(final ConfigurationContext context) {
         ControllerConfig baseController = buildBaseController(context);
         ControllerConfig rePurchaseController = buildRePurchaseController(context, baseController);
         return buildTransactionController(context, rePurchaseController).getController();
     }
 
-    private ControllerConfig buildBaseController(ConfigurationContext context) {
+    private ControllerConfig buildBaseController(final ConfigurationContext context) {
         return new DefaultControllerConfig(
                 context.inputHandler(),
                 new OutputHandlerConfig(context.writer()),
@@ -66,8 +66,8 @@ public class DefaultStoreApplication implements StoreApplication {
     }
 
     private ControllerConfig buildRePurchaseController(
-            ConfigurationContext context,
-            ControllerConfig baseController
+            final ConfigurationContext context,
+            final ControllerConfig baseController
     ) {
         return new RePurchaseConfig(
                 baseController,
@@ -77,8 +77,8 @@ public class DefaultStoreApplication implements StoreApplication {
     }
 
     private ControllerConfig buildTransactionController(
-            ConfigurationContext context,
-            ControllerConfig rePurchaseController
+            final ConfigurationContext context,
+            final ControllerConfig rePurchaseController
     ) {
         return new TransactionConfig(
                 rePurchaseController,

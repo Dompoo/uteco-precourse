@@ -8,11 +8,11 @@ public class ExceptionHandler {
 
     private final Writer writer;
 
-    public ExceptionHandler(Writer writer) {
+    public ExceptionHandler(final Writer writer) {
         this.writer = writer;
     }
 
-    public void handleException(Exception exception) {
+    public void handleException(final Exception exception) {
         writer.writeEmptyLine();
         writer.writeLine(EXCEPTION_MESSAGE_PREFIX + exception.getMessage());
     }

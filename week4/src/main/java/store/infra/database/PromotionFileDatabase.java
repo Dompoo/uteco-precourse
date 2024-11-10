@@ -7,7 +7,7 @@ import store.infra.entity.PromotionEntity;
 public class PromotionFileDatabase extends FileDatabase<PromotionEntity> {
 
     @Override
-    protected PromotionEntity convertLineToObject(Map<String, String> dataMap) {
+    protected PromotionEntity convertLineToObject(final Map<String, String> dataMap) {
         return PromotionEntity.from(dataMap);
     }
 

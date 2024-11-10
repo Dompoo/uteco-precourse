@@ -11,8 +11,8 @@ public class DecisionServiceConfig {
     private final DecisionService decisionService;
 
     public DecisionServiceConfig(
-            ProductRepositoryConfig productRepositoryConfig,
-            RetryHandlerConfig retryHandlerConfig
+            final ProductRepositoryConfig productRepositoryConfig,
+            final RetryHandlerConfig retryHandlerConfig
     ) {
         DefaultDecisionService defaultDecisionService = new DefaultDecisionService(
                 productRepositoryConfig.getProductRepository()

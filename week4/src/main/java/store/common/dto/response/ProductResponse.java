@@ -10,7 +10,8 @@ public record ProductResponse(
         int stock,
         String promotionName
 ) implements Comparable<ProductResponse> {
-    public static List<ProductResponse> fromList(List<Product> products) {
+
+    public static List<ProductResponse> fromList(final List<Product> products) {
         List<ProductResponse> productResponses = new ArrayList<>();
         for (Product product : products) {
             String productName = product.getName();
@@ -26,7 +27,7 @@ public record ProductResponse(
     }
 
     @Override
-    public int compareTo(ProductResponse o) {
+    public int compareTo(final ProductResponse o) {
         int nameCompare = this.productName.compareTo(o.productName);
         if (nameCompare != 0) {
             return nameCompare;

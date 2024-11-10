@@ -11,7 +11,12 @@ final public class Promotion {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
-    public Promotion(String name, PromotionType promotionType, LocalDate startDate, LocalDate endDate) {
+    public Promotion(
+            final String name,
+            final PromotionType promotionType,
+            final LocalDate startDate,
+            final LocalDate endDate
+    ) {
         ParamsValidator.validateParamsNotNull(name, promotionType, startDate, endDate);
         validate(startDate, endDate);
         this.name = name;

@@ -8,7 +8,7 @@ public class RetryHandlerConfig {
 
     private final RetryHandler retryHandler;
 
-    public RetryHandlerConfig(WriterConfig writerConfig) {
+    public RetryHandlerConfig(final WriterConfig writerConfig) {
         this.retryHandler = new RetryHandler(new ExceptionHandler(writerConfig.getWriter()));
     }
 

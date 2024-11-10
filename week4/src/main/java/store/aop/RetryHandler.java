@@ -10,7 +10,7 @@ public class RetryHandler {
 
     private final ExceptionHandler exceptionHandler;
 
-    public RetryHandler(ExceptionHandler exceptionHandler) {
+    public RetryHandler(final ExceptionHandler exceptionHandler) {
         this.exceptionHandler = exceptionHandler;
     }
 

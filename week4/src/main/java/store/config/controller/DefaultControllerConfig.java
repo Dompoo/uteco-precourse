@@ -13,11 +13,11 @@ public class DefaultControllerConfig implements ControllerConfig {
     private final Controller controller;
 
     public DefaultControllerConfig(
-            InputHandlerConfig inputHandlerConfig,
-            OutputHandlerConfig outputHandlerConfig,
-            PurchaseServiceConfig purchaseServiceConfig,
-            DecisionServiceConfig decisionServiceConfig,
-            ProductServiceConfig productServiceConfig
+            final InputHandlerConfig inputHandlerConfig,
+            final OutputHandlerConfig outputHandlerConfig,
+            final PurchaseServiceConfig purchaseServiceConfig,
+            final DecisionServiceConfig decisionServiceConfig,
+            final ProductServiceConfig productServiceConfig
     ) {
         this.controller = new DefaultController(
                 inputHandlerConfig.getInputHandler(),

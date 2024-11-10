@@ -8,7 +8,7 @@ import store.common.exception.StoreExceptions;
 public class MissionUtilsReader implements Reader {
 
     @Override
-    public List<String> readLineAsStrings(String spliter) {
+    public List<String> readLineAsStrings(final String spliter) {
         try {
             String input = Console.readLine();
             return Arrays.asList(input.split(spliter));

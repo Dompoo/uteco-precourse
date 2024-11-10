@@ -1,12 +1,13 @@
 package store.domain.validator;
 
+import java.util.Objects;
 import store.common.exception.StoreExceptions;
 
 public class ParamsValidator {
 
-    public static void validateParamsNotNull(Object... params) {
+    public static void validateParamsNotNull(final Object... params) {
         for (Object obj : params) {
-            if (obj == null) {
+            if (Objects.isNull(obj)) {
                 throw StoreExceptions.ILLEGAL_ARGUMENT.get();
             }
         }

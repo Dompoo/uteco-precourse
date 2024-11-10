@@ -8,7 +8,7 @@ import store.infra.entity.PromotionEntity;
 
 public class PromotionEntityConverter {
 
-    public List<PromotionEntity> convert(List<Product> products) {
+    public List<PromotionEntity> convert(final List<Product> products) {
         return products.stream()
                 .map(PromotionEntity::from)
                 .flatMap(Optional::stream)

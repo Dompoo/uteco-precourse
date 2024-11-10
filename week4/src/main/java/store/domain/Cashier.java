@@ -5,11 +5,11 @@ import store.service.decisionService.DecisionSupplier;
 final public class Cashier {
 
     public static PurchaseType decidePurchaseType(
-            Product product,
-            int purchaseAmount,
-            DecisionType decisionType,
-            DecisionSupplier<Boolean> bringFreeProductSupplier,
-            DecisionSupplier<Boolean> bringDefaultProductBackSupplier
+            final Product product,
+            final int purchaseAmount,
+            final DecisionType decisionType,
+            final DecisionSupplier<Boolean> bringFreeProductSupplier,
+            final DecisionSupplier<Boolean> bringDefaultProductBackSupplier
     ) {
         if (decisionType == DecisionType.FULL_DEFAULT) {
             return PurchaseType.FULL_DEFAULT;
@@ -24,8 +24,9 @@ final public class Cashier {
     }
 
     private static PurchaseType decideBringFreeProduct(
-            Product product, int purchaseAmount,
-            DecisionSupplier<Boolean> bringFreeProductPredicate
+            final Product product,
+            final int purchaseAmount,
+            final DecisionSupplier<Boolean> bringFreeProductPredicate
     ) {
         if (bringFreeProductPredicate.get(product.getName(), product.calculateBringFreeProductCount(purchaseAmount))) {
             return PurchaseType.FULL_PROMOTION_BRING_FREE;
@@ -34,11 +35,13 @@ final public class Cashier {
     }
 
     private static PurchaseType decideBringDefaultProductBack(
-            Product product,
-            int purchaseAmount,
-            DecisionSupplier<Boolean> bringDefaultProductBackPredicate
+            final Product product,
+            final int purchaseAmount,
+            final DecisionSupplier<Boolean> bringDefaultProductBackPredicate
     ) {
-        if (bringDefaultProductBackPredicate.get(product.getName(), product.calculateNoPromotionsProductCount(purchaseAmount))) {
+        if (bringDefaultProductBackPredicate.get(
+                product.getName(),
+                product.calculateNoPromotionsProductCount(purchaseAmount))) {
             return PurchaseType.PORTION_PROMOTION_NOT_BRING_BACK;
         }
         return PurchaseType.PORTION_PROMOTION_BRING_BACK;

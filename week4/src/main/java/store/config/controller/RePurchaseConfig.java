@@ -10,9 +10,9 @@ public class RePurchaseConfig implements ControllerConfig {
     private final Controller controller;
 
     public RePurchaseConfig(
-            ControllerConfig controllerConfig,
-            InputHandlerConfig inputHandlerConfig,
-            RetryHandlerConfig retryHandlerConfig
+            final ControllerConfig controllerConfig,
+            final InputHandlerConfig inputHandlerConfig,
+            final RetryHandlerConfig retryHandlerConfig
     ) {
         this.controller = new ControllerRePurchaseProxy(
                 controllerConfig.getController(),

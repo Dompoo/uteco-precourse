@@ -15,9 +15,9 @@ public class DefaultProductRepositoryConfig implements ProductRepositoryConfig {
     private final Repository<Product> productRepository;
 
     public DefaultProductRepositoryConfig(
-            ProductDatabaseConfig productDatabaseConfig,
-            PromotionDatabaseConfig promotionDatabaseConfig,
-            DateProviderConfig dateProviderConfig
+            final ProductDatabaseConfig productDatabaseConfig,
+            final PromotionDatabaseConfig promotionDatabaseConfig,
+            final DateProviderConfig dateProviderConfig
     ) {
         this.productRepository = new ProductRepository(
                 productDatabaseConfig.getProductDatabase(),
@@ -26,7 +26,7 @@ public class DefaultProductRepositoryConfig implements ProductRepositoryConfig {
                 new ProductEntityConverter(),
                 new PromotionEntityConverter(),
                 dateProviderConfig.getDateProvider()
-                );
+        );
     }
 
     @Override

@@ -11,13 +11,13 @@ final public class Stock {
     private final int defaultStock;
     private final int promotionStock;
 
-    public Stock(int defaultStock, int promotionStock) {
+    public Stock(final int defaultStock, final int promotionStock) {
         validate(defaultStock, promotionStock);
         this.defaultStock = defaultStock;
         this.promotionStock = promotionStock;
     }
 
-    private static void validate(int defaultStock, int promotionStock) {
+    private static void validate(final int defaultStock, final int promotionStock) {
         if (defaultStock < MIN_DEFAULT_STOCK) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
@@ -38,14 +38,14 @@ final public class Stock {
         return defaultStock + promotionStock;
     }
 
-    public Stock withReducing(int totalDecreaseStock, int promotionDecreaseStock) {
+    public Stock withReducing(final int totalDecreaseStock, final int promotionDecreaseStock) {
         int newDefaultStock = defaultStock - (totalDecreaseStock - promotionDecreaseStock);
         int newPromotionStock = promotionStock - promotionDecreaseStock;
         return new Stock(newDefaultStock, newPromotionStock);
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

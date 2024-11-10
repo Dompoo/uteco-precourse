@@ -9,7 +9,7 @@ final public class RatioMembership implements Membership {
     private static final int MAX_MEMBERSHIP_SALE_AMOUNT = 8000;
 
     @Override
-    public int calculateMembershipSaleAmount(List<PurchaseResult> purchaseResults) {
+    public int calculateMembershipSaleAmount(final List<PurchaseResult> purchaseResults) {
         int totalDefaultPurchasePrice = purchaseResults.stream()
                 .mapToInt(PurchaseResult::getDefaultPurchasePrice)
                 .sum();

@@ -12,11 +12,11 @@ final public class CostReceipt {
     private final List<PurchaseResult> purchaseResults = new ArrayList<>();
     private Membership membership = new NoMembership();
 
-    public void addPurchase(PurchaseResult purchaseResult) {
+    public void addPurchase(final PurchaseResult purchaseResult) {
         this.purchaseResults.add(purchaseResult);
     }
 
-    public void applyMembership(Membership membership) {
+    public void applyMembership(final Membership membership) {
         this.membership = membership;
     }
 

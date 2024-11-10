@@ -10,7 +10,7 @@ public class InputHandlerConfig {
 
     private final InputHandler inputHandler;
 
-    public InputHandlerConfig(ReaderConfig readerConfig, WriterConfig writerConfig) {
+    public InputHandlerConfig(final ReaderConfig readerConfig, final WriterConfig writerConfig) {
         this.inputHandler = new InputHandler(
                 readerConfig.getReader(),
                 writerConfig.getWriter(),

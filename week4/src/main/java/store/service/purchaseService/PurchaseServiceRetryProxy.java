@@ -12,18 +12,18 @@ public class PurchaseServiceRetryProxy implements PurchaseService {
     private final PurchaseService purchaseServiceTarget;
     private final RetryHandler retryHandler;
 
-    public PurchaseServiceRetryProxy(PurchaseService purchaseServiceTarget, RetryHandler retryHandler) {
+    public PurchaseServiceRetryProxy(final PurchaseService purchaseServiceTarget, final RetryHandler retryHandler) {
         this.purchaseServiceTarget = purchaseServiceTarget;
         this.retryHandler = retryHandler;
     }
 
     @Override
-    public List<PurchaseRequest> getPurchases(Supplier<List<PurchaseRequest>> purchaseRequestsSupplier) {
+    public List<PurchaseRequest> getPurchases(final Supplier<List<PurchaseRequest>> purchaseRequestsSupplier) {
         return retryHandler.tryUntilSuccess(() -> purchaseServiceTarget.getPurchases(purchaseRequestsSupplier));
     }
 
     @Override
-    public PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType) {
+    public PurchaseResult purchaseProduct(final PurchaseRequest purchaseRequest, final PurchaseType purchaseType) {
         return retryHandler.tryUntilSuccess(() -> purchaseServiceTarget.purchaseProduct(purchaseRequest, purchaseType)
         );
     }

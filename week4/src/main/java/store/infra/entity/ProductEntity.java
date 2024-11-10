@@ -15,7 +15,7 @@ public record ProductEntity(
         String promotionName
 ) implements DatabaseEntity {
 
-    public static ProductEntity from(Map<String, String> dataMap) {
+    public static ProductEntity from(final Map<String, String> dataMap) {
         String name = dataMap.get("name");
         int price = Integer.parseInt(dataMap.get("price"));
         int stock = Integer.parseInt(dataMap.get("quantity"));
@@ -26,7 +26,7 @@ public record ProductEntity(
         return new ProductEntity(name, price, stock, promotionName);
     }
 
-    public static Stream<ProductEntity> from(Product product) {
+    public static Stream<ProductEntity> from(final Product product) {
         List<ProductEntity> productEntities = new ArrayList<>();
         if (product.hasPromotion()) {
             productEntities.add(new ProductEntity(product.getName(), product.getPrice(),
@@ -42,27 +42,19 @@ public record ProductEntity(
     }
 
     @Override
-    public String toLine(String[] columns) {
+    public String toLine(final String[] columns) {
         StringJoiner stringJoiner = new StringJoiner(",");
         for (String column : columns) {
-            if (column.equals("name")) {
-                stringJoiner.add(name);
-            }
-            if (column.equals("originalPrice")) {
-                stringJoiner.add(String.valueOf(price));
-            }
-            if (column.equals("quantity")) {
-                stringJoiner.add(String.valueOf(quantity));
-            }
-            if (column.equals("promotion")) {
-                stringJoiner.add(promotionName);
-            }
+            if (column.equals("name")) stringJoiner.add(name);
+            if (column.equals("originalPrice")) stringJoiner.add(String.valueOf(price));
+            if (column.equals("quantity")) stringJoiner.add(String.valueOf(quantity));
+            if (column.equals("promotion")) stringJoiner.add(promotionName);
         }
         return stringJoiner.toString();
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

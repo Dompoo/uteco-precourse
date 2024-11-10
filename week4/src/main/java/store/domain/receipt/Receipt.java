@@ -19,13 +19,13 @@ final public class Receipt {
         this.costReceipt = new CostReceipt();
     }
 
-    public void addPurchase(PurchaseResult purchaseResult) {
+    public void addPurchase(final PurchaseResult purchaseResult) {
         this.productReceipt.addPurchase(purchaseResult);
         this.promotionReceipt.addPurchase(purchaseResult);
         this.costReceipt.addPurchase(purchaseResult);
     }
 
-    public void applyMembership(Membership membership) {
+    public void applyMembership(final Membership membership) {
         this.costReceipt.applyMembership(membership);
     }
 

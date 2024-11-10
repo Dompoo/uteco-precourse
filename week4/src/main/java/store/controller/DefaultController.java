@@ -22,9 +22,13 @@ public class DefaultController implements Controller {
     private final DecisionService decisionService;
     private final ProductService productService;
 
-    public DefaultController(InputHandler inputHandler, OutputHandler outputHandler,
-                             PurchaseService purchaseService, DecisionService decisionService,
-                             ProductService productService) {
+    public DefaultController(
+            final InputHandler inputHandler,
+            final OutputHandler outputHandler,
+            final PurchaseService purchaseService,
+            final DecisionService decisionService,
+            final ProductService productService
+    ) {
         this.inputHandler = inputHandler;
         this.outputHandler = outputHandler;
         this.purchaseService = purchaseService;
@@ -33,7 +37,7 @@ public class DefaultController implements Controller {
     }
 
     public void run() {
-        processGreetingAndProducts();
+        processGreetingAndHandleProducts();
         List<PurchaseRequest> purchaseRequests = purchaseService.getPurchases(inputHandler::handlePurchases);
         Receipt receipt = new Receipt();
         for (PurchaseRequest purchaseRequest : purchaseRequests) {
@@ -43,13 +47,13 @@ public class DefaultController implements Controller {
         processReceipt(receipt);
     }
 
-    private void processGreetingAndProducts() {
+    private void processGreetingAndHandleProducts() {
         outputHandler.handleGreetings();
         List<ProductResponse> products = productService.readAllProducts();
         outputHandler.handleProducts(products);
     }
 
-    private void processPurchaseRequest(PurchaseRequest purchaseRequest, Receipt receipt) {
+    private void processPurchaseRequest(final PurchaseRequest purchaseRequest, final Receipt receipt) {
         DecisionType decisionType = decisionService.getDecisionType(purchaseRequest);
         PurchaseType purchaseType = decisionService.decidePurchaseType(purchaseRequest, decisionType,
                 inputHandler::handleFreeProductDecision,
@@ -59,12 +63,12 @@ public class DefaultController implements Controller {
         receipt.addPurchase(purchaseResult);
     }
 
-    private void processMembership(Receipt receipt) {
+    private void processMembership(final Receipt receipt) {
         Membership membership = decisionService.decideMembership(inputHandler::handleMembershipDecision);
         receipt.applyMembership(membership);
     }
 
-    private void processReceipt(Receipt receipt) {
+    private void processReceipt(final Receipt receipt) {
         outputHandler.handlePurchasedProcuts(receipt.buildPurchasedProductResponses());
         outputHandler.handlePromotionedProducts(receipt.buildPromotionedProductResponses());
         outputHandler.handlePurchaseCost(receipt.buildPurchaseCostResponse());

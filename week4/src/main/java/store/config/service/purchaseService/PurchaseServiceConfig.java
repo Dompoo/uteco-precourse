@@ -11,8 +11,8 @@ public class PurchaseServiceConfig {
     private final PurchaseService purchaseService;
 
     public PurchaseServiceConfig(
-            ProductRepositoryConfig productRepositoryConfig,
-            RetryHandlerConfig retryHandlerConfig
+            final ProductRepositoryConfig productRepositoryConfig,
+            final RetryHandlerConfig retryHandlerConfig
     ) {
         DefaultPurchaseService defaultPurchaseService = new DefaultPurchaseService(
                 productRepositoryConfig.getProductRepository()

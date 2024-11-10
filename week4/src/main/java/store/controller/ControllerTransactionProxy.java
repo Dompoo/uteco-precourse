@@ -8,7 +8,10 @@ public class ControllerTransactionProxy implements Controller {
     private final Controller targetController;
     private final List<Repository<?>> repositories;
 
-    public ControllerTransactionProxy(Controller targetController, List<Repository<?>> repositories) {
+    public ControllerTransactionProxy(
+            final Controller targetController,
+            final List<Repository<?>> repositories
+    ) {
         this.targetController = targetController;
         this.repositories = repositories;
     }

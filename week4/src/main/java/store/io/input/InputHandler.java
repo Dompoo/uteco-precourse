@@ -15,7 +15,12 @@ public class InputHandler {
     private final InputParser inputParser;
     private final InputValidator inputValidator;
 
-    public InputHandler(Reader reader, Writer writer, InputParser inputParser, InputValidator inputValidator) {
+    public InputHandler(
+            final Reader reader,
+            final Writer writer,
+            final InputParser inputParser,
+            final InputValidator inputValidator
+    ) {
         this.reader = reader;
         this.writer = writer;
         this.inputParser = inputParser;
@@ -29,7 +34,7 @@ public class InputHandler {
         return inputParser.parsePurchases(purchases, PURCHASE_AMOUNT_SEPARATOR);
     }
 
-    public boolean handleFreeProductDecision(String productName, int freeCount) {
+    public boolean handleFreeProductDecision(final String productName, final int freeCount) {
         writer.writeLine("\n현재 %s은(는) %d개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)"
                 .formatted(productName, freeCount));
         String freeProductDecision = reader.readLineAsString();
@@ -37,7 +42,7 @@ public class InputHandler {
         return inputParser.parseDecision(freeProductDecision);
     }
 
-    public boolean handleBringDefaultProductBackDecision(String productName, int noPromotionCount) {
+    public boolean handleBringDefaultProductBackDecision(final String productName, final int noPromotionCount) {
         writer.writeLine("\n현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)"
                 .formatted(productName, noPromotionCount));
         String bringDefaultProductBackDecision = reader.readLineAsString();

@@ -38,7 +38,7 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
     }
 
     @Override
-    public void updateAll(List<T> objects) {
+    public void updateAll(final List<T> objects) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(getFilePath(), false))) {
             writer.write(buildUpdateScript(objects));
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
         }
     }
 
-    private String buildUpdateScript(List<T> objects) {
+    private String buildUpdateScript(final List<T> objects) {
         StringJoiner stringJoiner = new StringJoiner(NEW_LINE);
         stringJoiner.add(headerLine);
         for (T object : objects) {
@@ -58,7 +58,7 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
     }
 
 
-    private List<T> buildObjects(BufferedReader reader) throws IOException {
+    private List<T> buildObjects(final BufferedReader reader) throws IOException {
         List<T> objects = new ArrayList<>();
         reader.readLine();
         String line;
@@ -68,7 +68,7 @@ public abstract class FileDatabase<T extends DatabaseEntity> implements Database
         return objects;
     }
 
-    private Map<String, String> mapData(String line) {
+    private Map<String, String> mapData(final String line) {
         String[] datas = line.split(COLUMN_SEPARATOR);
         String[] columns = headerLine.split(COLUMN_SEPARATOR);
         Map<String, String> dataMap = new HashMap<>();

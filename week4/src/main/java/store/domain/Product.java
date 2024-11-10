@@ -12,7 +12,13 @@ final public class Product {
     private Stock stock;
     private final Promotion promotion;
 
-    public Product(String name, int price, int defaultStock, int promotionStock, Promotion promotion) {
+    public Product(
+            final String name,
+            final int price,
+            final int defaultStock,
+            final int promotionStock,
+            final Promotion promotion
+    ) {
         ParamsValidator.validateParamsNotNull(name, promotion);
         validate(name, price);
         this.name = name;
@@ -21,7 +27,7 @@ final public class Product {
         this.promotion = promotion;
     }
 
-    private static void validate(String name, int price) {
+    private static void validate(final String name, final int price) {
         if (name.isBlank()) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
@@ -30,7 +36,7 @@ final public class Product {
         }
     }
 
-    public void reduceStock(int totalDecreaseStock, int promotionDecreaseStock) {
+    public void reduceStock(final int totalDecreaseStock, final int promotionDecreaseStock) {
         this.stock = this.stock.withReducing(totalDecreaseStock, promotionDecreaseStock);
     }
 
@@ -41,14 +47,14 @@ final public class Product {
         return getPromotionStock() != 0;
     }
 
-    public boolean isJustRightPromotionUnit(int purchaseAmount) {
+    public boolean isJustRightPromotionUnit(final int purchaseAmount) {
         if (!hasPromotion()) {
             return false;
         }
         return purchaseAmount % promotion.getPromotionUnit() == 0 && purchaseAmount <= getPromotionStock();
     }
 
-    public boolean canGetFreeProduct(int purchaseAmount) {
+    public boolean canGetFreeProduct(final int purchaseAmount) {
         if (!hasPromotion()) {
             return false;
         }
@@ -57,7 +63,7 @@ final public class Product {
                 && (purchaseAmount / (promotionUnit) + 1) * (promotionUnit) <= getPromotionStock();
     }
 
-    public boolean isPromotionStockLack(int purchaseAmount) {
+    public boolean isPromotionStockLack(final int purchaseAmount) {
         if (!hasPromotion()) {
             return false;
         }
@@ -66,7 +72,7 @@ final public class Product {
                 || purchaseAmount > (getPromotionStock() / promotionUnit) * getPromotionStock();
     }
 
-    public int calculateBringFreeProductCount(int purchaseAmount) {
+    public int calculateBringFreeProductCount(final int purchaseAmount) {
         if (!hasPromotion() || !canGetFreeProduct(purchaseAmount)) {
             return 0;
         }
@@ -74,7 +80,7 @@ final public class Product {
         return (((purchaseAmount / promotionUnit) + 1) * promotionUnit) - purchaseAmount;
     }
 
-    public int calculateNoPromotionsProductCount(int purchaseAmount) {
+    public int calculateNoPromotionsProductCount(final int purchaseAmount) {
         int promotionUnit = promotion.getPromotionUnit();
         if (purchaseAmount < this.getPromotionStock()) {
             return purchaseAmount % promotionUnit;
@@ -86,7 +92,7 @@ final public class Product {
         return this.promotion.hasPromotion();
     }
 
-    public boolean canPurchase(int purchaseAmount) {
+    public boolean canPurchase(final int purchaseAmount) {
         return this.stock.getTotalStock() >= purchaseAmount;
     }
 

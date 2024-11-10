@@ -9,7 +9,7 @@ public class DefaultProductService implements ProductService {
 
     private final Repository<Product> productRepository;
 
-    public DefaultProductService(Repository<Product> productRepository) {
+    public DefaultProductService(final Repository<Product> productRepository) {
         this.productRepository = productRepository;
     }
 

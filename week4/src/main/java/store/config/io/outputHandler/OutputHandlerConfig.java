@@ -8,7 +8,7 @@ public class OutputHandlerConfig {
 
     private final OutputHandler outputHandler;
 
-    public OutputHandlerConfig(WriterConfig writerConfig) {
+    public OutputHandlerConfig(final WriterConfig writerConfig) {
         this.outputHandler = new OutputHandler(
                 writerConfig.getWriter(),
                 new OutputParser()

@@ -10,14 +10,14 @@ public class InputValidator {
     private static final Pattern DECISION_PATTERN = Pattern.compile("^\\s*[YN]\\s*$");
     private static final Pattern PURCHASE_PATTERN = Pattern.compile("^\\s*\\[\\s*(\\D+)\\s*-\\s*(\\d+)\\s*\\]\\s*$");
 
-    public void validateDecision(String decisionInput) {
+    public void validateDecision(final String decisionInput) {
         Matcher matcher = DECISION_PATTERN.matcher(decisionInput);
         if (!matcher.matches()) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
     }
 
-    public void validatePurchases(List<String> purchaseInputs) {
+    public void validatePurchases(final List<String> purchaseInputs) {
         purchaseInputs.stream()
                 .map(PURCHASE_PATTERN::matcher)
                 .forEach(matcher -> {

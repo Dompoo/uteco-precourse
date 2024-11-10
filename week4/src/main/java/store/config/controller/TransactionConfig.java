@@ -9,8 +9,8 @@ public class TransactionConfig implements ControllerConfig {
     private final Controller controller;
 
     public TransactionConfig(
-            ControllerConfig controllerConfig,
-            RepositoriesConfig repositoriesConfig
+            final ControllerConfig controllerConfig,
+            final RepositoriesConfig repositoriesConfig
     ) {
         this.controller = new ControllerTransactionProxy(
                 controllerConfig.getController(),

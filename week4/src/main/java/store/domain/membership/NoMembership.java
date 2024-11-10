@@ -6,7 +6,7 @@ import store.domain.vo.PurchaseResult;
 final public class NoMembership implements Membership {
 
     @Override
-    public int calculateMembershipSaleAmount(List<PurchaseResult> purchaseResults) {
+    public int calculateMembershipSaleAmount(final List<PurchaseResult> purchaseResults) {
         return 0;
     }
 }

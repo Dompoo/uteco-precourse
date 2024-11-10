@@ -17,7 +17,7 @@ public enum PromotionType {
         this.get = get;
     }
 
-    public static PromotionType of(int buy, int get) {
+    public static PromotionType of(final int buy, final int get) {
         return Arrays.stream(PromotionType.values())
                 .filter(promotionType -> promotionType.buy == buy && promotionType.get == get)
                 .findFirst()

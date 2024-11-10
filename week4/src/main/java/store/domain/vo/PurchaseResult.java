@@ -9,7 +9,7 @@ public record PurchaseResult(
         int price,
         int promotionGetAmount
 ) {
-    public static PurchaseResult of(Product product, PurchaseStatus purchaseStatus) {
+    public static PurchaseResult of(final Product product, final PurchaseStatus purchaseStatus) {
         return new PurchaseResult(
                 product.getName(),
                 purchaseStatus.finalPurchaseAmount(),

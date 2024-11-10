@@ -7,7 +7,7 @@ import store.infra.entity.ProductEntity;
 public class ProductFileDatabase extends FileDatabase<ProductEntity> {
 
     @Override
-    protected ProductEntity convertLineToObject(Map<String, String> dataMap) {
+    protected ProductEntity convertLineToObject(final Map<String, String> dataMap) {
         return ProductEntity.from(dataMap);
     }
 

@@ -16,7 +16,7 @@ public record PromotionEntity(
         LocalDate endDate
 ) implements DatabaseEntity {
 
-    public static PromotionEntity from(Map<String, String> dataMap) {
+    public static PromotionEntity from(final Map<String, String> dataMap) {
         String name = dataMap.get("name");
         int buy = Integer.parseInt(dataMap.get("buy"));
         int get = Integer.parseInt(dataMap.get("get"));
@@ -26,7 +26,7 @@ public record PromotionEntity(
         return new PromotionEntity(name, buy, get, startDate, endDate);
     }
 
-    public static Optional<PromotionEntity> from(Product product) {
+    public static Optional<PromotionEntity> from(final Product product) {
         if (product.hasPromotion()) {
             Promotion promotion = product.getPromotion();
             return Optional.of(new PromotionEntity(
@@ -39,35 +39,25 @@ public record PromotionEntity(
         return Optional.empty();
     }
 
-    public boolean isAvailable(LocalDate localDate) {
-        return startDate.isBefore(localDate) && localDate.isBefore(endDate);
+    public boolean isAvailable(final LocalDate now) {
+        return startDate.isBefore(now) && now.isBefore(endDate);
     }
 
     @Override
-    public String toLine(String[] columns) {
+    public String toLine(final String[] columns) {
         StringJoiner stringJoiner = new StringJoiner(",");
         for (String column : columns) {
-            if (column.equals("name")) {
-                stringJoiner.add(name);
-            }
-            if (column.equals("buy")) {
-                stringJoiner.add(String.valueOf(buy));
-            }
-            if (column.equals("get")) {
-                stringJoiner.add(String.valueOf(get));
-            }
-            if (column.equals("start_date")) {
-                stringJoiner.add(String.valueOf(startDate));
-            }
-            if (column.equals("end_date")) {
-                stringJoiner.add(String.valueOf(endDate));
-            }
+            if (column.equals("name")) stringJoiner.add(name);
+            if (column.equals("buy")) stringJoiner.add(String.valueOf(buy));
+            if (column.equals("get")) stringJoiner.add(String.valueOf(get));
+            if (column.equals("start_date")) stringJoiner.add(String.valueOf(startDate));
+            if (column.equals("end_date")) stringJoiner.add(String.valueOf(endDate));
         }
         return stringJoiner.toString();
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

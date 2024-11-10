@@ -15,22 +15,22 @@ public class OutputParser {
     private static final String PRICE_FORMAT = "%,d";
     private static final String RECEIPT_OUTPUT_FORMAT = "%-15s\t%-5s\t  %s";
 
-    public String parseProductResponses(List<ProductResponse> productResponses) {
+    public String parseProductResponses(final List<ProductResponse> productResponses) {
         return productResponses.stream()
                 .sorted()
                 .map(OutputParser::mapProductResponseToString)
                 .collect(Collectors.joining(NEW_LINE));
     }
 
-    private static String mapProductResponseToString(ProductResponse productResponse) {
+    private static String mapProductResponseToString(final ProductResponse productResponse) {
         return String.format("- %s %s원 %s %s",
                 productResponse.productName(),
                 PRICE_FORMAT.formatted(productResponse.price()),
                 getStock(productResponse),
-                getPromotionName(productResponse));
+                productResponse.promotionName());
     }
 
-    private static String getStock(ProductResponse productResponse) {
+    private static String getStock(final ProductResponse productResponse) {
         int stock = productResponse.stock();
         if (stock == 0) {
             return "재고 없음";
@@ -38,56 +38,48 @@ public class OutputParser {
         return stock + "개";
     }
 
-    private static String getPromotionName(ProductResponse productResponse) {
-        String promotionName = productResponse.promotionName();
-        if (promotionName == null || promotionName.isBlank()) {
-            return "";
-        }
-        return promotionName;
-    }
-
-    public String parsePurchasedProductsResponses(List<PurchasedProductResponse> purchasedProductResponses) {
+    public String parsePurchasedProductsResponses(final List<PurchasedProductResponse> purchasedProductResponses) {
         return Stream.concat(
                 Stream.of(RECEIPT_OUTPUT_FORMAT.formatted("상품명", "수량", "금액")),
                 purchasedProductResponses.stream().map(OutputParser::mapPurchasedProductResponseToString)
         ).collect(Collectors.joining(NEW_LINE));
     }
 
-    private static String mapPurchasedProductResponseToString(PurchasedProductResponse response) {
+    private static String mapPurchasedProductResponseToString(final PurchasedProductResponse response) {
         return RECEIPT_OUTPUT_FORMAT.formatted(
                 response.productName(),
                 getPurchasedProductName(response),
                 getPurchasePrice(response));
     }
 
-    private static String getPurchasedProductName(PurchasedProductResponse response) {
+    private static String getPurchasedProductName(final PurchasedProductResponse response) {
         if (response.purchaseAmount() == 0) {
             return "";
         }
         return String.valueOf(response.purchaseAmount());
     }
 
-    private static String getPurchasePrice(PurchasedProductResponse response) {
+    private static String getPurchasePrice(final PurchasedProductResponse response) {
         if (response.purchaseAmount() == 0) {
             return "취소";
         }
         return PRICE_FORMAT.formatted(response.originalPrice());
     }
 
-    public String parsePromotionedProductsResponses(List<PromotionedProductResponse> promotionedProductResponses) {
+    public String parsePromotionedProductsResponses(final List<PromotionedProductResponse> promotionedProductResponses) {
         return promotionedProductResponses.stream()
                 .map(OutputParser::mapPromotionedProductResponseToString)
                 .collect(Collectors.joining(NEW_LINE));
     }
 
-    private static String mapPromotionedProductResponseToString(PromotionedProductResponse response) {
+    private static String mapPromotionedProductResponseToString(final PromotionedProductResponse response) {
         return RECEIPT_OUTPUT_FORMAT.formatted(
                 response.productName(),
                 response.promotionedAmount(),
                 "");
     }
 
-    public String parsePurchaseCostResponse(PurchaseCostResponse purchaseCostResponse) {
+    public String parsePurchaseCostResponse(final PurchaseCostResponse purchaseCostResponse) {
         StringJoiner stringJoiner = new StringJoiner(NEW_LINE);
         stringJoiner.add(mapOriginalPurchaseCost(purchaseCostResponse));
         stringJoiner.add(mapPromotionSaleCost(purchaseCostResponse));
@@ -96,7 +88,7 @@ public class OutputParser {
         return stringJoiner.toString();
     }
 
-    private static String mapOriginalPurchaseCost(PurchaseCostResponse purchaseCostResponse) {
+    private static String mapOriginalPurchaseCost(final PurchaseCostResponse purchaseCostResponse) {
         return RECEIPT_OUTPUT_FORMAT.formatted(
                 "총구매액",
                 purchaseCostResponse.purchaseAmount(),
@@ -104,7 +96,7 @@ public class OutputParser {
         );
     }
 
-    private static String mapPromotionSaleCost(PurchaseCostResponse purchaseCostResponse) {
+    private static String mapPromotionSaleCost(final PurchaseCostResponse purchaseCostResponse) {
         return RECEIPT_OUTPUT_FORMAT.formatted(
                 "행사할인",
                 "",
@@ -112,7 +104,7 @@ public class OutputParser {
         );
     }
 
-    private static String mapMembershipSaleCost(PurchaseCostResponse purchaseCostResponse) {
+    private static String mapMembershipSaleCost(final PurchaseCostResponse purchaseCostResponse) {
         return RECEIPT_OUTPUT_FORMAT.formatted(
                 "멤버십할인",
                 "",
@@ -120,7 +112,7 @@ public class OutputParser {
         );
     }
 
-    private static String mapFinalPrice(PurchaseCostResponse purchaseCostResponse) {
+    private static String mapFinalPrice(final PurchaseCostResponse purchaseCostResponse) {
         return RECEIPT_OUTPUT_FORMAT.formatted(
                 "내실돈",
                 "",

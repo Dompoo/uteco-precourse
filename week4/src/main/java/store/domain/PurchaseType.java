@@ -51,7 +51,7 @@ public enum PurchaseType {
         this.promotionStockToDecreaseCalculator = promotionStockToDecreaseCalculator;
     }
 
-    public PurchaseStatus proceed(PurchaseInfo purchaseInfo) {
+    public PurchaseStatus proceed(final PurchaseInfo purchaseInfo) {
         Integer promotionGetProductCount = this.promotionGetProductCountCalculator.calculate(purchaseInfo);
         return new PurchaseStatus(
                 this.finalPurchaseProductCountCalculator.calculate(purchaseInfo),
@@ -63,7 +63,7 @@ public enum PurchaseType {
 
     @FunctionalInterface
     public interface StoreCalculator<T> {
-        T calculate(PurchaseInfo purchaseInfo);
+        T calculate(final PurchaseInfo purchaseInfo);
     }
 }
 

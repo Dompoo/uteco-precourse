@@ -5,17 +5,23 @@ import store.common.dto.request.PurchaseRequest;
 
 public class InputParser {
 
-    public boolean parseDecision(String decisionInput) {
+    public boolean parseDecision(final String decisionInput) {
         return decisionInput.replaceAll("\\s+", "").equals("Y");
     }
 
-    public List<PurchaseRequest> parsePurchases(List<String> purchaseInputs, String purchaseAmountSeparator) {
+    public List<PurchaseRequest> parsePurchases(
+            final List<String> purchaseInputs,
+            final String purchaseAmountSeparator
+    ) {
         return purchaseInputs.stream()
                 .map(input -> parseToParchaseRequest(input, purchaseAmountSeparator))
                 .toList();
     }
 
-    private static PurchaseRequest parseToParchaseRequest(String purchaseInputs, String purchaseAmountSeparator) {
+    private static PurchaseRequest parseToParchaseRequest(
+            final String purchaseInputs,
+            final String purchaseAmountSeparator
+    ) {
         String[] inputs = purchaseInputs
                 .replaceAll("\\s+", "")
                 .replaceAll("[\\[\\]]", "")

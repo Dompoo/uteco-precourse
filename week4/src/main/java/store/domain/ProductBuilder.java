@@ -11,7 +11,7 @@ public class ProductBuilder {
     private int promotionStock;
     private Promotion promotion;
 
-    public ProductBuilder(LocalDate now) {
+    public ProductBuilder(final LocalDate now) {
         this.promotion = new Promotion(
                 "",
                 PromotionType.NO_PROMOTION,
@@ -20,27 +20,27 @@ public class ProductBuilder {
         );
     }
 
-    public ProductBuilder setName(String name) {
+    public ProductBuilder setName(final String name) {
         this.name = name;
         return this;
     }
 
-    public ProductBuilder setPrice(int price) {
+    public ProductBuilder setPrice(final int price) {
         this.price = price;
         return this;
     }
 
-    public ProductBuilder setDefaultStock(int defaultStock) {
+    public ProductBuilder setDefaultStock(final int defaultStock) {
         this.defaultStock = defaultStock;
         return this;
     }
 
-    public ProductBuilder setPromotionStock(int promotionStock) {
+    public ProductBuilder setPromotionStock(final int promotionStock) {
         this.promotionStock = promotionStock;
         return this;
     }
 
-    public ProductBuilder setPromotion(PromotionEntity promotionEntity) {
+    public ProductBuilder setPromotion(final PromotionEntity promotionEntity) {
         this.promotion = new Promotion(
                 promotionEntity.name(),
                 PromotionType.of(promotionEntity.buy(), promotionEntity.get()),

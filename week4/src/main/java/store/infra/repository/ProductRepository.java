@@ -24,12 +24,12 @@ public class ProductRepository implements Repository<Product> {
     private final List<Product> products = new ArrayList<>();
 
     public ProductRepository(
-            Database<ProductEntity> productDatabase,
-            Database<PromotionEntity> promotionDatabase,
-            ProductConverter productConverter,
-            ProductEntityConverter productEntityConverter,
-            PromotionEntityConverter promotionEntityConverter,
-            DateProvider dateProvider
+            final Database<ProductEntity> productDatabase,
+            final Database<PromotionEntity> promotionDatabase,
+            final ProductConverter productConverter,
+            final ProductEntityConverter productEntityConverter,
+            final PromotionEntityConverter promotionEntityConverter,
+            final DateProvider dateProvider
     ) {
         this.productEntityConverter = productEntityConverter;
         this.promotionEntityConverter = promotionEntityConverter;
@@ -40,8 +40,8 @@ public class ProductRepository implements Repository<Product> {
     }
 
     private static List<PromotionEntity> getUniquePromotionEntities(
-            Database<PromotionEntity> promotionDatabase,
-            LocalDate now
+            final Database<PromotionEntity> promotionDatabase,
+            final LocalDate now
     ) {
         return promotionDatabase.readAll().stream()
                 .filter(promotionEntity -> promotionEntity.isAvailable(now))
@@ -54,7 +54,7 @@ public class ProductRepository implements Repository<Product> {
     }
 
     @Override
-    public Optional<Product> findByName(String name) {
+    public Optional<Product> findByName(final String name) {
         for (Product product : products) {
             if (product.getName().equals(name)) {
                 return Optional.of(product);
@@ -64,7 +64,7 @@ public class ProductRepository implements Repository<Product> {
     }
 
     @Override
-    public void update(Product product) {
+    public void update(final Product product) {
         Product findProduct = products.stream()
                 .filter(products -> products.getName().equals(product.getName()))
                 .findFirst()

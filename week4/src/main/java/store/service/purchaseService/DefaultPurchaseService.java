@@ -15,18 +15,18 @@ public class DefaultPurchaseService implements PurchaseService {
 
     private final Repository<Product> productRepository;
 
-    public DefaultPurchaseService(Repository<Product> productRepository) {
+    public DefaultPurchaseService(final Repository<Product> productRepository) {
         this.productRepository = productRepository;
     }
 
     @Override
-    public List<PurchaseRequest> getPurchases(Supplier<List<PurchaseRequest>> purchaseRequestsSupplier) {
+    public List<PurchaseRequest> getPurchases(final Supplier<List<PurchaseRequest>> purchaseRequestsSupplier) {
         List<PurchaseRequest> purchaseRequests = purchaseRequestsSupplier.get();
         validatePurchaseProducts(purchaseRequests);
         return purchaseRequests;
     }
 
-    private void validatePurchaseProducts(List<PurchaseRequest> purchaseRequests) {
+    private void validatePurchaseProducts(final List<PurchaseRequest> purchaseRequests) {
         for (PurchaseRequest purchaseRequest : purchaseRequests) {
             Product product = productRepository.findByName(purchaseRequest.productName())
                     .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
@@ -37,7 +37,7 @@ public class DefaultPurchaseService implements PurchaseService {
     }
 
     @Override
-    public PurchaseResult purchaseProduct(PurchaseRequest purchaseRequest, PurchaseType purchaseType) {
+    public PurchaseResult purchaseProduct(final PurchaseRequest purchaseRequest, final PurchaseType purchaseType) {
         Product product = productRepository.findByName(purchaseRequest.productName())
                 .orElseThrow(StoreExceptions.PRODUCT_NOT_FOUND::get);
         PurchaseInfo purchaseInfo = PurchaseInfo.of(product, purchaseRequest.purchaseAmount());

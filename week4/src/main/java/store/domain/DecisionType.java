@@ -17,7 +17,7 @@ public enum DecisionType {
         this.decisionInfo = decisionInfo;
     }
 
-    public static DecisionType of(Product product, int purchaseAmount) {
+    public static DecisionType of(final Product product, final int purchaseAmount) {
         validateStockSufficient(product, purchaseAmount);
         return Arrays.stream(DecisionType.values())
                 .filter(decisionType -> decisionType.decisionInfo.decide(product, purchaseAmount))
@@ -25,7 +25,7 @@ public enum DecisionType {
                 .orElse(PROMOTION_STOCK_LACK);
     }
 
-    private static void validateStockSufficient(Product product, int purchaseAmount) {
+    private static void validateStockSufficient(final Product product, final int purchaseAmount) {
         if (!product.canPurchase(purchaseAmount)) {
             throw StoreExceptions.PURCHASE_OVER_STOCK.get();
         }
@@ -33,6 +33,6 @@ public enum DecisionType {
 
     @FunctionalInterface
     public interface DecisionInfo {
-        boolean decide(Product product, int purchaseAmount);
+        boolean decide(final Product product, final int purchaseAmount);
     }
 }

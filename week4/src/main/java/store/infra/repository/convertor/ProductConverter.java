@@ -12,27 +12,23 @@ import store.infra.entity.PromotionEntity;
 
 public class ProductConverter {
 
-    public List<Product> convert(List<ProductEntity> productEntities, List<PromotionEntity> promotionEntities,
-                                 LocalDate now) {
+    public List<Product> convert(
+            final List<ProductEntity> productEntities,
+            final List<PromotionEntity> promotionEntities,
+            final LocalDate now
+    ) {
         Map<String, PromotionEntity> promotionMap = convertPromotionEntitiesToMap(promotionEntities);
-        productEntities = update(productEntities, promotionMap);
+        List<ProductEntity> validProductEntities = withOnlyValidPromotionEntities(productEntities, promotionMap);
         Map<String, ProductBuilder> productMap = new HashMap<>();
-        for (ProductEntity productEntity : productEntities) {
-            ProductBuilder productBuilder = getProductBuilder(productEntity, productMap, now);
-            updateProductBuilder(productEntity, productBuilder, promotionMap);
-            productMap.put(productEntity.name(), productBuilder);
+        for (ProductEntity productEntity : validProductEntities) {
+            productMap.put(productEntity.name(), getUpdatedProductBuilder(now, productEntity, productMap, promotionMap));
         }
         return convertToProducts(productMap);
     }
 
-    private static List<ProductEntity> update(List<ProductEntity> productEntities,
-                                               Map<String, PromotionEntity> promotionMap) {
-        return productEntities.stream()
-                .filter(productEntity -> !productEntity.isPromotionStockEntity()
-                        || promotionMap.containsKey(productEntity.promotionName())).toList();
-    }
-
-    private static Map<String, PromotionEntity> convertPromotionEntitiesToMap(List<PromotionEntity> promotionEntities) {
+    private static Map<String, PromotionEntity> convertPromotionEntitiesToMap(
+            final List<PromotionEntity> promotionEntities
+    ) {
         return promotionEntities.stream()
                 .collect(Collectors.toMap(
                         PromotionEntity::name,
@@ -40,10 +36,30 @@ public class ProductConverter {
                 );
     }
 
-    private static ProductBuilder getProductBuilder(
-            ProductEntity productEntity,
-            Map<String, ProductBuilder> products,
-            LocalDate now
+    private static List<ProductEntity> withOnlyValidPromotionEntities(
+            final List<ProductEntity> productEntities,
+            final Map<String, PromotionEntity> promotionMap
+    ) {
+        return productEntities.stream()
+                .filter(productEntity -> !productEntity.isPromotionStockEntity()
+                        || promotionMap.containsKey(productEntity.promotionName())).toList();
+    }
+
+    private static ProductBuilder getUpdatedProductBuilder(
+            final LocalDate now,
+            final ProductEntity productEntity,
+            final Map<String, ProductBuilder> productBuilderMap,
+            final Map<String, PromotionEntity> promotionEntityMap
+    ) {
+        ProductBuilder productBuilder = createOrGetProductBuilder(productEntity, productBuilderMap, now);
+        updateProductBuilder(productEntity, productBuilder, promotionEntityMap);
+        return productBuilder;
+    }
+
+    private static ProductBuilder createOrGetProductBuilder(
+            final ProductEntity productEntity,
+            final Map<String, ProductBuilder> products,
+            final LocalDate now
     ) {
         String name = productEntity.name();
         if (products.containsKey(name)) {
@@ -55,9 +71,9 @@ public class ProductConverter {
     }
 
     private static void updateProductBuilder(
-            ProductEntity productEntity,
-            ProductBuilder productBuilder,
-            Map<String, PromotionEntity> promotionMap
+            final ProductEntity productEntity,
+            final ProductBuilder productBuilder,
+            final Map<String, PromotionEntity> promotionMap
     ) {
         if (productEntity.isPromotionStockEntity()) {
             productBuilder
@@ -68,7 +84,9 @@ public class ProductConverter {
         productBuilder.setDefaultStock(productEntity.quantity());
     }
 
-    private static List<Product> convertToProducts(Map<String, ProductBuilder> products) {
+    private static List<Product> convertToProducts(
+            final Map<String, ProductBuilder> products
+    ) {
         return products.values().stream()
                 .map(ProductBuilder::build)
                 .toList();

@@ -11,7 +11,12 @@ final public class PurchaseInfo {
     private final int promotionBuy;
     private final int promotionGet;
 
-    private PurchaseInfo(int purchaseAmount, int promotionStock, int promotionBuy, int promotionGet) {
+    private PurchaseInfo(
+            final int purchaseAmount,
+            final int promotionStock,
+            final int promotionBuy,
+            final int promotionGet
+    ) {
         validate(purchaseAmount, promotionStock);
         this.purchaseAmount = purchaseAmount;
         this.promotionStock = promotionStock;
@@ -19,7 +24,7 @@ final public class PurchaseInfo {
         this.promotionGet = promotionGet;
     }
 
-    private void validate(int purchaseAmount, int promotionStock) {
+    private void validate(final int purchaseAmount, final int promotionStock) {
         if (purchaseAmount < 0) {
             throw StoreExceptions.ILLEGAL_ARGUMENT.get();
         }
@@ -28,7 +33,7 @@ final public class PurchaseInfo {
         }
     }
 
-    public static PurchaseInfo of(Product product, int purchaseAmount) {
+    public static PurchaseInfo of(final Product product, final int purchaseAmount) {
         return new PurchaseInfo(
                 purchaseAmount,
                 product.getPromotionStock(),
@@ -77,7 +82,7 @@ final public class PurchaseInfo {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

@@ -9,7 +9,7 @@ final public class PromotionReceipt {
 
     private final List<PurchaseResult> purchaseResults = new ArrayList<>();
 
-    public void addPurchase(PurchaseResult purchaseResult) {
+    public void addPurchase(final PurchaseResult purchaseResult) {
         this.purchaseResults.add(purchaseResult);
     }
 

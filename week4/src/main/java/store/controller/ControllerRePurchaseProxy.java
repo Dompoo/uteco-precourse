@@ -9,8 +9,11 @@ public class ControllerRePurchaseProxy implements Controller {
     private final InputHandler inputHandler;
     private final RetryHandler retryHandler;
 
-    public ControllerRePurchaseProxy(Controller targetController, InputHandler inputHandler,
-                                     RetryHandler retryHandler) {
+    public ControllerRePurchaseProxy(
+            final Controller targetController,
+            final InputHandler inputHandler,
+            final RetryHandler retryHandler
+    ) {
         this.targetController = targetController;
         this.inputHandler = inputHandler;
         this.retryHandler = retryHandler;

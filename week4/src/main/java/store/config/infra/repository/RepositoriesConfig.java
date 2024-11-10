@@ -8,7 +8,7 @@ public class RepositoriesConfig {
 
     private final List<Repository<?>> repositories = new ArrayList<>();
 
-    public RepositoriesConfig(ProductRepositoryConfig productRepositoryConfig) {
+    public RepositoriesConfig(final ProductRepositoryConfig productRepositoryConfig) {
         repositories.add(productRepositoryConfig.getProductRepository());
     }
 

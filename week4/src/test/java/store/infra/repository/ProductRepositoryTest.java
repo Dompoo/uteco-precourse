@@ -135,9 +135,9 @@ class ProductRepositoryTest {
             //then
             assertThat(sut.findByName("콜라")).isPresent();
             assertThat(sut.findByName("콜라").get()).extracting(
-                    "name", "price", "stock", "promotionName", "promotionType"
+                    "name", "price", "stock", "promotion.name", "promotion.promotionType"
             ).containsExactly(
-                    "콜라", 1500, new Stock(10, 10), "", PromotionType.NO_PROMOTION
+                    "콜라", 1500, new Stock(10, 10), "새로운상품프로모션", PromotionType.BUY_ONE_GET_ONE
             );
         }
     }

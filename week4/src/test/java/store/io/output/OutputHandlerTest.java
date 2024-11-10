@@ -96,7 +96,7 @@ class OutputHandlerTest {
         @Test
         void 프로모션이_있는_상품의_프로모션_재고가_바닥나면_재고없음으로_처리된다() {
             //given
-            Promotion promotion = new Promotion("콜라1+1", PromotionType.BUY_ONE_GET_ONE, pastDate, futureDate);
+            Promotion promotion = new Promotion("초코바1+1", PromotionType.BUY_ONE_GET_ONE, pastDate, futureDate);
             List<ProductResponse> productResponses = ProductResponse.fromList(List.of(
                     new Product("초코바", 2000, 50, 0, promotion)
             ));

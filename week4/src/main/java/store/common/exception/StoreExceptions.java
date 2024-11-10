@@ -18,6 +18,10 @@ public enum StoreExceptions {
             "잘못된 입력입니다. 다시 입력해 주세요.",
             IllegalArgumentException.class
     ),
+    OVER_MAX_RETRY_ATTEPMT(
+            "최대 재시도 회수를 초과했습니다.",
+            IllegalStateException.class
+    ),
     FILE_NOT_READABLE(
             "파일 읽기 중 오류가 발생했습니다.",
             IllegalStateException.class
@@ -26,9 +30,9 @@ public enum StoreExceptions {
             "파일 쓰기 중 오류가 발생했습니다.",
             IllegalStateException.class
     ),
-    OVER_MAX_RETRY_ATTEPMT(
-            "최대 재시도 회수를 초과했습니다.",
-            IllegalStateException.class
+    APPLICATION_LOAD_FAIL(
+            "애플리케이션 실행에 실패하였습니다.",
+            RuntimeException.class
     ),
     ;
 
